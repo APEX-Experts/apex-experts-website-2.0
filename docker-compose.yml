@@ -1,0 +1,13 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+    container_name: apex-experts-app
+    ports:
+      - "3094:3000"
+    env_file:
+      - .env
+    restart: always

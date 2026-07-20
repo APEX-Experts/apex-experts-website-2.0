@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@theme inline {
+  --font-sans: var(--font-poppins), "Poppins", sans-serif;
+  --font-heading: var(--font-montserrat), "Montserrat", sans-serif;
+  --font-display: var(--font-montserrat), "Montserrat", sans-serif;
+  --font-montserrat: var(--font-montserrat), "Montserrat", sans-serif;
+  --font-poppins: var(--font-poppins), "Poppins", sans-serif;
+
+  --color-primary-100: var(--primary-100);
+  --color-primary-300: var(--primary-300);
+  --color-primary-500: var(--primary-500);
+  --color-primary-700: var(--primary-700);
+  --color-primary-900: var(--primary-900);
+
+  --color-secondary-100: var(--secondary-100);
+  --color-secondary-300: var(--secondary-300);
+  --color-secondary-500: var(--secondary-500);
+  --color-secondary-700: var(--secondary-700);
+  --color-secondary-900: var(--secondary-900);
+
+  --color-gray-100: var(--gray-100);
+  --color-gray-300: var(--gray-300);
+  --color-gray-500: var(--gray-500);
+  --color-gray-700: var(--gray-700);
+  --color-gray-900: var(--gray-900);
+
+  --color-error-500: var(--error-500);
+  --color-warning-500: var(--warning-500);
+  --color-yellow-500: var(--yellow-500);
+  --color-success-500: var(--success-500);
+  --color-green-500: var(--green-500);
+  --color-info-500: var(--info-500);
+  --color-teal-500: var(--teal-500);
+
+  --color-foreground-black: var(--foreground-black);
+  --color-muted-background: var(--muted-background);
+
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  /* Fonts */
+  --font-montserrat: "Montserrat", sans-serif;
+  --font-poppins: "Poppins", sans-serif;
+
+  /* Palette */
+  --primary-100: #fdb0be;
+  --primary-300: #fb5472;
+  --primary-500: #b9001a;
+  --primary-700: #b10020;
+  --primary-900: #690013;
+
+  --secondary-100: #fbecc7;
+  --secondary-300: #f7d786;
+  --secondary-500: #f3c34b;
+  --secondary-700: #ad8a35;
+  --secondary-900: #665220;
+
+  --gray-100: #d8d8d8;
+  --gray-300: #aaaaaa;
+  --gray-500: #808080;
+  --gray-700: #5b5b5b;
+  --gray-900: #363636;
+
+  --error-500: #ba1a1a;
+  --warning-500: #de6134;
+  --yellow-500: #fbbc05;
+  --success-500: #0fb655;
+  --green-500: #0fb655;
+  --info-500: #5ec0d6;
+  --teal-500: #5ec0d6;
+
+  --foreground-black: #1a1a1a;
+  --muted-background: #ebebeb;
+
+  /* Shadcn variables */
+  --background: #ffffff;
+  --foreground: var(--secondary-500);
+  --card: #ffffff;
+  --card-foreground: var(--secondary-500);
+  --popover: #ffffff;
+  --popover-foreground: var(--secondary-500);
+  --primary: var(--primary-500);
+  --primary-foreground: #ffffff;
+  --secondary: var(--secondary-500);
+  --secondary-foreground: var(--foreground-black);
+  --muted: var(--muted-background);
+  --muted-foreground: var(--gray-500);
+  --accent: var(--muted-background);
+  --accent-foreground: var(--foreground-black);
+  --destructive: var(--error-500);
+  --destructive-foreground: #ffffff;
+  --border: var(--gray-100);
+  --input: var(--gray-100);
+  --ring: var(--primary-500);
+  --radius: 0.625rem;
+
+  --sidebar: #ffffff;
+  --sidebar-foreground: var(--secondary-500);
+  --sidebar-primary: var(--primary-500);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--muted-background);
+  --sidebar-accent-foreground: var(--foreground-black);
+  --sidebar-border: var(--gray-100);
+  --sidebar-ring: var(--primary-500);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+@theme {
+  --animate-hide: hide 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-slide-down-and-fade: slideDownAndFade 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-slide-left-and-fade: slideLeftAndFade 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-slide-up-and-fade: slideUpAndFade 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-slide-right-and-fade: slideRightAndFade 150ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  @keyframes hide {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+  @keyframes slideDownAndFade {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes slideLeftAndFade {
+    from {
+      opacity: 0;
+      transform: translateX(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  @keyframes slideUpAndFade {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes slideRightAndFade {
+    from {
+      opacity: 0;
+      transform: translateX(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}

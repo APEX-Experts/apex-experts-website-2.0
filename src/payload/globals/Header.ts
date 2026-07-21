@@ -87,12 +87,34 @@ export const Header: GlobalConfig = {
                   name: "subtitle",
                   type: "text",
                   required: true,
-                  maxLength: 120,
                   localized: true,
+                },
+
+                {
+                  name: "href",
+                  type: "text",
+                  required: true,
+                },
+                {
+                  name: "iconSvg",
+                  type: "textarea",
+                  required: false,
+                },
+                {
+                  name: "sublist",
+                  type: "array",
+                  required: false,
                   admin: {
-                    description:
-                      "Short description/subtitle. Keep it to a maximum of 120 letters.",
+                    initCollapsed: true,
                   },
+                  fields: [
+                    {
+                      name: "title",
+                      type: "text",
+                      required: true,
+                      localized: true,
+                    }
+                  ]
                 },
 
                 {

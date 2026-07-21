@@ -570,10 +570,15 @@ export interface Header {
           items?:
             | {
                 title: string;
-                /**
-                 * Short description/subtitle. Keep it to a maximum of 120 letters.
-                 */
                 subtitle: string;
+                href: string;
+                iconSvg?: string | null;
+                sublist?:
+                  | {
+                      title: string;
+                      id?: string | null;
+                    }[]
+                  | null;
                 subitems?:
                   | {
                       title: string;
@@ -2624,6 +2629,14 @@ export interface HeaderSelect<T extends boolean = true> {
                 | {
                     title?: T;
                     subtitle?: T;
+                    href?: T;
+                    iconSvg?: T;
+                    sublist?:
+                      | T
+                      | {
+                          title?: T;
+                          id?: T;
+                        };
                     subitems?:
                       | T
                       | {

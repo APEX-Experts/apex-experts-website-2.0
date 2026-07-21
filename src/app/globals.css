@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -22,6 +22,10 @@
   --color-secondary-700: var(--secondary-700);
   --color-secondary-900: var(--secondary-900);
 
+  --color-nile-100: var(--nile-100);
+  --color-nile-200: var(--nile-200);
+  --color-nile-300: var(--nile-300);
+
   --color-gray-100: var(--gray-100);
   --color-gray-300: var(--gray-300);
   --color-gray-500: var(--gray-500);
@@ -35,6 +39,8 @@
   --color-green-500: var(--green-500);
   --color-info-500: var(--info-500);
   --color-teal-500: var(--teal-500);
+
+  --color-outline: var(--outline);
 
   --color-foreground-black: var(--foreground-black);
   --color-muted-background: var(--muted-background);
@@ -88,17 +94,23 @@
   --primary-700: #b10020;
   --primary-900: #690013;
 
-  --secondary-100: #fbecc7;
-  --secondary-300: #f7d786;
-  --secondary-500: #f3c34b;
-  --secondary-700: #ad8a35;
-  --secondary-900: #665220;
+  --secondary-100: #b3b2c3;
+  --secondary-300: #5b5a7c;
+  --secondary-500: #0a083c;
+  --secondary-700: #07062b;
+  --secondary-900: #040319;
 
   --gray-100: #d8d8d8;
   --gray-300: #aaaaaa;
   --gray-500: #808080;
   --gray-700: #5b5b5b;
   --gray-900: #363636;
+
+  --nile-100: #f1f7fb;
+  --nile-200: #dbeaf6;
+  --nile-300: #b4d8eb;
+
+  --outline: #aaa;
 
   --error-500: #ba1a1a;
   --warning-500: #de6134;
@@ -209,5 +221,32 @@
       opacity: 1;
       transform: translateX(0);
     }
+  }
+}
+
+@layer utilities {
+  .bg-noise {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .bg-noise::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.25;
+
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.7'/%3E%3C/svg%3E");
+
+    mix-blend-mode: normal;
+  }
+
+  .placeholder-gradient {
+    background:
+      linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      linear-gradient(0deg, rgba(36, 52, 77, 0.5), rgba(36, 52, 77, 0.5));
+    backdrop-filter: blur(26.075002670288086px);
   }
 }

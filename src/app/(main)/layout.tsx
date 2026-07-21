@@ -2,21 +2,22 @@ import "@/app/globals.css";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryProvider } from "@/providers/query-provider";
 import type { Metadata } from "next";
-import localFont from "next/font/local";
-import { Geist } from "next/font/google";
+import { Montserrat, Poppins } from "next/font/google";
 import { Toaster } from "sonner";
 import { Analytics } from "@vercel/analytics/next";
 
-const neuroxa = localFont({
-  src: "../fonts/Neuroxa.ttf",
-  variable: "--font-neuroxa",
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
   display: "swap",
+  weight: ["300", "400", "500", "600", "700"],
 });
 
-const geist = Geist({
+const poppins = Poppins({
   subsets: ["latin"],
-  variable: "--font-geist",
+  variable: "--font-poppins",
   display: "swap",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -38,7 +39,7 @@ export default function MainLayout({
   return (
     <html
       lang="en"
-      className={`${neuroxa.variable} ${neuroxa.className} ${geist.variable} ${geist.className} h-full antialiased`}
+      className={`${montserrat.variable} ${montserrat.className} ${poppins.variable} ${poppins.className} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>

@@ -102,13 +102,24 @@ export function Logo({
   );
 }
 
-export function LogoSvg() {
+export function LogoSvg({
+  width,
+  height,
+  className,
+}: {
+  width?: number;
+  height?: number;
+  className?: string;
+}) {
   return (
     <svg
       id="Layer_1"
       data-name="Layer 1"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 302.5 58.48"
+      width={width}
+      height={height}
+      className={className}
     >
       <defs></defs>
       <path

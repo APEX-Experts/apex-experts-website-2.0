@@ -1,5 +1,6 @@
 import type { Page } from "@/payload-types";
 import React from "react";
+import { HeroBlock } from "./HeroBlock";
 
 /**
  * Props for the RenderBlocks component.
@@ -32,8 +33,8 @@ export const RenderBlocks: React.FC<Props> = ({ blocks }) => {
         const key = block.id || `${block.blockType}-${index}`;
 
         switch (block.blockType) {
-          //  case "hero":
-          //   return <HeroBlock key={key} {...block} />;
+          case "hero":
+            return <HeroBlock key={key} {...block} />;
 
           default:
             return (

@@ -1,37 +1,12 @@
 "use client";
 
-import type { HeroBlock as HeroBlockType, Media } from "@/payload-types";
+import type { HeroBlock as HeroBlockType } from "@/payload-types";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { LogoMarkSvg } from "../layout/logo";
-
-/**
- * Resolves Payload Media object or string/number ID into a usable URL string.
- */
-function getMediaUrl(image: number | Media | null | undefined): string | null {
-  if (!image) return null;
-  if (typeof image === "object" && "url" in image && typeof image.url === "string") {
-    return image.url;
-  }
-  return null;
-}
-
-/**
- * Resolves alt text from Payload Media or fallback string.
- */
-function getMediaAlt(image: number | Media | null | undefined, fallback: string): string {
-  if (
-    typeof image === "object" &&
-    image !== null &&
-    "alt" in image &&
-    typeof image.alt === "string"
-  ) {
-    return image.alt || fallback;
-  }
-  return fallback;
-}
+import { getMediaAlt, getMediaUrl } from "@/lib/utils";
 
 const ELLIPSE_RADIUS = 268; // matches the ellipse's semi-major axis
 const ELLIPSE_BOX = { width: 202, height: 538 };
@@ -43,7 +18,10 @@ const GALLERY_ANGLES = [0, 45, 90, 135, 180, 225, 270, 315]; // top, going clock
  * @param radius Radius of the ellipse tip circle
  * @returns {left: number, top: number} Position of the gallery image
  */
-function getPointOnEllipseTips(angleDeg: number, radius = ELLIPSE_RADIUS) {
+function getPointOnEllipseTips(
+  angleDeg: number,
+  radius = ELLIPSE_RADIUS,
+): { left: number; top: number } {
   const rad = (angleDeg * Math.PI) / 180;
   return {
     left: ELLIPSE_BOX.width / 2 + radius * Math.sin(rad),
@@ -87,7 +65,7 @@ export const HeroBlock: React.FC<HeroBlockType> = ({
               <span className="text-white">{titleBeforeHighlight}</span>{" "}
               <span className="text-primary-500 relative inline-block">
                 {highlightedTitle}{" "}
-                <HeroHighlightedTextSvg className="absolute left-0 -bottom-1 w-full" />
+                <HeroHighlightedTextSvg className="absolute start-0 -bottom-1 w-full" />
               </span>
               {titleAfterHighlight && titleAfterHighlight.length > 0 && (
                 <span className="text-white"> {titleAfterHighlight}</span>
@@ -137,14 +115,14 @@ export const HeroBlock: React.FC<HeroBlockType> = ({
       </div>
       <div className="max-lg:mt-48 max-lg:mb-64 relative h-full flex-1 flex flex-col items-center scale-50 lg:scale-100 transition-transform origin-top lg:origin-center fade-in">
         <LogoMarkSvg
-          className="absolute left-1/2 -translate-x-1/2 top-2 translate-y-1/2 text-white z-10"
+          className="absolute start-1/2 -translate-x-1/2 top-2 translate-y-1/2 text-white z-10"
           width={200}
           height={100}
         />
 
         {/* Orbiting gallery & ellipses container (rotate) with counter-rotated image divs (inverse rotate) */}
         <motion.div
-          className="absolute left-1/2 -translate-x-1/2 -top-40 w-50.5 h-134.5 pointer-events-none"
+          className="absolute start-1/2 -translate-x-1/2 -top-40 w-50.5 h-134.5 pointer-events-none"
           style={{ transformOrigin: "center center" }}
           animate={shouldReduceMotion ? { rotate: 0 } : { rotate: 360 }}
           transition={{

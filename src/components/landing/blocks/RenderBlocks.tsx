@@ -1,6 +1,7 @@
 import type { Page } from "@/payload-types";
 import React from "react";
 import { HeroBlock } from "./HeroBlock";
+import { HeroMarqueeBlock } from "./HeroMarqueeBlock";
 
 /**
  * Props for the RenderBlocks component.
@@ -35,6 +36,8 @@ export const RenderBlocks: React.FC<Props> = ({ blocks }) => {
         switch (block.blockType) {
           case "hero":
             return <HeroBlock key={key} {...block} />;
+          case "clip-text-marquee":
+            return <HeroMarqueeBlock key={key} {...block} />;
 
           default:
             return (

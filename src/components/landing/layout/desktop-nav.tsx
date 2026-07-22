@@ -34,11 +34,9 @@ export function DesktopNav({
   return (
     <nav className="hidden lg:flex items-center space-x-8 text-sm font-medium">
       {navItems.map((item) => {
-        const hasMegaMenu =
-          !!item.megaMenu?.items && item.megaMenu.items.length > 0;
+        const hasMegaMenu = !!item.megaMenu?.items && item.megaMenu.items.length > 0;
         const isActive =
-          pathname === item.link ||
-          (item.link !== "/" && pathname.startsWith(item.link));
+          pathname === item.link || (item.link !== "/" && pathname.startsWith(item.link));
         const isHovered = activeHoverLabel === item.label;
 
         return (
@@ -61,7 +59,7 @@ export function DesktopNav({
                 {item.label}
                 <span
                   className={cn(
-                    "absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-primary-500 rounded-full w-[120%]",
+                    "absolute bottom-0 start-1/2 -translate-x-1/2 h-0.5 bg-primary-500 rounded-full w-[120%]",
                     isActive ? "block" : "hidden group-hover:block",
                   )}
                 />

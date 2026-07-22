@@ -35,7 +35,7 @@ export function MegaMenu({
 
   return (
     <div
-      className="bg-white absolute top-full left-1/2 -translate-x-1/2 w-screen max-w-7xl rounded-[1.5rem] z-50 animate-in fade-in slide-in-from-top-2 duration-200 h-130 border"
+      className="bg-white absolute top-full start-1/2 -translate-x-1/2 w-screen max-w-7xl rounded-[1.5rem] z-50 animate-in fade-in slide-in-from-top-2 duration-200 h-130 border"
       onMouseEnter={() => onMouseEnter(label)}
       onMouseLeave={onMouseLeave}
     >

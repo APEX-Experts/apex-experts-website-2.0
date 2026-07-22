@@ -170,3 +170,31 @@ export function LogoSvg({
     </svg>
   );
 }
+
+export function LogoMarkSvg({
+  width,
+  height,
+  className,
+}: {
+  width?: number;
+  height?: number;
+  className?: string;
+}) {
+  return (
+    <svg
+      id="Layer_1"
+      data-name="Layer 1"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 89.38 58.48"
+      width={width}
+      height={height}
+      className={className}
+    >
+      <defs></defs>
+      <path
+        fill="currentColor"
+        d="M29.26,33.63,37,21.08l-2.9-6.2-17,28.72h6.24l3.44-5.08H40.18V33.63ZM46.9,38.52H40.18V43.6H50Zm-.34-12.41,3,5.2H69.33v-5.2ZM40.18,14.88v0L45.38,24v-4H71.14v-5.2ZM53.59,38.4l3,5.2H72.29V38.4ZM37,21.08l-2.9-6.2"
+      />
+    </svg>
+  );
+}

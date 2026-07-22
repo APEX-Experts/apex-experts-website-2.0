@@ -3,6 +3,8 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+@custom-variant dark (&:is(.dark *));
+
 @theme inline {
   --font-sans: var(--font-poppins), "Poppins", sans-serif;
   --font-heading: var(--font-montserrat), "Montserrat", sans-serif;
@@ -80,6 +82,24 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --animate-marquee: marquee var(--duration) infinite linear;
+  --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+  @keyframes marquee {
+  from {
+    transform: translateX(0);
+    }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+    }
+  }
+  @keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+    }
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
+    }
+  }
 }
 
 :root {
@@ -248,5 +268,10 @@
       linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
       linear-gradient(0deg, rgba(36, 52, 77, 0.5), rgba(36, 52, 77, 0.5));
     backdrop-filter: blur(26.075002670288086px);
+  }
+
+  .gradient-border {
+    border: 2px solid;
+    border-image: linear-gradient(225deg, #ffffff 3.2%, rgba(255, 255, 255, 0) 96.8%) 1;
   }
 }

@@ -57,7 +57,7 @@ export default async function LandingLayout({
         logoSvg={header.logoSvg || <LogoSvg />}
         navItems={header.navItems || []}
       />
-      {children}
+      <main className="">{children}</main>
       {/* Global Footer */}
       <Footer
         brandName={footer.brandName}

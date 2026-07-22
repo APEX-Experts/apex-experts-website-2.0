@@ -245,9 +245,29 @@ export interface Page {
   id: number;
   title: string;
   slug: string;
-  layout: HeroBlock[];
+  layout: (HeroBlock | ClipTextMarqueeBlock)[];
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ClipTextMarqueeBlock".
+ */
+export interface ClipTextMarqueeBlock {
+  clipImage: number | Media;
+  textBeforeHighlight: string;
+  highlightedText?: string | null;
+  textAfterHighlight?: string | null;
+  marqueeIcons?:
+    | {
+        icon: number | Media;
+        alt?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'clip-text-marquee';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -445,6 +465,7 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         hero?: T | HeroBlockSelect<T>;
+        'clip-text-marquee'?: T | ClipTextMarqueeBlockSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -475,6 +496,25 @@ export interface HeroBlockSelect<T extends boolean = true> {
     | T
     | {
         image?: T;
+        alt?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ClipTextMarqueeBlock_select".
+ */
+export interface ClipTextMarqueeBlockSelect<T extends boolean = true> {
+  clipImage?: T;
+  textBeforeHighlight?: T;
+  highlightedText?: T;
+  textAfterHighlight?: T;
+  marqueeIcons?:
+    | T
+    | {
+        icon?: T;
         alt?: T;
         id?: T;
       };

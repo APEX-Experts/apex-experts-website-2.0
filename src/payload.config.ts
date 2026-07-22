@@ -5,6 +5,8 @@ import path from "path";
 import { buildConfig } from "payload";
 import sharp from "sharp";
 import { fileURLToPath } from "url";
+import { ClipTextMarquee } from "./payload/blocks/ClipTextMarquee.ts";
+import { HomeAbout } from "./payload/blocks/HomeAbout.ts";
 import { Hero } from "./payload/blocks/Hero.ts";
 import { Media } from "./payload/collections/Media.ts";
 import { Pages } from "./payload/collections/Pages.ts";
@@ -79,6 +81,8 @@ export default buildConfig({
   ],
   blocks: [
     Hero,
+    ClipTextMarquee,
+    HomeAbout
 
   ],
 });

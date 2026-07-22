@@ -67,6 +67,8 @@ export interface Config {
   };
   blocks: {
     hero: HeroBlock;
+    'clip-text-marquee': ClipTextMarqueeBlock;
+    'home-about': HomeAboutBlock;
   };
   collections: {
     users: User;
@@ -214,6 +216,51 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ClipTextMarqueeBlock".
+ */
+export interface ClipTextMarqueeBlock {
+  clipImage: number | Media;
+  textBeforeHighlight: string;
+  highlightedText?: string | null;
+  textAfterHighlight?: string | null;
+  marqueeIcons?:
+    | {
+        icon: number | Media;
+        alt?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'clip-text-marquee';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HomeAboutBlock".
+ */
+export interface HomeAboutBlock {
+  clipImage: number | Media;
+  eyebrow?: string | null;
+  titleBeforeHighlight: string;
+  highlightedTitle?: string | null;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  list?:
+    | {
+        eyebrow?: string | null;
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  backgroundTexture?: (number | null) | Media;
+  leftBackgroundTexture?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'home-about';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -245,29 +292,9 @@ export interface Page {
   id: number;
   title: string;
   slug: string;
-  layout: (HeroBlock | ClipTextMarqueeBlock)[];
+  layout: (HeroBlock | ClipTextMarqueeBlock | HomeAboutBlock)[];
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ClipTextMarqueeBlock".
- */
-export interface ClipTextMarqueeBlock {
-  clipImage: number | Media;
-  textBeforeHighlight: string;
-  highlightedText?: string | null;
-  textAfterHighlight?: string | null;
-  marqueeIcons?:
-    | {
-        icon: number | Media;
-        alt?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'clip-text-marquee';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -466,6 +493,7 @@ export interface PagesSelect<T extends boolean = true> {
     | {
         hero?: T | HeroBlockSelect<T>;
         'clip-text-marquee'?: T | ClipTextMarqueeBlockSelect<T>;
+        'home-about'?: T | HomeAboutBlockSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -518,6 +546,30 @@ export interface ClipTextMarqueeBlockSelect<T extends boolean = true> {
         alt?: T;
         id?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HomeAboutBlock_select".
+ */
+export interface HomeAboutBlockSelect<T extends boolean = true> {
+  clipImage?: T;
+  eyebrow?: T;
+  titleBeforeHighlight?: T;
+  highlightedTitle?: T;
+  titleAfterHighlight?: T;
+  subtitle?: T;
+  list?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  backgroundTexture?: T;
+  leftBackgroundTexture?: T;
   id?: T;
   blockName?: T;
 }

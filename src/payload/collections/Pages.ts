@@ -1,6 +1,7 @@
 import { CollectionConfig } from "payload";
 import { Hero } from "../blocks/Hero";
 import { ClipTextMarquee } from "../blocks/ClipTextMarquee";
+import { HomeAbout } from "../blocks/HomeAbout";
 import { revalidatePageHook } from "../globals/revalidateHook";
 
 /**
@@ -58,6 +59,7 @@ export const Pages: CollectionConfig = {
       blocks: [
         Hero,
         ClipTextMarquee,
+        HomeAbout,
       ],
       required: true,
     },

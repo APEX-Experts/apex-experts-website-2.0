@@ -28,6 +28,7 @@
   --color-nile-200: var(--nile-200);
   --color-nile-300: var(--nile-300);
 
+  --color-gray-50: var(--gray-50);
   --color-gray-100: var(--gray-100);
   --color-gray-300: var(--gray-300);
   --color-gray-500: var(--gray-500);
@@ -85,19 +86,19 @@
   --animate-marquee: marquee var(--duration) infinite linear;
   --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
   @keyframes marquee {
-  from {
-    transform: translateX(0);
+    from {
+      transform: translateX(0);
     }
-  to {
-    transform: translateX(calc(-100% - var(--gap)));
+    to {
+      transform: translateX(calc(-100% - var(--gap)));
     }
   }
   @keyframes marquee-vertical {
-  from {
-    transform: translateY(0);
+    from {
+      transform: translateY(0);
     }
-  to {
-    transform: translateY(calc(-100% - var(--gap)));
+    to {
+      transform: translateY(calc(-100% - var(--gap)));
     }
   }
 }
@@ -120,6 +121,7 @@
   --secondary-700: #07062b;
   --secondary-900: #040319;
 
+  --gray-50: #f2f2f2;
   --gray-100: #d8d8d8;
   --gray-300: #aaaaaa;
   --gray-500: #808080;

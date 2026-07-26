@@ -30,7 +30,7 @@ export const HomeAboutBlock: React.FC<HomeAboutBlockType> = ({
   return (
     <section className="relative overflow-hidden min-h-screen bg-gray-50 flex flex-col items-center px-4 py-6 lg:p-14 gap-6 lg:gap-16 lg:pb-28">
       {/* Textures */}
-      <div className="absolute inset-0 w-full h-full flex items-center justify-center opacity-5">
+      <div className="absolute inset-0 w-full h-full flex items-center justify-center opacity-5 pointer-events-none">
         {backgroundTextureUrl && (
           <Image
             src={backgroundTextureUrl}
@@ -40,7 +40,7 @@ export const HomeAboutBlock: React.FC<HomeAboutBlockType> = ({
           />
         )}
       </div>
-      <div className="absolute -bottom-64 lg:bottom-0 inset-s-1/2 max-lg:-translate-x-1/2 lg:inset-s-0 w-40.25 h-169 opacity-5 flex items-center justify-center max-lg:rotate-270">
+      <div className="absolute -bottom-64 lg:bottom-0 inset-s-1/2 max-lg:-translate-x-1/2 lg:inset-s-0 w-40.25 h-169 opacity-5 flex items-center justify-center max-lg:rotate-270 pointer-events-none">
         {leftBackgroundTextureUrl && (
           <Image
             src={leftBackgroundTextureUrl}
@@ -70,16 +70,16 @@ export const HomeAboutBlock: React.FC<HomeAboutBlockType> = ({
             </h2>
           </div>
           {/* Subtitle */}
-          <p className="text-sm leading-[100%] text-gray-500 lg:text-base lg:leading-7.25">
+          <div className="text-sm leading-[100%] text-gray-500 lg:text-base lg:leading-7.25">
             {subtitle?.split(".").map((p, i, arr) => (
               <p key={i} className={`${i === arr.length - 1 ? "" : "mb-4 lg:mb-5"}`}>
                 {p}.
               </p>
             ))}
-          </p>
+          </div>
         </div>
         {/* Clipped Image */}
-        <div className="max-h-70 md:max-h-90 lg:max-h-100 xl:max-h-none">
+        <div className="max-h-70 md:max-h-90 lg:max-h-100 xl:max-h-none pointer-events-none">
           <Image
             src={clipImageUrl ?? ""}
             alt={clipImageAlt}

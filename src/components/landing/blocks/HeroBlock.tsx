@@ -55,7 +55,7 @@ export const HeroBlock: React.FC<HeroBlockType> = ({
 
   return (
     <section className="relative overflow-hidden bg-bg text-white min-h-screen flex flex-col-reverse lg:flex-row items-center pb-20 pt-8">
-      <div className="absolute inset-0 w-full h-full ">
+      <div className="absolute inset-0 w-full h-full pointer-events-none">
         <Image src={heroImageUrl} alt={heroImageAltText} fill className="object-cover blur-xs" />
       </div>
       <div className="flex flex-col items-center h-full relative w-full lg:max-w-[55%] px-4 lg:px-10 lg:mt-20">
@@ -65,7 +65,7 @@ export const HeroBlock: React.FC<HeroBlockType> = ({
               <span className="text-white">{titleBeforeHighlight}</span>{" "}
               <span className="text-primary-500 relative inline-block">
                 {highlightedTitle}{" "}
-                <HeroHighlightedTextSvg className="absolute start-0 -bottom-1 w-full" />
+                <HeroHighlightedTextSvg className="absolute inset-s-0 -bottom-1 w-full" />
               </span>
               {titleAfterHighlight && titleAfterHighlight.length > 0 && (
                 <span className="text-white"> {titleAfterHighlight}</span>
@@ -115,14 +115,14 @@ export const HeroBlock: React.FC<HeroBlockType> = ({
       </div>
       <div className="max-lg:mt-48 max-lg:mb-64 relative h-full flex-1 flex flex-col items-center scale-50 lg:scale-100 transition-transform origin-top lg:origin-center fade-in">
         <LogoMarkSvg
-          className="absolute start-1/2 -translate-x-1/2 top-2 translate-y-1/2 text-white z-10"
+          className="absolute inset-s-1/2 -translate-x-1/2 top-2 translate-y-1/2 text-white z-10"
           width={200}
           height={100}
         />
 
         {/* Orbiting gallery & ellipses container (rotate) with counter-rotated image divs (inverse rotate) */}
         <motion.div
-          className="absolute start-1/2 -translate-x-1/2 -top-40 w-50.5 h-134.5 pointer-events-none"
+          className="absolute inset-s-1/2 -translate-x-1/2 -top-40 w-50.5 h-134.5 pointer-events-none"
           style={{ transformOrigin: "center center" }}
           animate={shouldReduceMotion ? { rotate: 0 } : { rotate: 360 }}
           transition={{

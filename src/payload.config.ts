@@ -5,6 +5,7 @@ import path from "path";
 import { buildConfig } from "payload";
 import sharp from "sharp";
 import { fileURLToPath } from "url";
+import { Capabilities } from "./payload/blocks/Capabilities.ts";
 import { ClipTextMarquee } from "./payload/blocks/ClipTextMarquee.ts";
 import { HomeAbout } from "./payload/blocks/HomeAbout.ts";
 import { Hero } from "./payload/blocks/Hero.ts";
@@ -82,7 +83,8 @@ export default buildConfig({
   blocks: [
     Hero,
     ClipTextMarquee,
-    HomeAbout
+    HomeAbout,
+    Capabilities
 
   ],
 });

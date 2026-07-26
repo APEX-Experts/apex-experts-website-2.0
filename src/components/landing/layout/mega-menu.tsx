@@ -35,7 +35,7 @@ export function MegaMenu({
 
   return (
     <div
-      className="bg-white absolute top-full start-1/2 -translate-x-1/2 w-screen max-w-7xl rounded-[1.5rem] z-50 animate-in fade-in slide-in-from-top-2 duration-200 h-130 border"
+      className="bg-white absolute top-full inset-s-1/2 -translate-x-1/2 w-screen max-w-7xl rounded-[1.5rem] z-50 animate-in fade-in slide-in-from-top-2 duration-200 h-130 border"
       onMouseEnter={() => onMouseEnter(label)}
       onMouseLeave={onMouseLeave}
     >
@@ -134,9 +134,9 @@ export function MegaMenu({
           {hasCenterMenu && (
             <div className="flex items-center w-full p-4">
               <div className="w-full h-full rounded-[1.5rem] bg-noise relative">
-                <div className="absolute inset-0 w-full h-full rounded-[1.5rem] overflow-hidden">
+                <div className="absolute inset-0 w-full h-full rounded-[1.5rem] overflow-hidden pointer-events-none">
                   <Image
-                    src="/placeholder_image.jpg"
+                    src="/placeholder_image.webp"
                     alt="Our Office"
                     width={396}
                     height={322}
@@ -175,7 +175,7 @@ export function MegaMenu({
           )}
           {/* Right Menu in projects */}
           {!hasCenterMenu && (
-            <div className="col-span-2 relative ms-8 bg-noise rounded-[1.5rem] overflow-hidden border border-outline/30 p-6">
+            <div className="col-span-2 relative ms-8 bg-noise rounded-[1.5rem] pointer-events-none overflow-hidden border border-outline/30 p-6">
               {/* Background image */}
               <div className="absolute inset-0 z-0">
                 <Image

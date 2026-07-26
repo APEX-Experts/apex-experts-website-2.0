@@ -13,8 +13,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-
-
 /**
  * Resolves Payload Media object or string/number ID into a usable URL string.
  * @param image Payload Media object or string/number ID
@@ -44,4 +42,18 @@ export function getMediaAlt(image: number | Media | null | undefined, fallback: 
     return image.alt || fallback;
   }
   return fallback;
+}
+
+/**
+ * Pads a number with leading zeros to a specified length.
+ * @param num The number to pad.
+ * @param pad The desired length of the resulting string (default is 2).
+ * @returns The zero-padded number as a string.
+ */
+export function zeroPadNumber(num: number, pad: number = 2): string {
+  const stringifiedNumber = num.toString();
+  if (stringifiedNumber.length < pad) {
+    return stringifiedNumber.padStart(pad, "0");
+  }
+  return stringifiedNumber;
 }

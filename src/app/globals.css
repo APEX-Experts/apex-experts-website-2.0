@@ -276,4 +276,8 @@
     border: 2px solid;
     border-image: linear-gradient(225deg, #ffffff 3.2%, rgba(255, 255, 255, 0) 96.8%) 1;
   }
+
+  .capability-gradient {
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.9) 1.44%, rgba(0, 0, 0, 0) 100%);
+  }
 }

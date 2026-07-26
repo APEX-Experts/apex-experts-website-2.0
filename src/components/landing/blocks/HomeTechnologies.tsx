@@ -85,10 +85,7 @@ export const HomeTechnologies: React.FC<TechnologiesBlockType> = ({
                     key={id ?? index}
                     className={cn(
                       "w-full border-b border-outline/30 pb-3 lg:pb-6 cursor-pointer",
-                      index !== activeServiceIndex &&
-                        index !== services.length - 1 &&
-                        "border-dashed",
-                      index === services.length - 1 && "border-none",
+                      index !== activeServiceIndex && "border-dashed last:border-none",
                     )}
                     onClick={() => handleChangeActiveServiceIndex(index)}
                   >

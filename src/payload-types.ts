@@ -72,6 +72,7 @@ export interface Config {
     capabilities: CapabilitiesBlock;
     projects: ProjectsBlock;
     technologies: TechnologiesBlock;
+    faq: FAQBlock;
   };
   collections: {
     users: User;
@@ -6213,6 +6214,34 @@ export interface TechnologiesBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQBlock".
+ */
+export interface FAQBlock {
+  eyebrow?: string | null;
+  titleBeforeHighlight?: string | null;
+  highlightedTitle?: string | null;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  ctaImage?: (number | null) | Media;
+  backgroundImage?: (number | null) | Media;
+  textureWavesImage?: (number | null) | Media;
+  ctaEyebrow?: string | null;
+  ctaTitle?: string | null;
+  ctaSubtitle?: string | null;
+  ctaButtonText?: string | null;
+  questions?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'faq';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -6244,7 +6273,15 @@ export interface Page {
   id: number;
   title: string;
   slug: string;
-  layout: (HeroBlock | ClipTextMarqueeBlock | HomeAboutBlock | CapabilitiesBlock | ProjectsBlock | TechnologiesBlock)[];
+  layout: (
+    | HeroBlock
+    | ClipTextMarqueeBlock
+    | HomeAboutBlock
+    | CapabilitiesBlock
+    | ProjectsBlock
+    | TechnologiesBlock
+    | FAQBlock
+  )[];
   updatedAt: string;
   createdAt: string;
 }
@@ -6449,6 +6486,7 @@ export interface PagesSelect<T extends boolean = true> {
         capabilities?: T | CapabilitiesBlockSelect<T>;
         projects?: T | ProjectsBlockSelect<T>;
         technologies?: T | TechnologiesBlockSelect<T>;
+        faq?: T | FAQBlockSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -6625,6 +6663,33 @@ export interface TechnologiesBlockSelect<T extends boolean = true> {
               icon?: T;
               id?: T;
             };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQBlock_select".
+ */
+export interface FAQBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  titleBeforeHighlight?: T;
+  highlightedTitle?: T;
+  titleAfterHighlight?: T;
+  subtitle?: T;
+  ctaImage?: T;
+  backgroundImage?: T;
+  textureWavesImage?: T;
+  ctaEyebrow?: T;
+  ctaTitle?: T;
+  ctaSubtitle?: T;
+  ctaButtonText?: T;
+  questions?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
         id?: T;
       };
   id?: T;

@@ -71,8 +71,8 @@ export const HomeAboutBlock: React.FC<HomeAboutBlockType> = ({
           </div>
           {/* Subtitle */}
           <div className="text-sm leading-[100%] text-gray-500 lg:text-base lg:leading-7.25">
-            {subtitle?.split(".").map((p, i, arr) => (
-              <p key={i} className={`${i === arr.length - 1 ? "" : "mb-4 lg:mb-5"}`}>
+            {subtitle?.split(".").map((p, i) => (
+              <p key={i} className={`${"mb-4 lg:mb-5 last:mb-0"}`}>
                 {p}.
               </p>
             ))}

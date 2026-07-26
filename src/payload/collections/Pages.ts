@@ -5,6 +5,7 @@ import { HomeAbout } from "../blocks/HomeAbout";
 import { Capabilities } from "../blocks/Capabilities";
 import { Projects } from "../blocks/Projects";
 import { Technologies } from "../blocks/Technologies";
+import { FAQ } from "../blocks/FAQ";
 import { revalidatePageHook } from "../globals/revalidateHook";
 
 /**
@@ -66,6 +67,7 @@ export const Pages: CollectionConfig = {
         Capabilities,
         Projects,
         Technologies,
+        FAQ,
       ],
       required: true,
     },

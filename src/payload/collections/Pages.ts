@@ -4,6 +4,7 @@ import { ClipTextMarquee } from "../blocks/ClipTextMarquee";
 import { HomeAbout } from "../blocks/HomeAbout";
 import { Capabilities } from "../blocks/Capabilities";
 import { Projects } from "../blocks/Projects";
+import { Technologies } from "../blocks/Technologies";
 import { revalidatePageHook } from "../globals/revalidateHook";
 
 /**
@@ -64,6 +65,7 @@ export const Pages: CollectionConfig = {
         HomeAbout,
         Capabilities,
         Projects,
+        Technologies,
       ],
       required: true,
     },

@@ -5,6 +5,7 @@ import { HeroMarqueeBlock } from "./HeroMarqueeBlock";
 import { HomeAboutBlock } from "./HomeAboutBlock";
 import { HomeCapabilities } from "./HomeCapabilities";
 import { HomeProjects } from "./HomeProjects";
+import { HomeTechnologies } from "./HomeTechnologies";
 
 /**
  * Props for the RenderBlocks component.
@@ -47,6 +48,8 @@ export const RenderBlocks: React.FC<Props> = ({ blocks }) => {
             return <HomeCapabilities key={key} {...block} />;
           case "projects":
             return <HomeProjects key={key} {...block} />;
+          case "technologies":
+            return <HomeTechnologies key={key} {...block} />;
 
           default:
             return (

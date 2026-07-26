@@ -16,7 +16,8 @@ import { Users } from "./payload/collections/Users.ts";
 import { Footer } from "./payload/globals/Footer.ts";
 import { Header } from "./payload/globals/Header.ts";
 import { SiteSettings } from "./payload/globals/SiteSettings.ts";
-
+import { Projects } from "./payload/blocks/Projects.ts";
+import { Technologies } from "./payload/blocks/Technologies.ts";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -80,11 +81,5 @@ export default buildConfig({
         ]
       : []),
   ],
-  blocks: [
-    Hero,
-    ClipTextMarquee,
-    HomeAbout,
-    Capabilities
-
-  ],
+  blocks: [Hero, ClipTextMarquee, HomeAbout, Capabilities, Projects, Technologies],
 });

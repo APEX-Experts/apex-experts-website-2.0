@@ -30,7 +30,10 @@ const ProjectCard: React.FC<Props> = ({ project }) => {
   const blurImageUrl = getMediaUrl(backgroundImageBlur);
   const blurImageAlt = getMediaAlt(backgroundImageBlur, "Blur");
   return (
-    <div className="w-full project-card bg-noise relative rounded-[1.5rem] lg:rounded-[5rem] overflow-hidden">
+    <Link
+      className="w-full project-card bg-noise relative rounded-[1.5rem] lg:rounded-[5rem] overflow-hidden"
+      href={href ?? "#"}
+    >
       <div className="px-4 py-6 lg:p-14 flex flex-col justify-center items-center">
         <div className="rounded-[1.5rem] lg:rounded-[5rem] border border-outline/30 bg-black/30 flex flex-col lg:flex-row lg:items-center w-full h-full">
           {/* Logo */}
@@ -52,17 +55,14 @@ const ProjectCard: React.FC<Props> = ({ project }) => {
                 </h4>
               )}
               {href && (
-                <Link
-                  href={href}
-                  className="max-lg:hidden p-2 flex flex-row gap-2 items-center rounded-full group"
-                >
+                <div className="max-lg:hidden p-2 flex flex-row gap-2 items-center rounded-full group">
                   <span className="font-montserrat font-medium leading-[130%] text-white group-hover:underline">
                     {ctaText}
                   </span>
                   <span className="w-7.5 h-7.5 rounded-full border border-white flex justify-center items-center">
                     <ArrowUpRight className="w-5.5 h-5.5 text-white" />
                   </span>
-                </Link>
+                </div>
               )}
             </div>
             {description && (
@@ -86,17 +86,14 @@ const ProjectCard: React.FC<Props> = ({ project }) => {
               </div>
             )}
             {href && (
-              <Link
-                href={href}
-                className="flex lg:hidden mt-6 justify-center gap-2 flex-row items-center w-full p-2"
-              >
+              <div className="flex lg:hidden mt-6 justify-center gap-2 flex-row items-center w-full p-2">
                 <span className="font-montserrat font-medium leading-[130%] text-white">
                   {ctaText}
                 </span>
                 <span className="rounded-full w-7.5 h-7.5 border border-white flex items-center justify-center">
                   <ArrowUpRight className="w-5.5 h-5.5 text-white" />
                 </span>
-              </Link>
+              </div>
             )}
           </div>
         </div>
@@ -123,7 +120,7 @@ const ProjectCard: React.FC<Props> = ({ project }) => {
         </div>
       )}
       <div className="absolute inset-0 w-full h-full bg-black/30"></div>
-    </div>
+    </Link>
   );
 };
 

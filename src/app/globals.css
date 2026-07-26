@@ -280,4 +280,8 @@
   .capability-gradient {
     background: linear-gradient(90deg, rgba(0, 0, 0, 0.9) 1.44%, rgba(0, 0, 0, 0) 100%);
   }
+
+  .project-card {
+    box-shadow: 0px 12px 32.5px 0px #0000000d;
+  }
 }

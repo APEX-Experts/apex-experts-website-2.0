@@ -4225,9 +4225,44 @@ export interface Page {
   id: number;
   title: string;
   slug: string;
-  layout: (HeroBlock | ClipTextMarqueeBlock | HomeAboutBlock | CapabilitiesBlock)[];
+  layout: (HeroBlock | ClipTextMarqueeBlock | HomeAboutBlock | CapabilitiesBlock | ProjectsBlock)[];
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProjectsBlock".
+ */
+export interface ProjectsBlock {
+  eyebrow?: string | null;
+  titleBeforeHighlight?: string | null;
+  highlightedTitle?: string | null;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  backgroundImage?: (number | null) | Media;
+  texture?: (number | null) | Media;
+  projects?:
+    | {
+        eyebrow?: string | null;
+        title: string;
+        description?: string | null;
+        keywords?:
+          | {
+              keyword: string;
+              id?: string | null;
+            }[]
+          | null;
+        href?: string | null;
+        ctaText?: string | null;
+        backgroundImage?: (number | null) | Media;
+        backgroundImageBlur?: (number | null) | Media;
+        logo?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'projects';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4428,6 +4463,7 @@ export interface PagesSelect<T extends boolean = true> {
         'clip-text-marquee'?: T | ClipTextMarqueeBlockSelect<T>;
         'home-about'?: T | HomeAboutBlockSelect<T>;
         capabilities?: T | CapabilitiesBlockSelect<T>;
+        projects?: T | ProjectsBlockSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -4537,6 +4573,40 @@ export interface CapabilitiesBlockSelect<T extends boolean = true> {
               href?: T;
               id?: T;
             };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProjectsBlock_select".
+ */
+export interface ProjectsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  titleBeforeHighlight?: T;
+  highlightedTitle?: T;
+  titleAfterHighlight?: T;
+  subtitle?: T;
+  backgroundImage?: T;
+  texture?: T;
+  projects?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        description?: T;
+        keywords?:
+          | T
+          | {
+              keyword?: T;
+              id?: T;
+            };
+        href?: T;
+        ctaText?: T;
+        backgroundImage?: T;
+        backgroundImageBlur?: T;
+        logo?: T;
         id?: T;
       };
   id?: T;

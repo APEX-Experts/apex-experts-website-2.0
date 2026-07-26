@@ -1,9 +1,8 @@
 import type { Block } from "payload";
-import { lucideIconOptions } from "./icons";
 
-export const Capabilities: Block = {
-  slug: "capabilities",
-  interfaceName: "CapabilitiesBlock",
+export const Projects: Block = {
+  slug: "projects",
+  interfaceName: "ProjectsBlock",
   fields: [
     {
       name: "eyebrow",
@@ -14,7 +13,7 @@ export const Capabilities: Block = {
     {
       name: "titleBeforeHighlight",
       type: "text",
-      required: true,
+      required: false,
       localized: true,
     },
     {
@@ -36,22 +35,27 @@ export const Capabilities: Block = {
       localized: true,
     },
     {
-      name: "textureImage",
+      name: "backgroundImage",
       type: "upload",
       relationTo: "media",
       required: false,
-      
     },
     {
-      name: "viewAllText",
-      type: "text",
-      required: true,
-      defaultValue: "View All Services",
+      name: "texture",
+      type: "upload",
+      relationTo: "media",
+      required: false,
     },
     {
-      name: "capabilities",
+      name: "projects",
       type: "array",
       fields: [
+        {
+          name: "eyebrow",
+          type: "text",
+          required: false,
+          localized: true,
+        },
         {
           name: "title",
           type: "text",
@@ -59,13 +63,33 @@ export const Capabilities: Block = {
           localized: true,
         },
         {
-          name: "countTitle",
-          type: "text",
+          name: "description",
+          type: "textarea",
           required: false,
           localized: true,
         },
         {
-          name: "countDescription",
+          name: "keywords",
+          type: "array",
+          fields: [
+            {
+              name: "keyword",
+              type: "text",
+              required: true,
+              localized: true,
+            },
+          ],
+          admin: {
+            initCollapsed: true,
+          },
+        },
+        {
+          name: "href",
+          type: "text",
+          required: false,
+        },
+        {
+          name: "ctaText",
           type: "text",
           required: false,
           localized: true,
@@ -77,47 +101,16 @@ export const Capabilities: Block = {
           required: false,
         },
         {
-          name: "icon",
-          type: "select",
-          required: true,
-          options: lucideIconOptions,
-        },
-        {
-          name: "description",
-          type: "textarea",
-          required: false,
-          localized: true,
-        },
-        {
-          name: "href",
-          type: "text",
+          name: "backgroundImageBlur",
+          type: "upload",
+          relationTo: "media",
           required: false,
         },
         {
-          name: "services",
-          type: "array",
-          fields: [
-            {
-              name: "title",
-              type: "text",
-              required: true,
-              localized: true,
-            },
-            {
-              name: "icon",
-              type: "select",
-              required: true,
-              options: lucideIconOptions,
-            },
-            {
-              name: "href",
-              type: "text",
-              required: false,
-            },
-          ],
-          admin: {
-            initCollapsed: true,
-          },
+          name: "logo",
+          type: "upload",
+          relationTo: "media",
+          required: false,
         },
       ],
       admin: {

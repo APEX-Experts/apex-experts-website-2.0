@@ -41,6 +41,7 @@ interface BackupPostDoc {
   featuredImage?: string | number | BackupMediaDoc | null;
   author?: string | number | BackupUserDoc | null;
   publishedDate?: string;
+  tags?: string[];
 }
 
 interface BackupPageDoc {

@@ -19,6 +19,7 @@ import { SiteSettings } from "./payload/globals/SiteSettings.ts";
 import { Projects } from "./payload/blocks/Projects.ts";
 import { Technologies } from "./payload/blocks/Technologies.ts";
 import { FAQ } from "./payload/blocks/FAQ.ts";
+import { HomeBlogs } from "./payload/blocks/HomeBlogs.ts";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);

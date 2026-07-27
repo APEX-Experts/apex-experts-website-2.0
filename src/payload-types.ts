@@ -6246,6 +6246,7 @@ export interface FAQBlock {
  */
 export interface User {
   id: number;
+  name?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -6281,9 +6282,27 @@ export interface Page {
     | ProjectsBlock
     | TechnologiesBlock
     | FAQBlock
+    | HomeBlogsBlock
   )[];
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HomeBlogsBlock".
+ */
+export interface HomeBlogsBlock {
+  eyebrow?: string | null;
+  titleBeforeHighlight?: string | null;
+  highlightedTitle?: string | null;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  viewAllHref?: string | null;
+  viewAllText?: string | null;
+  viewArticleText?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'home-blogs';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6311,6 +6330,7 @@ export interface Post {
   featuredImage?: (number | null) | Media;
   author: number | User;
   publishedDate?: string | null;
+  tags?: string[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -6401,6 +6421,7 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  name?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -6487,6 +6508,7 @@ export interface PagesSelect<T extends boolean = true> {
         projects?: T | ProjectsBlockSelect<T>;
         technologies?: T | TechnologiesBlockSelect<T>;
         faq?: T | FAQBlockSelect<T>;
+        'home-blogs'?: T | HomeBlogsBlockSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -6697,6 +6719,22 @@ export interface FAQBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HomeBlogsBlock_select".
+ */
+export interface HomeBlogsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  titleBeforeHighlight?: T;
+  highlightedTitle?: T;
+  titleAfterHighlight?: T;
+  subtitle?: T;
+  viewAllHref?: T;
+  viewAllText?: T;
+  viewArticleText?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts_select".
  */
 export interface PostsSelect<T extends boolean = true> {
@@ -6706,6 +6744,7 @@ export interface PostsSelect<T extends boolean = true> {
   featuredImage?: T;
   author?: T;
   publishedDate?: T;
+  tags?: T;
   updatedAt?: T;
   createdAt?: T;
 }

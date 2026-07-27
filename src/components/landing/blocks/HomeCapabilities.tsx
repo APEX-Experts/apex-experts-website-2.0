@@ -51,7 +51,7 @@ export const HomeCapabilities: React.FC<HomeCapabilitiesBlockType> = ({
           <div className="flex-1 h-px bg-error-500/24"></div>
           <Link
             href="/services"
-            className="font-montserrat text-primary-500 text-xs md:text-base lg:text-lg"
+            className="font-montserrat text-primary-500 text-xs md:text-base lg:text-lg hover:underline"
           >
             {viewAllText}
           </Link>

@@ -70,5 +70,13 @@ export const Posts: CollectionConfig = {
         position: "sidebar",
       },
     },
+    {
+      name: "tags",
+      type: "text",
+      hasMany: true,
+      admin: {
+        position: "sidebar",
+      },
+    },
   ],
 };

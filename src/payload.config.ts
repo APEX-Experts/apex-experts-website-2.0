@@ -21,6 +21,7 @@ import { Technologies } from "./payload/blocks/Technologies.ts";
 import { FAQ } from "./payload/blocks/FAQ.ts";
 import { HomeBlogs } from "./payload/blocks/HomeBlogs.ts";
 import { ContactForm } from "./payload/blocks/ContactForm.ts";
+import { SubscribeToNewsletter } from "./payload/blocks/SubscribeToNewsletter.ts";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -94,5 +95,6 @@ export default buildConfig({
     FAQ,
     HomeBlogs,
     ContactForm,
+    SubscribeToNewsletter,
   ],
 });

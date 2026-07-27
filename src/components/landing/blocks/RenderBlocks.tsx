@@ -9,6 +9,7 @@ import { HomeTechnologies } from "./HomeTechnologies";
 import { HomeFAQ } from "./HomeFAQ";
 import { HomeBlogsSection } from "./HomeBlogsSection";
 import { ContactFormBlock } from "./ContactFormBlock";
+import { SubscribeToNewsletterBlock } from "./SubscribeToNewsletterBlock";
 
 /**
  * Props for the RenderBlocks component.
@@ -59,6 +60,8 @@ export const RenderBlocks: React.FC<Props> = ({ blocks }) => {
             return <HomeBlogsSection key={key} {...block} />;
           case "contact-form":
             return <ContactFormBlock key={key} {...block} />;
+          case "subscribe-to-newsletter":
+            return <SubscribeToNewsletterBlock key={key} {...block} />;
 
           default:
             return (

@@ -75,6 +75,7 @@ export interface Config {
     faq: FAQBlock;
     'home-blogs': HomeBlogsBlock;
     'contact-form': ContactFormBlock;
+    'subscribe-to-newsletter': SubscribeToNewsletterBlock;
   };
   collections: {
     users: User;
@@ -6288,6 +6289,20 @@ export interface ContactFormBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SubscribeToNewsletterBlock".
+ */
+export interface SubscribeToNewsletterBlock {
+  title?: string | null;
+  description?: string | null;
+  emailInputPlaceholder?: string | null;
+  submitButtonText?: string | null;
+  backgroundImage?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'subscribe-to-newsletter';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -6330,6 +6345,7 @@ export interface Page {
     | FAQBlock
     | HomeBlogsBlock
     | ContactFormBlock
+    | SubscribeToNewsletterBlock
   )[];
   updatedAt: string;
   createdAt: string;
@@ -6540,6 +6556,7 @@ export interface PagesSelect<T extends boolean = true> {
         faq?: T | FAQBlockSelect<T>;
         'home-blogs'?: T | HomeBlogsBlockSelect<T>;
         'contact-form'?: T | ContactFormBlockSelect<T>;
+        'subscribe-to-newsletter'?: T | SubscribeToNewsletterBlockSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -6789,6 +6806,19 @@ export interface ContactFormBlockSelect<T extends boolean = true> {
         id?: T;
       };
   formSubmitButtonText?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SubscribeToNewsletterBlock_select".
+ */
+export interface SubscribeToNewsletterBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  emailInputPlaceholder?: T;
+  submitButtonText?: T;
+  backgroundImage?: T;
   id?: T;
   blockName?: T;
 }

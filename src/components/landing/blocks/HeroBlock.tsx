@@ -7,6 +7,7 @@ import React from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { LogoMarkSvg } from "../layout/logo";
 import { getMediaAlt, getMediaUrl } from "@/lib/utils";
+import { ArrowUpRight } from "lucide-react";
 
 const ELLIPSE_RADIUS = 268; // matches the ellipse's semi-major axis
 const ELLIPSE_BOX = { width: 202, height: 538 };
@@ -54,10 +55,11 @@ export const HeroBlock: React.FC<HeroBlockType> = ({
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section className="relative overflow-hidden bg-bg text-white min-h-screen flex flex-col-reverse lg:flex-row items-center pb-20 pt-8">
+    <section className="relative overflow-hidden text-white min-h-screen flex flex-col-reverse lg:flex-row items-center pb-20 pt-8">
       <div className="absolute inset-0 w-full h-full pointer-events-none">
         <Image src={heroImageUrl} alt={heroImageAltText} fill className="object-cover blur-xs" />
       </div>
+      <div className="absolute inset-0 w-full h-full pointer-events-none hero-gradient"></div>
       <div className="flex flex-col items-center h-full relative w-full lg:max-w-[55%] px-4 lg:px-10 lg:mt-20">
         <div className="flex flex-col gap-8 sm:gap-12 h-full items-start w-full">
           <div className="flex flex-col gap-6 sm:gap-8 items-start w-full">
@@ -80,11 +82,13 @@ export const HeroBlock: React.FC<HeroBlockType> = ({
                 className="w-full sm:w-auto text-sm lg:text-base px-3 lg:px-4 py-3.25 flex flex-row gap-1.5 lg:gap-2 items-center justify-center rounded-full bg-primary-500 hover:bg-primary-700 text-primary-500 border border-transparent transition-all duration-300"
               >
                 <span className="font-medium text-white">{ctaPrimaryText}</span>
-                <ArrowUpRight
-                  className="w-5 h-5 lg:w-7.5 lg:h-7.5 text-primary-500"
-                  width={"22"}
-                  height={"22"}
-                />
+                <div className="w-6 h-6 lg:w-7.5 lg:h-7.5 bg-white rounded-full flex items-center justify-center">
+                  <ArrowUpRight
+                    className="w-4 h-4 lg:w-5.5 lg:h-5.5 text-primary-500"
+                    width={"22"}
+                    height={"22"}
+                  />
+                </div>
               </Link>
               <Link
                 href={ctaSecondaryHref}
@@ -295,53 +299,6 @@ const HeroHighlightedTextSvg = ({ className }: { className?: string }) => {
         fill="white"
         stroke="white"
         strokeWidth="0.133333"
-      />
-    </svg>
-  );
-};
-
-const ArrowUpRight = ({
-  className,
-  width,
-  height,
-}: {
-  className?: string;
-  width?: string;
-  height?: string;
-}) => {
-  return (
-    <svg
-      width={width}
-      height={height}
-      viewBox="0 0 31 31"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M0.369385 15.3696C0.369385 7.0853 7.08511 0.369568 15.3694 0.369568C23.6537 0.369568 30.3694 7.0853 30.3694 15.3696C30.3694 23.6538 23.6537 30.3696 15.3694 30.3696C7.08511 30.3696 0.369385 23.6538 0.369385 15.3696Z"
-        fill="white"
-        className={className}
-      />
-      <path
-        d="M9.73073 18.738L21.1516 12.1442"
-        stroke="currentColor"
-        strokeWidth="1.41296"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M19.0828 19.8647L21.1515 12.1442"
-        stroke="currentColor"
-        strokeWidth="1.41296"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M13.431 10.0754L21.1515 12.1442"
-        stroke="currentColor"
-        strokeWidth="1.41296"
-        strokeLinecap="round"
-        strokeLinejoin="round"
       />
     </svg>
   );

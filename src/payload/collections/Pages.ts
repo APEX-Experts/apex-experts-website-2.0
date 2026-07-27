@@ -8,6 +8,7 @@ import { Technologies } from "../blocks/Technologies";
 import { FAQ } from "../blocks/FAQ";
 import { HomeBlogs } from "../blocks/HomeBlogs";
 import { ContactForm } from "../blocks/ContactForm";
+import { SubscribeToNewsletter } from "../blocks/SubscribeToNewsletter";
 import { revalidatePageHook } from "../globals/revalidateHook";
 
 /**
@@ -72,6 +73,7 @@ export const Pages: CollectionConfig = {
         FAQ,
         HomeBlogs,
         ContactForm,
+        SubscribeToNewsletter,
       ],
       required: true,
     },

@@ -31,7 +31,10 @@ export const HomeBlogsSection = async ({
   }
 
   return (
-    <section className="relative overflow-hidden min-h-screen bg-white py-10 lg:py-18 px-4 lg:px-14 ">
+    <section
+      className="relative overflow-hidden min-h-screen bg-white py-10 lg:py-18 px-4 lg:px-14 "
+      id="blogs"
+    >
       <div className="w-full relative flex flex-col gap-8">
         {/* Header Content */}
         <div className="flex flex-col items-start gap-4">

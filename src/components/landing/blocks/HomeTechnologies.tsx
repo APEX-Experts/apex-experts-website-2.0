@@ -41,7 +41,10 @@ export const HomeTechnologies: React.FC<TechnologiesBlockType> = ({
   };
 
   return (
-    <section className="relative overflow-hidden min-h-screen bg-white pt-10 pb-6 lg:py-18">
+    <section
+      className="relative overflow-hidden min-h-screen bg-white pt-10 pb-6 lg:py-18"
+      id="technologies"
+    >
       {/* Text */}
       <div className="flex flex-col gap-8 lg:gap-18">
         {/* Heading */}

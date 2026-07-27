@@ -28,7 +28,10 @@ export const HomeAboutBlock: React.FC<HomeAboutBlockType> = ({
   const leftBackgroundTextureAlt = getMediaAlt(leftBackgroundTexture, "Texture");
 
   return (
-    <section className="relative overflow-hidden min-h-screen bg-gray-50 flex flex-col items-center px-4 py-6 lg:p-14 gap-6 lg:gap-16 lg:pb-28">
+    <section
+      className="relative overflow-hidden min-h-screen bg-gray-50 flex flex-col items-center px-4 py-6 lg:p-14 gap-6 lg:gap-16 lg:pb-28"
+      id="about"
+    >
       {/* Textures */}
       <div className="absolute inset-0 w-full h-full flex items-center justify-center opacity-5 pointer-events-none">
         {backgroundTextureUrl && (

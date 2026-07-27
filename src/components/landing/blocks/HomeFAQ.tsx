@@ -43,7 +43,7 @@ export const HomeFAQ: React.FC<FAQBlockType> = ({
   };
 
   return (
-    <section className="relative overflow-hidden min-h-screen py-10 lg:py-18">
+    <section className="relative overflow-hidden min-h-screen py-10 lg:py-18" id="faq">
       <div className="w-full relative flex flex-col gap-8 lg:gap-18">
         {/* Header Content */}
         <div className="flex flex-col items-start gap-4 px-4 lg:px-14">

@@ -55,7 +55,10 @@ export const HeroBlock: React.FC<HeroBlockType> = ({
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section className="relative overflow-hidden text-white min-h-screen flex flex-col-reverse lg:flex-row items-center pb-20 pt-8">
+    <section
+      className="relative overflow-hidden text-white min-h-screen flex flex-col-reverse lg:flex-row items-center pb-20 pt-8"
+      id="hero"
+    >
       <div className="absolute inset-0 w-full h-full pointer-events-none">
         <Image src={heroImageUrl} alt={heroImageAltText} fill className="object-cover blur-xs" />
       </div>

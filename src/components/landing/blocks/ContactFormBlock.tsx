@@ -98,7 +98,7 @@ export const ContactFormBlock: React.FC<ContactFormBlockType> = ({
   };
 
   return (
-    <section className="relative overflow-hidden min-h-screen pt-10 lg:py-18 lg:px-14">
+    <section className="relative overflow-hidden min-h-screen pt-10 lg:py-18 lg:px-14" id="contact">
       {/* Background */}
       <div className="absolute inset-0 w-full h-full pointer-events-none opacity-5">
         <Image src={backgroundImageUrl ?? ""} alt={backgroundAlt} fill className="object-cover" />

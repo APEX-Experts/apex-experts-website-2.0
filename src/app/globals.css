@@ -37,6 +37,9 @@
   --color-gray-700: var(--gray-700);
   --color-gray-900: var(--gray-900);
 
+  --color-footer-gray: var(--footer-gray);
+  --color-footer-bottom-gray: var(--footer-bottom-gray);
+
   --color-error-500: var(--error-500);
   --color-warning-500: var(--warning-500);
   --color-yellow-500: var(--yellow-500);
@@ -130,6 +133,9 @@
   --gray-500: #808080;
   --gray-700: #5b5b5b;
   --gray-900: #363636;
+
+  --footer-gray: #171717;
+  --footer-bottom-gray: #1d1d1d;
 
   --nile-100: #f1f7fb;
   --nile-200: #dbeaf6;

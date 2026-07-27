@@ -22,7 +22,10 @@ export const HeroMarqueeBlock: React.FC<ClipTextMarqueeBlockType> = ({
   const marqueeIconAlts = marqueeIcons?.map((icon) => getMediaAlt(icon.icon, "Image"));
 
   return (
-    <section className="relative overflow-hidden bg-background flex flex-col items-center px-4 py-6 lg:p-14 gap-6 lg:gap-16">
+    <section
+      className="relative overflow-hidden bg-background flex flex-col items-center px-4 py-6 lg:p-14 gap-6 lg:gap-16"
+      id="marquee"
+    >
       <div className="flex flex-col lg:flex-row items-center w-full gap-0 lg:gap-6 lg:justify-between ">
         {/* Logo Clipped */}
         <div className="min-w-130 h-30 lg:h-50 max-lg:scale-60 overflow-hidden relative">

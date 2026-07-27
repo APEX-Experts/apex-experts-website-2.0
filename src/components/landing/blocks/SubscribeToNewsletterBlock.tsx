@@ -53,7 +53,7 @@ export const SubscribeToNewsletterBlock: React.FC<SubscribeToNewsletterBlockType
   };
 
   return (
-    <section className="relative overflow-hidden ">
+    <section className="relative overflow-hidden " id="newsletter">
       <div className="w-full relative py-10 px-4 flex flex-col lg:flex-row lg:justify-between gap-8 lg:py-22.5 lg:px-14">
         <div className="absolute inset-0 w-full h-full pointer-events-none">
           <Image

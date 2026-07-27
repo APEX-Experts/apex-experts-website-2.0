@@ -24,7 +24,10 @@ export const HomeCapabilities: React.FC<HomeCapabilitiesBlockType> = ({
   const textureImageUrl = getMediaUrl(textureImage);
   const textureImageAlt = getMediaAlt(textureImage, "Texture");
   return (
-    <section className="relative overflow-hidden min-h-screen bg-white py-6 lg:pt-14 lg:pb-28">
+    <section
+      className="relative overflow-hidden min-h-screen bg-white py-6 lg:pt-14 lg:pb-28"
+      id="services"
+    >
       {/* Texture */}
       <div className="max-lg:hidden w-147.25 h-103.5 absolute top-0 inset-e-0 pointer-events-none">
         <Image src={textureImageUrl ?? ""} alt={textureImageAlt} fill className="object-cover" />

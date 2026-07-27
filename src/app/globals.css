@@ -304,4 +304,18 @@
   .blog-container-shadow {
     box-shadow: 0px 12px 32.5px 0px #0000000d;
   }
+
+  .cta-background {
+    box-shadow: 0px 12px 32.5px 0px #0000000d;
+  }
+
+  .cta-foreground {
+    box-shadow: 0px 0px 20px 0px #da676740;
+
+    backdrop-filter: blur(26.075002670288086px);
+  }
+
+  .input-blur {
+    backdrop-filter: blur(26.075002670288086px);
+  }
 }

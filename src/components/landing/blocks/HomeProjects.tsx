@@ -22,7 +22,7 @@ export const HomeProjects: React.FC<ProjectsBlockType> = ({
   const textureAlt = getMediaAlt(texture, "Texture");
 
   return (
-    <section className="relative overflow-hidden min-h-screen bg-gray-50 pt-10 lg:py-18">
+    <section className="relative overflow-hidden min-h-screen pt-10 lg:py-18">
       {backgroundImage && bgImageUrl && (
         <div className="absolute inset-0 pointer-events-none opacity-5">
           <Image src={bgImageUrl} alt={bgImageAlt} fill className="object-cover" />

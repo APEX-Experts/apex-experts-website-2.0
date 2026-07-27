@@ -73,6 +73,8 @@ export interface Config {
     projects: ProjectsBlock;
     technologies: TechnologiesBlock;
     faq: FAQBlock;
+    'home-blogs': HomeBlogsBlock;
+    'contact-form': ContactFormBlock;
   };
   collections: {
     users: User;
@@ -6242,6 +6244,50 @@ export interface FAQBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HomeBlogsBlock".
+ */
+export interface HomeBlogsBlock {
+  eyebrow?: string | null;
+  titleBeforeHighlight?: string | null;
+  highlightedTitle?: string | null;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  viewAllHref?: string | null;
+  viewAllText?: string | null;
+  viewArticleText?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'home-blogs';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactFormBlock".
+ */
+export interface ContactFormBlock {
+  eyebrow?: string | null;
+  titleBeforeHighlight?: string | null;
+  highlightedTitle?: string | null;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  formBackgroundImage?: (number | null) | Media;
+  formForegroundImage?: (number | null) | Media;
+  backgroundImage?: (number | null) | Media;
+  textureWavesImage?: (number | null) | Media;
+  formFields: {
+    name: string;
+    label: string;
+    type: 'text' | 'textarea' | 'email' | 'password' | 'phone';
+    placeholder?: string | null;
+    description?: string | null;
+    id?: string | null;
+  }[];
+  formSubmitButtonText?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contact-form';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -6283,26 +6329,10 @@ export interface Page {
     | TechnologiesBlock
     | FAQBlock
     | HomeBlogsBlock
+    | ContactFormBlock
   )[];
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HomeBlogsBlock".
- */
-export interface HomeBlogsBlock {
-  eyebrow?: string | null;
-  titleBeforeHighlight?: string | null;
-  highlightedTitle?: string | null;
-  titleAfterHighlight?: string | null;
-  subtitle?: string | null;
-  viewAllHref?: string | null;
-  viewAllText?: string | null;
-  viewArticleText?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'home-blogs';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6509,6 +6539,7 @@ export interface PagesSelect<T extends boolean = true> {
         technologies?: T | TechnologiesBlockSelect<T>;
         faq?: T | FAQBlockSelect<T>;
         'home-blogs'?: T | HomeBlogsBlockSelect<T>;
+        'contact-form'?: T | ContactFormBlockSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -6730,6 +6761,34 @@ export interface HomeBlogsBlockSelect<T extends boolean = true> {
   viewAllHref?: T;
   viewAllText?: T;
   viewArticleText?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactFormBlock_select".
+ */
+export interface ContactFormBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  titleBeforeHighlight?: T;
+  highlightedTitle?: T;
+  titleAfterHighlight?: T;
+  subtitle?: T;
+  formBackgroundImage?: T;
+  formForegroundImage?: T;
+  backgroundImage?: T;
+  textureWavesImage?: T;
+  formFields?:
+    | T
+    | {
+        name?: T;
+        label?: T;
+        type?: T;
+        placeholder?: T;
+        description?: T;
+        id?: T;
+      };
+  formSubmitButtonText?: T;
   id?: T;
   blockName?: T;
 }

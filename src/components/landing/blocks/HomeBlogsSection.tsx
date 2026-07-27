@@ -41,7 +41,7 @@ export const HomeBlogsSection = async ({
                 {eyebrow}
               </span>
             )}
-            <h2 className="font-semibold text-xl leading-[130%] tracking-[-7%] uppercase text-foreground md:text-3xl lg:text-5xl lg:max-w-lg">
+            <h2 className="font-montserrat font-semibold text-xl leading-[130%] tracking-[-7%] uppercase text-foreground md:text-3xl lg:text-5xl lg:max-w-lg">
               <span>{titleBeforeHighlight}</span>
               {highlightedTitle && <span className="text-primary-500"> {highlightedTitle}</span>}
               {titleAfterHighlight && <span> {titleAfterHighlight}</span>}

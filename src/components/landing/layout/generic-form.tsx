@@ -9,11 +9,14 @@ import {
   Field as UIField,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { CustomPhoneInput } from "@/components/ui/phone-input";
 import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/utils";
 import { DeepValue, FormValidateOrFn, Updater, useForm } from "@tanstack/react-form";
+import { ArrowUpRight } from "lucide-react";
+import "react-international-phone/style.css";
 import * as z from "zod";
 import { $ZodTypeInternals } from "zod/v4/core";
-import { cn } from "@/lib/utils";
 
 /**
  * Configuration for a single form field.
@@ -26,7 +29,7 @@ export type FieldConfig<T> = {
   /** The display label for the field */
   label: string;
   /** The input type (default: "text") */
-  type?: "text" | "textarea" | "email" | "password";
+  type?: "text" | "textarea" | "email" | "password" | "phone" | "tel";
   /** Optional placeholder text for the input */
   placeholder?: string;
   /** Optional descriptive text displayed below the field */
@@ -39,8 +42,8 @@ export type FieldConfig<T> = {
  * @template T - The type of the form data.
  */
 interface GenericFormProps<T> {
-  /** The title of the form */
-  title: string;
+  /** Optional title of the form */
+  title?: string;
   /** Optional description for the form */
   description?: string;
   /** The Zod validation schema for the form */
@@ -55,10 +58,14 @@ interface GenericFormProps<T> {
   submitText?: string;
   /** Optional global error message to display in the form */
   error?: string | null;
+  /** Optional global success message to display in the form */
+  success?: string | null;
   /** Optional callback function to reset the form */
   onReset?: () => void;
   /** Optional theme configuration (default: "light") */
   theme?: "dark" | "light";
+  /** Optional class names for the form */
+  className?: string;
 }
 
 /**
@@ -89,18 +96,22 @@ interface GenericFormProps<T> {
  */
 
 export function GenericForm<T>({
+  title,
   schema,
   defaultValues,
   onSubmit,
   fields,
   submitText = "Submit",
   error,
+  success,
   onReset,
   theme = "light",
+  className,
 }: GenericFormProps<T>) {
   const form = useForm({
     defaultValues,
     validators: {
+      onBlur: schema as FormValidateOrFn<T>,
       onChange: schema as FormValidateOrFn<T>,
     },
     onSubmit: async ({ value }) => {
@@ -111,10 +122,10 @@ export function GenericForm<T>({
 
   const isDark = theme === "dark";
   const inputClassName = isDark
-    ? "bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:border-cyan/50 focus-visible:ring-cyan/20"
+    ? "bg-transparent border-outline/30 input-blur text-white placeholder:text-white/30 focus-visible:border-white/50 focus-visible:ring-white/20 rounded-[0.75rem] h-16"
     : "bg-black/2 border-black/10 text-black placeholder:text-black/30 focus-visible:border-blue/50 focus-visible:ring-blue/20";
 
-  const labelClassName = isDark ? "text-white/70" : "text-black/70";
+  const labelClassName = isDark ? "text-white" : "text-black/70";
   const descriptionClassName = isDark ? "text-white/50" : "text-black/50";
 
   return (
@@ -124,7 +135,8 @@ export function GenericForm<T>({
         e.preventDefault();
         form.handleSubmit();
       }}
-      className="space-y-6"
+      className={cn("space-y-6", className)}
+      title={title}
     >
       {error && (
         <div className="rounded-lg border border-destructive/20 bg-destructive/10 p-3 text-sm text-destructive animate-in fade-in slide-in-from-top-1">
@@ -132,50 +144,97 @@ export function GenericForm<T>({
         </div>
       )}
 
-      <FieldGroup>
-        {fields.map((fieldConfig) => (
+      {success && (
+        <div className="rounded-lg border border-emerald-500/20 bg-emerald-500/10 p-3 text-sm text-emerald-400 animate-in fade-in slide-in-from-top-1">
+          <p className="font-medium">{success}</p>
+        </div>
+      )}
+
+      <FieldGroup className="">
+        {fields.map((fieldConfig, idx) => (
           <form.Field key={fieldConfig.name} name={fieldConfig.name}>
             {(field) => {
-              const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+              const isInvalid =
+                (field.state.meta.isTouched || field.state.meta.isBlurred) &&
+                !field.state.meta.isValid;
+              // Higher z-index for earlier fields so dropdowns render above subsequent fields
+              const fieldZIndex = fields.length - idx;
 
               return (
-                <UIField data-invalid={isInvalid}>
-                  <FieldLabel htmlFor={field.name} className={labelClassName}>
-                    {fieldConfig.label}
-                  </FieldLabel>
-
-                  {fieldConfig.type === "textarea" ? (
-                    <Textarea
-                      id={field.name}
-                      name={field.name}
-                      value={field.state.value as string}
-                      onBlur={field.handleBlur}
-                      onChange={(e) =>
-                        field.handleChange(
-                          e.target.value as Updater<DeepValue<T, Extract<keyof T, string>>>,
-                        )
-                      }
-                      placeholder={fieldConfig.placeholder}
-                      className={cn("min-h-24 resize-none", inputClassName)}
-                      aria-invalid={isInvalid}
-                    />
-                  ) : (
-                    <Input
-                      id={field.name}
-                      name={field.name}
-                      type={fieldConfig.type || "text"}
-                      value={field.state.value as string}
-                      onBlur={field.handleBlur}
-                      onChange={(e) =>
-                        field.handleChange(
-                          e.target.value as Updater<DeepValue<T, Extract<keyof T, string>>>,
-                        )
-                      }
-                      placeholder={fieldConfig.placeholder}
-                      className={inputClassName}
-                      aria-invalid={isInvalid}
-                    />
-                  )}
+                <UIField
+                  data-invalid={isInvalid}
+                  style={{ zIndex: fieldZIndex }}
+                  className="relative"
+                >
+                  <div className="relative flex flex-col justify-center">
+                    {fieldConfig.type === "textarea" ? (
+                      <Textarea
+                        id={field.name}
+                        name={field.name}
+                        value={(field.state.value as string) ?? ""}
+                        onBlur={field.handleBlur}
+                        onChange={(e) =>
+                          field.handleChange(
+                            e.target.value as Updater<DeepValue<T, Extract<keyof T, string>>>,
+                          )
+                        }
+                        placeholder={fieldConfig.placeholder || " "}
+                        className={cn("peer min-h-28 pt-6 pb-2 px-4 resize-none", inputClassName)}
+                        aria-invalid={isInvalid}
+                      />
+                    ) : fieldConfig.type === "phone" || fieldConfig.type === "tel" ? (
+                      <div
+                        className={cn(
+                          "peer flex items-center h-16 rounded-[0.75rem]",
+                          inputClassName,
+                        )}
+                      >
+                        <CustomPhoneInput
+                          id={field.name}
+                          name={field.name}
+                          value={(field.state.value as string) ?? ""}
+                          onBlur={field.handleBlur}
+                          onChange={(phoneVal) =>
+                            field.handleChange(
+                              phoneVal as Updater<DeepValue<T, Extract<keyof T, string>>>,
+                            )
+                          }
+                          placeholder={fieldConfig.placeholder || " "}
+                          isDark={isDark}
+                          isInvalid={isInvalid}
+                          className="pt-5 pb-1 pr-4 text-sm font-medium"
+                        />
+                      </div>
+                    ) : (
+                      <Input
+                        id={field.name}
+                        name={field.name}
+                        type={fieldConfig.type || "text"}
+                        value={(field.state.value as string) ?? ""}
+                        onBlur={field.handleBlur}
+                        onChange={(e) =>
+                          field.handleChange(
+                            e.target.value as Updater<DeepValue<T, Extract<keyof T, string>>>,
+                          )
+                        }
+                        placeholder={fieldConfig.placeholder || " "}
+                        className={cn("peer pt-5 pb-1 px-4 h-16", inputClassName)}
+                        aria-invalid={isInvalid}
+                      />
+                    )}
+                    <FieldLabel
+                      htmlFor={field.name}
+                      className={cn(
+                        "absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none transition-all duration-200 ease-in-out origin-left",
+                        "peer-focus:top-2 peer-focus:translate-y-0 peer-focus:text-xs",
+                        "peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-xs",
+                        fieldConfig.type === "textarea" && "peer-placeholder-shown:top-5",
+                        labelClassName,
+                      )}
+                    >
+                      {fieldConfig.label}
+                    </FieldLabel>
+                  </div>
 
                   {fieldConfig.description && (
                     <FieldDescription className={descriptionClassName}>
@@ -183,7 +242,7 @@ export function GenericForm<T>({
                     </FieldDescription>
                   )}
 
-                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                  {isInvalid ? <FieldError errors={field.state.meta.errors} /> : null}
                 </UIField>
               );
             }}
@@ -194,17 +253,21 @@ export function GenericForm<T>({
         orientation="horizontal"
         className="w-full justify-between max-md:flex-col max-md:*:w-full"
       >
-        <Button
-          type="button"
-          size="lg"
-          variant={"outline"}
-          onClick={() => {
-            form.reset();
-            onReset?.();
-          }}
-        >
-          Reset
-        </Button>
+        {onReset ? (
+          <Button
+            type="button"
+            size="lg"
+            variant={"outline"}
+            onClick={() => {
+              form.reset();
+              onReset?.();
+            }}
+          >
+            Reset
+          </Button>
+        ) : (
+          <div></div>
+        )}
 
         <form.Subscribe selector={(state) => [state.canSubmit, state.isSubmitting]}>
           {([canSubmit, isSubmitting]) => (
@@ -214,8 +277,14 @@ export function GenericForm<T>({
               disabled={!canSubmit || isSubmitting}
               size="lg"
               variant={"default"}
+              className="rounded-full p-3 gap-1.5 items-center h-auto cursor-pointer lg:px-4 lg:py-3.25 lg:gap-2"
             >
-              {isSubmitting ? "Submitting..." : submitText}
+              <span className="font-montserrat font-medium text-base text-white">
+                {isSubmitting ? "Submitting..." : submitText}
+              </span>
+              <span className="w-6 h-6 lg:w-7.5 lg:h-7.5 flex items-center justify-center bg-white rounded-full">
+                <ArrowUpRight className="text-primary-500 w-4.5 h-4.5 lg:w-5.5 lg:h-5.5" />
+              </span>
             </Button>
           )}
         </form.Subscribe>

@@ -8,6 +8,7 @@ import { HomeProjects } from "./HomeProjects";
 import { HomeTechnologies } from "./HomeTechnologies";
 import { HomeFAQ } from "./HomeFAQ";
 import { HomeBlogsSection } from "./HomeBlogsSection";
+import { ContactFormBlock } from "./ContactFormBlock";
 
 /**
  * Props for the RenderBlocks component.
@@ -56,6 +57,8 @@ export const RenderBlocks: React.FC<Props> = ({ blocks }) => {
             return <HomeFAQ key={key} {...block} />;
           case "home-blogs":
             return <HomeBlogsSection key={key} {...block} />;
+          case "contact-form":
+            return <ContactFormBlock key={key} {...block} />;
 
           default:
             return (

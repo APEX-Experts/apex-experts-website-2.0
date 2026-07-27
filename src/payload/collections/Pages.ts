@@ -7,6 +7,7 @@ import { Projects } from "../blocks/Projects";
 import { Technologies } from "../blocks/Technologies";
 import { FAQ } from "../blocks/FAQ";
 import { HomeBlogs } from "../blocks/HomeBlogs";
+import { ContactForm } from "../blocks/ContactForm";
 import { revalidatePageHook } from "../globals/revalidateHook";
 
 /**
@@ -70,6 +71,7 @@ export const Pages: CollectionConfig = {
         Technologies,
         FAQ,
         HomeBlogs,
+        ContactForm,
       ],
       required: true,
     },

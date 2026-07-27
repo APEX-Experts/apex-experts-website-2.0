@@ -20,6 +20,7 @@ import { Projects } from "./payload/blocks/Projects.ts";
 import { Technologies } from "./payload/blocks/Technologies.ts";
 import { FAQ } from "./payload/blocks/FAQ.ts";
 import { HomeBlogs } from "./payload/blocks/HomeBlogs.ts";
+import { ContactForm } from "./payload/blocks/ContactForm.ts";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -83,5 +84,15 @@ export default buildConfig({
         ]
       : []),
   ],
-  blocks: [Hero, ClipTextMarquee, HomeAbout, Capabilities, Projects, Technologies, FAQ],
+  blocks: [
+    Hero,
+    ClipTextMarquee,
+    HomeAbout,
+    Capabilities,
+    Projects,
+    Technologies,
+    FAQ,
+    HomeBlogs,
+    ContactForm,
+  ],
 });

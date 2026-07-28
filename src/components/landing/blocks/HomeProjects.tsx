@@ -5,6 +5,7 @@ import type { ProjectsBlock as ProjectsBlockType } from "@/payload-types";
 import Image from "next/image";
 import React from "react";
 import ProjectCard from "../layout/project-card";
+import { SectionReveal } from "@/components/ui/section-reveal";
 
 export const HomeProjects: React.FC<ProjectsBlockType> = ({
   eyebrow,
@@ -35,30 +36,35 @@ export const HomeProjects: React.FC<ProjectsBlockType> = ({
       )}
       <div className="w-full relative flex flex-col gap-8 lg:gap-18">
         {/* Content */}
-        <div className="flex flex-col items-start gap-4 px-4 lg:px-14">
-          <div className="flex flex-col gap-2 lg:gap-1">
-            {eyebrow && (
-              <span className="font-poppins text-sm leading-[130%] uppercase text-primary-500 lg:text-base">
-                {eyebrow}
-              </span>
-            )}
-            <h2 className="font-semibold text-xl leading-[130%] tracking-[-7%] uppercase text-foreground md:text-3xl lg:text-5xl lg:max-w-200">
-              {titleBeforeHighlight}
-              <span className="text-primary-500"> {highlightedTitle}</span>
-              {titleAfterHighlight && <span> {titleAfterHighlight}</span>}
-            </h2>
+        <SectionReveal direction="up" className="w-full">
+          <div className="flex flex-col items-start gap-4 px-4 lg:px-14">
+            <div className="flex flex-col gap-2 lg:gap-1">
+              {eyebrow && (
+                <span className="font-poppins text-sm leading-[130%] uppercase text-primary-500 lg:text-base">
+                  {eyebrow}
+                </span>
+              )}
+              <h2 className="font-semibold text-xl leading-[130%] tracking-[-7%] uppercase text-foreground md:text-3xl lg:text-5xl lg:max-w-200">
+                {titleBeforeHighlight}
+                <span className="text-primary-500"> {highlightedTitle}</span>
+                {titleAfterHighlight && <span> {titleAfterHighlight}</span>}
+              </h2>
+            </div>
+            <p className="font-poppins text-sm leading-[130%] text-gray-500 lg:text-base lg:leading-7.25 lg:max-w-4xl">
+              {subtitle}
+            </p>
           </div>
-          <p className="font-poppins text-sm leading-[130%] text-gray-500 lg:text-base lg:leading-7.25 lg:max-w-4xl">
-            {subtitle}
-          </p>
-        </div>
+        </SectionReveal>
         {/* Projects */}
-        <div className="flex flex-col gap-8 px-4 lg:px-14 ">
+        <div className="flex flex-col gap-8 px-4 lg:px-14">
           {projects?.map((project, index) => (
-            <ProjectCard key={project.id ?? index} project={project} />
+            <SectionReveal key={project.id ?? index} direction="up" delay={index * 0.15}>
+              <ProjectCard project={project} />
+            </SectionReveal>
           ))}
         </div>
       </div>
     </section>
   );
 };
+

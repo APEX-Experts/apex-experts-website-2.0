@@ -4,11 +4,8 @@ import { getMediaAlt, getMediaUrl } from "@/lib/utils";
 import type { HomeAboutBlock as HomeAboutBlockType } from "@/payload-types";
 import Image from "next/image";
 import React from "react";
+import { SectionReveal } from "@/components/ui/section-reveal";
 
-/**
- * HeroBlock Component - Displays high-impact landing hero section with main image,
- * title highlights, action CTAs, statistical key metrics, and optional image gallery.
- */
 export const HomeAboutBlock: React.FC<HomeAboutBlockType> = ({
   clipImage,
   titleBeforeHighlight,
@@ -56,7 +53,7 @@ export const HomeAboutBlock: React.FC<HomeAboutBlockType> = ({
       {/* Content */}
       <div className="flex flex-col-reverse lg:flex-row gap-4 lg:gap-2 lg:justify-start max-lg:items-center w-full">
         {/* Text */}
-        <div className="flex flex-col gap-4 lg:gap-5 items-start max-w-197">
+        <SectionReveal direction="right" className="flex flex-col gap-4 lg:gap-5 items-start max-w-197">
           {/* Heading */}
           <div className="flex flex-col gap-2 lg:gap-1">
             {/* Eyebrow */}
@@ -80,9 +77,9 @@ export const HomeAboutBlock: React.FC<HomeAboutBlockType> = ({
               </p>
             ))}
           </div>
-        </div>
+        </SectionReveal>
         {/* Clipped Image */}
-        <div className="max-h-70 md:max-h-90 lg:max-h-100 xl:max-h-none pointer-events-none">
+        <SectionReveal direction="left" delay={0.2} className="max-h-70 md:max-h-90 lg:max-h-100 xl:max-h-none pointer-events-none">
           <Image
             src={clipImageUrl ?? ""}
             alt={clipImageAlt}
@@ -90,29 +87,34 @@ export const HomeAboutBlock: React.FC<HomeAboutBlockType> = ({
             height={1047}
             className="w-full h-full object-cover"
           />
-        </div>
+        </SectionReveal>
       </div>
       {/* List */}
-      <div className="lg:max-w-7xl lg:mx-auto gap-4 lg:gap-8 flex flex-col">
-        {list?.map(({ description, title, eyebrow, id }, index) => (
-          <div
+      <div className="lg:max-w-7xl lg:mx-auto gap-4 lg:gap-8 flex flex-col w-full">
+        {list?.map(({ description, title, eyebrow: listEyebrow, id }, index) => (
+          <SectionReveal
             key={id ?? index}
-            className="flex flex-col lg:flex-row gap-2 lg:gap-8 lg:justify-between w-full border-b-[1.25px] border-outline/30 pb-4 lg:pb-8"
+            direction="up"
+            delay={0.1 * index}
+            className="w-full"
           >
-            <div className="flex flex-col lg:min-w-74">
-              <span className="text-sm lg:text-[15px] uppercase text-primary-500 font-poppins">
-                {eyebrow}
-              </span>
-              <h3 className="font-poppins font-medium text-xl leading-8 tracking-[-7%] uppercase text-foreground">
-                {title}
-              </h3>
+            <div className="flex flex-col lg:flex-row gap-2 lg:gap-8 lg:justify-between w-full border-b-[1.25px] border-outline/30 pb-4 lg:pb-8">
+              <div className="flex flex-col lg:min-w-74">
+                <span className="text-sm lg:text-[15px] uppercase text-primary-500 font-poppins">
+                  {listEyebrow}
+                </span>
+                <h3 className="font-poppins font-medium text-xl leading-8 tracking-[-7%] uppercase text-foreground">
+                  {title}
+                </h3>
+              </div>
+              <p className="lg:font-medium text-sm lg:text-base lg:leading-8 lg:tracking-[7%] uppercase text-gray-500">
+                {description}
+              </p>
             </div>
-            <p className="lg:font-medium text-sm lg:text-base lg:leading-8 lg:tracking-[7%] uppercase text-gray-500">
-              {description}
-            </p>
-          </div>
+          </SectionReveal>
         ))}
       </div>
     </section>
   );
 };
+

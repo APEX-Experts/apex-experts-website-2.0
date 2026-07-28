@@ -7,6 +7,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { Karantina } from "next/font/google";
+import { SectionReveal } from "@/components/ui/section-reveal";
+import { motion, AnimatePresence } from "motion/react";
 
 const karantina = Karantina({
   subsets: ["latin"],
@@ -46,28 +48,30 @@ export const HomeFAQ: React.FC<FAQBlockType> = ({
     <section className="relative overflow-hidden min-h-screen py-10 lg:py-18" id="faq">
       <div className="w-full relative flex flex-col gap-8 lg:gap-18">
         {/* Header Content */}
-        <div className="flex flex-col items-start gap-4 px-4 lg:px-14">
-          <div className="flex flex-col gap-2 lg:gap-1">
-            {eyebrow && (
-              <span className="font-poppins text-sm leading-[130%] uppercase text-primary-500 lg:text-base">
-                {eyebrow}
-              </span>
+        <SectionReveal direction="up" className="w-full">
+          <div className="flex flex-col items-start gap-4 px-4 lg:px-14">
+            <div className="flex flex-col gap-2 lg:gap-1">
+              {eyebrow && (
+                <span className="font-poppins text-sm leading-[130%] uppercase text-primary-500 lg:text-base">
+                  {eyebrow}
+                </span>
+              )}
+              <h2 className="font-semibold text-xl leading-[130%] tracking-[-7%] uppercase text-foreground md:text-3xl lg:text-5xl lg:max-w-195">
+                <span>{titleBeforeHighlight}</span>
+                {highlightedTitle && <span className="text-primary-500"> {highlightedTitle}</span>}
+                {titleAfterHighlight && <span> {titleAfterHighlight}</span>}
+              </h2>
+            </div>
+            {subtitle && (
+              <p className="font-poppins text-sm leading-[130%] text-gray-500 lg:text-base lg:leading-7.25 lg:max-w-230">
+                {subtitle}
+              </p>
             )}
-            <h2 className="font-semibold text-xl leading-[130%] tracking-[-7%] uppercase text-foreground md:text-3xl lg:text-5xl lg:max-w-195">
-              <span>{titleBeforeHighlight}</span>
-              {highlightedTitle && <span className="text-primary-500"> {highlightedTitle}</span>}
-              {titleAfterHighlight && <span> {titleAfterHighlight}</span>}
-            </h2>
           </div>
-          {subtitle && (
-            <p className="font-poppins text-sm leading-[130%] text-gray-500 lg:text-base lg:leading-7.25 lg:max-w-230">
-              {subtitle}
-            </p>
-          )}
-        </div>
+        </SectionReveal>
 
         {/* Main Section Layout: Questions & CTA */}
-        <div className="lg:px-14">
+        <SectionReveal direction="up" delay={0.2} className="lg:px-14">
           <div className="bg-white relative z-20 px-4 py-10 lg:px-10 lg:py-14 flex flex-col lg:flex-row gap-8 items-center lg:items-start lg:rounded-[1.5rem]">
             {/* Cta */}
             <div className="flex flex-col gap-8 w-full lg:max-w-120">
@@ -93,22 +97,24 @@ export const HomeFAQ: React.FC<FAQBlockType> = ({
                   </p>
                 )}
                 {ctaButtonText && (
-                  <Link
-                    href={"/contact"}
-                    className="mt-4 bg-primary-500 text-white py-2 px-4 rounded-full flex flex-row items-center gap-4 w-full lg:w-fit max-lg:justify-center"
-                  >
-                    <span className="text-base tracking-normal font-poppins">{ctaButtonText}</span>
-                    <div className="w-8 h-8 rounded-full border border-white flex items-center justify-center">
-                      <ArrowUpRight className="w-5 h-5 text-white" />
-                    </div>
-                  </Link>
+                  <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="w-full lg:w-fit">
+                    <Link
+                      href={"/contact"}
+                      className="mt-4 bg-primary-500 text-white py-2 px-4 rounded-full flex flex-row items-center gap-4 w-full lg:w-fit max-lg:justify-center"
+                    >
+                      <span className="text-base tracking-normal font-poppins">{ctaButtonText}</span>
+                      <div className="w-8 h-8 rounded-full border border-white flex items-center justify-center">
+                        <ArrowUpRight className="w-5 h-5 text-white" />
+                      </div>
+                    </Link>
+                  </motion.div>
                 )}
               </div>
             </div>
             {/* Questions */}
             <div className="flex flex-col gap-4 w-full">
               {questions?.map(({ answer, question, id }, index) => (
-                <button
+                <div
                   key={id ?? index}
                   className={cn(
                     "w-full border-b border-outline/30 last:border-none py-4 cursor-pointer",
@@ -134,7 +140,7 @@ export const HomeFAQ: React.FC<FAQBlockType> = ({
                     <div className="flex flex-row justify-between gap-2 w-full items-start">
                       <span
                         className={cn(
-                          "font-display  leading-[130%] text-start",
+                          "font-display leading-[130%] text-start transition-colors duration-200",
                           index === openIndex
                             ? "text-primary-500 text-xl lg:text-[1.5rem] font-bold"
                             : "text-foreground text-lg font-semibold",
@@ -151,16 +157,26 @@ export const HomeFAQ: React.FC<FAQBlockType> = ({
                       </div>
                     </div>
                   </div>
-                  {index === openIndex && (
-                    <p className="font-poppins text-sm lg:text-base leading-[130%] lg:leading-6.25 text-gray-500 mt-6 text-start">
-                      {answer}
-                    </p>
-                  )}
-                </button>
+                  <AnimatePresence initial={false}>
+                    {index === openIndex && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                        className="overflow-hidden"
+                      >
+                        <p className="font-poppins text-sm lg:text-base leading-[130%] lg:leading-6.25 text-gray-500 mt-6 text-start">
+                          {answer}
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
               ))}
             </div>
           </div>
-        </div>
+        </SectionReveal>
       </div>
       {/* Background */}
       <div className="absolute inset-0 w-full h-full pointer-events-none opacity-5 z-0">
@@ -184,3 +200,4 @@ export const HomeFAQ: React.FC<FAQBlockType> = ({
     </section>
   );
 };
+

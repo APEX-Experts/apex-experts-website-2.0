@@ -64,9 +64,27 @@ export const HeroBlock: React.FC<HeroBlockType> = ({
       </div>
       <div className="absolute inset-0 w-full h-full pointer-events-none hero-gradient"></div>
       <div className="flex flex-col items-center h-full relative w-full lg:max-w-[55%] px-4 lg:px-10 lg:mt-20">
-        <div className="flex flex-col gap-8 sm:gap-12 h-full items-start w-full">
+        <motion.div
+          className="flex flex-col gap-8 sm:gap-12 h-full items-start w-full"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                staggerChildren: 0.15,
+              },
+            },
+          }}
+        >
           <div className="flex flex-col gap-6 sm:gap-8 items-start w-full">
-            <h2 className="font-semibold text-2xl sm:text-3xl lg:text-5xl lg:leading-[120%] tracking-tighter lg:tracking-[0.03rem] uppercase max-lg:text-center wrap-break-word w-full">
+            <motion.h2
+              variants={{
+                hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 30 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
+              }}
+              className="font-semibold text-2xl sm:text-3xl lg:text-5xl lg:leading-[120%] tracking-tighter lg:tracking-[0.03rem] uppercase max-lg:text-center wrap-break-word w-full"
+            >
               <span className="text-white">{titleBeforeHighlight}</span>{" "}
               <span className="text-primary-500 relative inline-block">
                 {highlightedTitle}{" "}
@@ -75,37 +93,57 @@ export const HeroBlock: React.FC<HeroBlockType> = ({
               {titleAfterHighlight && titleAfterHighlight.length > 0 && (
                 <span className="text-white"> {titleAfterHighlight}</span>
               )}
-            </h2>
-            <p className="text-sm sm:text-base lg:text-lg max-lg:text-center lg:leading-6 text-white/70">
+            </motion.h2>
+            <motion.p
+              variants={{
+                hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 20 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
+              }}
+              className="text-sm sm:text-base lg:text-lg max-lg:text-center lg:leading-6 text-white/70"
+            >
               {subtitle}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-5 w-full max-lg:justify-center">
-              <Link
-                href={ctaPrimaryHref}
-                className="w-full sm:w-auto text-sm lg:text-base px-3 lg:px-4 py-3.25 flex flex-row gap-1.5 lg:gap-2 items-center justify-center rounded-full bg-primary-500 hover:bg-primary-700 text-primary-500 border border-transparent transition-all duration-300"
-              >
-                <span className="font-medium text-white">{ctaPrimaryText}</span>
-                <div className="w-6 h-6 lg:w-7.5 lg:h-7.5 bg-white rounded-full flex items-center justify-center">
-                  <ArrowUpRight
-                    className="w-4 h-4 lg:w-5.5 lg:h-5.5 text-primary-500"
-                    width={"22"}
-                    height={"22"}
-                  />
-                </div>
-              </Link>
-              <Link
-                href={ctaSecondaryHref}
-                className=" w-full sm:w-auto text-sm lg:text-base px-3 lg:px-4 py-3.25 flex flex-row gap-1.5 lg:gap-2 items-center justify-center rounded-full bg-transparent border border-primary-500 text-primary-500 sm:min-w-55 hover:bg-white transition-all duration-300"
-              >
-                {ctaSecondaryText}
-              </Link>
-            </div>
+            </motion.p>
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 20 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
+              }}
+              className="flex flex-col sm:flex-row gap-3 sm:gap-5 w-full max-lg:justify-center"
+            >
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="w-full sm:w-auto">
+                <Link
+                  href={ctaPrimaryHref}
+                  className="w-full sm:w-auto text-sm lg:text-base px-3 lg:px-4 py-3.25 flex flex-row gap-1.5 lg:gap-2 items-center justify-center rounded-full bg-primary-500 hover:bg-primary-700 text-primary-500 border border-transparent transition-all duration-300"
+                >
+                  <span className="font-medium text-white">{ctaPrimaryText}</span>
+                  <div className="w-6 h-6 lg:w-7.5 lg:h-7.5 bg-white rounded-full flex items-center justify-center">
+                    <ArrowUpRight
+                      className="w-4 h-4 lg:w-5.5 lg:h-5.5 text-primary-500"
+                      width={"22"}
+                      height={"22"}
+                    />
+                  </div>
+                </Link>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="w-full sm:w-auto">
+                <Link
+                  href={ctaSecondaryHref}
+                  className="w-full sm:w-auto text-sm lg:text-base px-3 lg:px-4 py-3.25 flex flex-row gap-1.5 lg:gap-2 items-center justify-center rounded-full bg-transparent border border-primary-500 text-primary-500 sm:min-w-55 hover:bg-white transition-all duration-300"
+                >
+                  {ctaSecondaryText}
+                </Link>
+              </motion.div>
+            </motion.div>
           </div>
           <div className="flex flex-col gap-6 sm:gap-10 w-full items-start">
             {stats &&
               stats.length > 0 &&
               stats.map((stat, index) => (
-                <div
+                <motion.div
+                  variants={{
+                    hidden: { opacity: 0, x: shouldReduceMotion ? 0 : -20 },
+                    visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
+                  }}
                   className="flex flex-row items-center w-full border-s-4 border-primary-500 ps-3 sm:ps-5 gap-3"
                   key={index}
                 >
@@ -115,10 +153,10 @@ export const HeroBlock: React.FC<HeroBlockType> = ({
                   <span className="text-white text-xs sm:text-base lg:text-xl uppercase max-w-88 wrap-break-word">
                     {stat.title}
                   </span>
-                </div>
+                </motion.div>
               ))}
           </div>
-        </div>
+        </motion.div>
       </div>
       <div className="max-lg:mt-48 max-lg:mb-64 relative h-full flex-1 flex flex-col items-center scale-50 lg:scale-100 transition-transform origin-top lg:origin-center fade-in">
         <LogoMarkSvg

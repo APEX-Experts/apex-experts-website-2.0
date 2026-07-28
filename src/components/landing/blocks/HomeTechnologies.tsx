@@ -6,6 +6,8 @@ import type { TechnologiesBlock as TechnologiesBlockType } from "@/payload-types
 import { Minus, Plus } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
+import { SectionReveal } from "@/components/ui/section-reveal";
+import { motion, AnimatePresence } from "motion/react";
 
 export const HomeTechnologies: React.FC<TechnologiesBlockType> = ({
   eyebrow,
@@ -48,28 +50,30 @@ export const HomeTechnologies: React.FC<TechnologiesBlockType> = ({
       {/* Text */}
       <div className="flex flex-col gap-8 lg:gap-18">
         {/* Heading */}
-        <div className="px-4 lg:px-14">
-          {/* Eyebrow */}
-          {eyebrow && (
-            <span className="font-poppins text-sm leading-[130%] uppercase text-primary-500 lg:text-base">
-              {eyebrow}
-            </span>
-          )}
-          {/* Heading */}
-          <h2 className="font-semibold text-xl leading-[130%] tracking-[-7%] text-foreground md:text-3xl lg:text-5xl mt-2 lg:mt-1 uppercase lg:max-w-3xl">
-            <span>{titleBeforeHighlight}</span>
-            <span className="text-primary-500"> {highlightedTitle}</span>
-            {titleAfterHighlight && <span> {titleAfterHighlight}</span>}
-          </h2>
-          {/* Subtitle */}
-          {subtitle && (
-            <p className="mt-4 font-poppins text-sm leading-[130%] text-gray-500 lg:text-base lg:leading-7.25 lg:max-w-4xl">
-              {subtitle}
-            </p>
-          )}
-        </div>
+        <SectionReveal direction="up" className="px-4 lg:px-14">
+          <div>
+            {/* Eyebrow */}
+            {eyebrow && (
+              <span className="font-poppins text-sm leading-[130%] uppercase text-primary-500 lg:text-base">
+                {eyebrow}
+              </span>
+            )}
+            {/* Heading */}
+            <h2 className="font-semibold text-xl leading-[130%] tracking-[-7%] text-foreground md:text-3xl lg:text-5xl mt-2 lg:mt-1 uppercase lg:max-w-3xl">
+              <span>{titleBeforeHighlight}</span>
+              <span className="text-primary-500"> {highlightedTitle}</span>
+              {titleAfterHighlight && <span> {titleAfterHighlight}</span>}
+            </h2>
+            {/* Subtitle */}
+            {subtitle && (
+              <p className="mt-4 font-poppins text-sm leading-[130%] text-gray-500 lg:text-base lg:leading-7.25 lg:max-w-4xl">
+                {subtitle}
+              </p>
+            )}
+          </div>
+        </SectionReveal>
         {/* Services */}
-        <div className="lg:px-14">
+        <SectionReveal direction="up" delay={0.2} className="lg:px-14">
           <div className="flex flex-col lg:flex-row max-lg:gap-4 relative border border-outline/30 lg:rounded-[2.5rem] overflow-hidden">
             {/* Background */}
             <div className="absolute inset-0 w-full h-full pointer-events-none">
@@ -87,7 +91,7 @@ export const HomeTechnologies: React.FC<TechnologiesBlockType> = ({
                   <div
                     key={id ?? index}
                     className={cn(
-                      "w-full border-b border-outline/30 pb-3 lg:pb-6 cursor-pointer",
+                      "w-full border-b border-outline/30 pb-3 lg:pb-6 cursor-pointer transition-colors duration-200",
                       index !== activeServiceIndex && "border-dashed last:border-none",
                     )}
                     onClick={() => handleChangeActiveServiceIndex(index)}
@@ -132,34 +136,48 @@ export const HomeTechnologies: React.FC<TechnologiesBlockType> = ({
               <div className="absolute inset-0 w-full h-full bg-black/30"></div>
               {/* Content */}
               <div className="rounded-[1.5rem] lg:rounded-[3rem] technologies-border bg-black/50 p-6 flex flex-col gap-8 relative">
-                {activeService?.technologies?.map(({ icon, title, id, subtitle }, index) => (
-                  <div
-                    key={id ?? index}
-                    className="w-full pb-4 border-b border-white/30 last:border-none group hover:border-white transition-colors duration-300"
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeServiceIndex}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -15 }}
+                    transition={{ duration: 0.3 }}
+                    className="flex flex-col gap-8 w-full"
                   >
-                    <div className="flex flex-row items-center gap-3.5">
-                      {/* Icon */}
-                      <div className="w-12 h-12 lg:w-18 lg:h-18 flex items-center justify-center">
-                        <LucideIcon
-                          name={icon ?? "Database"}
-                          className="w-10 h-10 lg:w-12 lg:h-12 text-white/70 group-hover:text-white transition-colors duration-300"
-                        />
-                      </div>
-                      <div className="flex flex-col gap-1">
-                        <span className="font-display font-semibold leading-[130%] text-base uppercase lg:text-[1.375rem] text-white group-hover:text-white transition-colors duration-300">
-                          {title}
-                        </span>
-                        <span className="text-white/70 font-poppins text-xs leading-[130%] uppercase lg:text-base">
-                          {subtitle}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                    {activeService?.technologies?.map(({ icon, title, id, subtitle }, index) => (
+                      <motion.div
+                        key={id ?? index}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.3, delay: index * 0.05 }}
+                        className="w-full pb-4 border-b border-white/30 last:border-none group hover:border-white transition-colors duration-300"
+                      >
+                        <div className="flex flex-row items-center gap-3.5">
+                          {/* Icon */}
+                          <div className="w-12 h-12 lg:w-18 lg:h-18 flex items-center justify-center">
+                            <LucideIcon
+                              name={icon ?? "Database"}
+                              className="w-10 h-10 lg:w-12 lg:h-12 text-white/70 group-hover:text-white transition-colors duration-300"
+                            />
+                          </div>
+                          <div className="flex flex-col gap-1">
+                            <span className="font-display font-semibold leading-[130%] text-base uppercase lg:text-[1.375rem] text-white group-hover:text-white transition-colors duration-300">
+                              {title}
+                            </span>
+                            <span className="text-white/70 font-poppins text-xs leading-[130%] uppercase lg:text-base">
+                              {subtitle}
+                            </span>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                </AnimatePresence>
               </div>
             </div>
           </div>
-        </div>
+        </SectionReveal>
       </div>
       {/* Background */}
       <div className="absolute inset-0 w-full h-full pointer-events-none">
@@ -182,3 +200,4 @@ export const HomeTechnologies: React.FC<TechnologiesBlockType> = ({
     </section>
   );
 };
+

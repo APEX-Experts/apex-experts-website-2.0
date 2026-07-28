@@ -5,6 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { SectionReveal } from "@/components/ui/section-reveal";
 
 export const HomeBlogsSection = async ({
   eyebrow,
@@ -37,29 +38,31 @@ export const HomeBlogsSection = async ({
     >
       <div className="w-full relative flex flex-col gap-8">
         {/* Header Content */}
-        <div className="flex flex-col items-start gap-4">
-          <div className="flex flex-col gap-2 lg:gap-1">
-            {eyebrow && (
-              <span className="font-poppins text-sm leading-[130%] uppercase text-primary-500 lg:text-base">
-                {eyebrow}
-              </span>
+        <SectionReveal direction="up" className="w-full">
+          <div className="flex flex-col items-start gap-4">
+            <div className="flex flex-col gap-2 lg:gap-1">
+              {eyebrow && (
+                <span className="font-poppins text-sm leading-[130%] uppercase text-primary-500 lg:text-base">
+                  {eyebrow}
+                </span>
+              )}
+              <h2 className="font-montserrat font-semibold text-xl leading-[130%] tracking-[-7%] uppercase text-foreground md:text-3xl lg:text-5xl lg:max-w-lg">
+                <span>{titleBeforeHighlight}</span>
+                {highlightedTitle && <span className="text-primary-500"> {highlightedTitle}</span>}
+                {titleAfterHighlight && <span> {titleAfterHighlight}</span>}
+              </h2>
+            </div>
+            {subtitle && (
+              <p className="font-poppins text-sm leading-[130%] text-gray-500 lg:text-base lg:leading-7.25 lg:max-w-4xl">
+                {subtitle}
+              </p>
             )}
-            <h2 className="font-montserrat font-semibold text-xl leading-[130%] tracking-[-7%] uppercase text-foreground md:text-3xl lg:text-5xl lg:max-w-lg">
-              <span>{titleBeforeHighlight}</span>
-              {highlightedTitle && <span className="text-primary-500"> {highlightedTitle}</span>}
-              {titleAfterHighlight && <span> {titleAfterHighlight}</span>}
-            </h2>
           </div>
-          {subtitle && (
-            <p className="font-poppins text-sm leading-[130%] text-gray-500 lg:text-base lg:leading-7.25 lg:max-w-4xl">
-              {subtitle}
-            </p>
-          )}
-        </div>
+        </SectionReveal>
 
         {/* 6 Articles Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-13.5 justify-between bg-white rounded-[1.5rem] border border-outline/30 blog-container-shadow px-4 lg:px-10 py-8 lg:py-14">
-          {posts.map((post) => {
+          {posts.map((post, index) => {
             const featuredMedia =
               typeof post.featuredImage === "object" ? (post.featuredImage as Media) : null;
             const imageUrl = getMediaUrl(featuredMedia);
@@ -79,71 +82,75 @@ export const HomeBlogsSection = async ({
             const href = `/blog/${post.slug}`;
 
             return (
-              <div
-                key={post.id}
-                className="group flex flex-col rounded-[0.75rem] border border-outline/30 bg-white pb-4 shadow-sm hover:shadow-md transition-all duration-300"
-              >
-                {/* Article Image */}
-                <div className="relative w-full h-52 rounded-t-[0.75rem] overflow-hidden mb-5 bg-gray-100">
-                  {imageUrl ? (
-                    <Image
-                      src={imageUrl}
-                      alt={imageAlt}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">
-                      No Image
-                    </div>
-                  )}
-                </div>
-
-                <div className="pb-6 mb-1.5 flex flex-col gap-1 border-b border-outline/30 px-3">
-                  {/* Tags */}
-                  <span className="text-xs font-poppins text-primary-900 leading-[130%] tracking-[0.3px]">
-                    {post.tags?.join(" / ")}
-                  </span>
-                  {/* Article Title */}
-                  <h3 className="font-poppins font-semibold text-sm lg:text-base leading-[130%] lg:leading-4.75 text-foreground">
-                    {post.title}
-                  </h3>
-                </div>
-
-                {/* Author & Date */}
-                <div className="px-3 pt-2 font-poppins text-sm leading-[130%] tracking-[1px] text-gray-300">
-                  <span>{authorName}</span>
-                  {formattedDate && <span> | {formattedDate}</span>}
-                </div>
-
-                {/* CTA Link */}
-                <Link
-                  href={href}
-                  className="rounded-full mx-3 mt-6 border border-outline/30 hover:border-foreground transition-colors duration-300 py-2 px-8 flex items-center justify-center gap-2"
+              <SectionReveal key={post.id} direction="up" delay={index * 0.1}>
+                <div
+                  className="group flex flex-col rounded-[0.75rem] border border-outline/30 bg-white pb-4 shadow-sm hover:shadow-md transition-all duration-300 h-full"
                 >
-                  <span className="font-montserrat text-foreground font-medium text-sm lg:text-base">
-                    {viewArticleText}
-                  </span>
-                  <div className="text-foreground border border-foreground rounded-full p-1">
-                    <ArrowUpRight className="w-4 h-4" />
+                  {/* Article Image */}
+                  <div className="relative w-full h-52 rounded-t-[0.75rem] overflow-hidden mb-5 bg-gray-100">
+                    {imageUrl ? (
+                      <Image
+                        src={imageUrl}
+                        alt={imageAlt}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">
+                        No Image
+                      </div>
+                    )}
                   </div>
-                </Link>
-              </div>
+
+                  <div className="pb-6 mb-1.5 flex flex-col gap-1 border-b border-outline/30 px-3 flex-1">
+                    {/* Tags */}
+                    <span className="text-xs font-poppins text-primary-900 leading-[130%] tracking-[0.3px]">
+                      {post.tags?.join(" / ")}
+                    </span>
+                    {/* Article Title */}
+                    <h3 className="font-poppins font-semibold text-sm lg:text-base leading-[130%] lg:leading-4.75 text-foreground">
+                      {post.title}
+                    </h3>
+                  </div>
+
+                  {/* Author & Date */}
+                  <div className="px-3 pt-2 font-poppins text-sm leading-[130%] tracking-[1px] text-gray-300">
+                    <span>{authorName}</span>
+                    {formattedDate && <span> | {formattedDate}</span>}
+                  </div>
+
+                  {/* CTA Link */}
+                  <Link
+                    href={href}
+                    className="rounded-full mx-3 mt-6 border border-outline/30 hover:border-foreground transition-colors duration-300 py-2 px-8 flex items-center justify-center gap-2"
+                  >
+                    <span className="font-montserrat text-foreground font-medium text-sm lg:text-base">
+                      {viewArticleText}
+                    </span>
+                    <div className="text-foreground border border-foreground rounded-full p-1">
+                      <ArrowUpRight className="w-4 h-4" />
+                    </div>
+                  </Link>
+                </div>
+              </SectionReveal>
             );
           })}
         </div>
         {/* View All Blogs Bar (matching View All Services style) */}
-        <div className="w-full px-4 lg:px-14 flex flex-row items-center gap-6">
-          <div className="flex-1 h-px bg-error-500/24"></div>
-          <Link
-            href={viewAllHref || "/blog"}
-            className="font-montserrat text-primary-500 text-xs md:text-base lg:text-lg hover:underline"
-          >
-            {viewAllText}
-          </Link>
-          <div className="flex-1 h-px bg-error-500/24"></div>
-        </div>
+        <SectionReveal direction="up" delay={0.2} className="w-full">
+          <div className="w-full px-4 lg:px-14 flex flex-row items-center gap-6">
+            <div className="flex-1 h-px bg-error-500/24"></div>
+            <Link
+              href={viewAllHref || "/blog"}
+              className="font-montserrat text-primary-500 text-xs md:text-base lg:text-lg hover:underline"
+            >
+              {viewAllText}
+            </Link>
+            <div className="flex-1 h-px bg-error-500/24"></div>
+          </div>
+        </SectionReveal>
       </div>
     </section>
   );
 };
+

@@ -1,5 +1,6 @@
 "use client";
 
+import { Eyebrow, HighlightedTitle } from "@/components/ui/highlighted-title";
 import { getMediaAlt, getMediaUrl } from "@/lib/utils";
 import type { HomeAboutBlock as HomeAboutBlockType } from "@/payload-types";
 import Image from "next/image";
@@ -56,18 +57,12 @@ export const HomeAboutBlock: React.FC<HomeAboutBlockType> = ({
         <SectionReveal direction="right" className="flex flex-col gap-4 lg:gap-5 items-start max-w-197">
           {/* Heading */}
           <div className="flex flex-col gap-2 lg:gap-1">
-            {/* Eyebrow */}
-            {eyebrow && (
-              <span className="text-sm lg:text-base font-poppins uppercase text-primary-500">
-                {eyebrow}
-              </span>
-            )}
-            {/* Title */}
-            <h2 className="font-display font-semibold text-xl md:text-3xl lg:text-5xl lg:leading-[130%] lg:tracking-[-7%] uppercase text-foreground">
-              {titleBeforeHighlight}
-              {highlightedTitle && <span className="text-primary-500"> {highlightedTitle}</span>}
-              {titleAfterHighlight && <span> {titleAfterHighlight}</span>}
-            </h2>
+            <Eyebrow text={eyebrow} />
+            <HighlightedTitle
+              titleBeforeHighlight={titleBeforeHighlight}
+              highlightedTitle={highlightedTitle}
+              titleAfterHighlight={titleAfterHighlight}
+            />
           </div>
           {/* Subtitle */}
           <div className="text-sm leading-[100%] text-gray-500 lg:text-base lg:leading-7.25">

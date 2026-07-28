@@ -3,6 +3,7 @@
 import type { CapabilitiesBlock as HomeCapabilitiesBlockType } from "@/payload-types";
 import React from "react";
 import Capabilities from "../../layout/capabilities";
+import { Eyebrow, HighlightedTitle } from "@/components/ui/highlighted-title";
 import { getMediaAlt, getMediaUrl } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -33,15 +34,13 @@ export const HomeCapabilities: React.FC<HomeCapabilitiesBlockType> = ({
         <SectionReveal direction="up" className="w-full">
           <div className="flex flex-col gap-4 px-4 lg:px-14">
             <div className="flex flex-col gap-2 lg:gap-1">
-              {eyebrow && (
-                <span className="font-poppins text-sm lg:text-base leading-[130%] uppercase text-primary-500">
-                  {eyebrow}
-                </span>
-              )}
-              <h2 className="lg:max-w-3xl font-display text-xl md:text-3xl lg:text-5xl font-semibold leading-[130%] tracking-[-7%] uppercase text-foreground">
-                {titleBeforeHighlight} <span className="text-primary-500">{highlightedTitle} </span>
-                {titleAfterHighlight}
-              </h2>
+              <Eyebrow text={eyebrow} />
+              <HighlightedTitle
+                titleBeforeHighlight={titleBeforeHighlight}
+                highlightedTitle={highlightedTitle}
+                titleAfterHighlight={titleAfterHighlight}
+                className="lg:max-w-3xl font-display"
+              />
             </div>
             <p className="font-poppins text-sm leading-[130%] text-gray-500 lg:text-base lg:leading-7.25 lg:max-w-4xl">
               {subtitle}

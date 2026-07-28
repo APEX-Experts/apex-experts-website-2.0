@@ -1,5 +1,6 @@
 "use client";
 
+import { Eyebrow, HighlightedTitle } from "@/components/ui/highlighted-title";
 import { LucideIcon } from "@/components/ui/lucide-icon";
 import { cn, getMediaAlt, getMediaUrl } from "@/lib/utils";
 import type { TechnologiesBlock as TechnologiesBlockType } from "@/payload-types";
@@ -51,26 +52,20 @@ export const HomeTechnologies: React.FC<TechnologiesBlockType> = ({
       <div className="flex flex-col gap-8 lg:gap-18">
         {/* Heading */}
         <SectionReveal direction="up" className="px-4 lg:px-14">
-          <div>
-            {/* Eyebrow */}
-            {eyebrow && (
-              <span className="font-poppins text-sm leading-[130%] uppercase text-primary-500 lg:text-base">
-                {eyebrow}
-              </span>
-            )}
-            {/* Heading */}
-            <h2 className="font-semibold text-xl leading-[130%] tracking-[-7%] text-foreground md:text-3xl lg:text-5xl mt-2 lg:mt-1 uppercase lg:max-w-3xl">
-              <span>{titleBeforeHighlight}</span>
-              <span className="text-primary-500"> {highlightedTitle}</span>
-              {titleAfterHighlight && <span> {titleAfterHighlight}</span>}
-            </h2>
-            {/* Subtitle */}
+          <div className="flex flex-col gap-2 lg:gap-1">
+            <Eyebrow text={eyebrow} />
+            <HighlightedTitle
+              titleBeforeHighlight={titleBeforeHighlight}
+              highlightedTitle={highlightedTitle}
+              titleAfterHighlight={titleAfterHighlight}
+              className="lg:max-w-xl"
+            />
+          </div>  {/* Subtitle */}
             {subtitle && (
               <p className="mt-4 font-poppins text-sm leading-[130%] text-gray-500 lg:text-base lg:leading-7.25 lg:max-w-4xl">
                 {subtitle}
               </p>
             )}
-          </div>
         </SectionReveal>
         {/* Services */}
         <SectionReveal direction="up" delay={0.2} className="lg:px-14">

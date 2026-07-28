@@ -78,6 +78,7 @@ export interface Config {
     'contact-form': ContactFormBlock;
     'subscribe-to-newsletter': SubscribeToNewsletterBlock;
     'marquee-icons': MarqueeIconsBlock;
+    'about-who-we-are': AboutWhoWeAreBlock;
   };
   collections: {
     users: User;
@@ -6340,6 +6341,44 @@ export interface MarqueeIconsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutWhoWeAreBlock".
+ */
+export interface AboutWhoWeAreBlock {
+  eyebrow?: string | null;
+  titleBeforeHighlight: string;
+  highlightedTitle: string;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  stats?:
+    | {
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  cards?:
+    | {
+        eyebrow?: string | null;
+        title: string;
+        description?: string | null;
+        image?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  marqueeIcons?:
+    | {
+        icon: number | Media;
+        alt?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  backgroundImage?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'about-who-we-are';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -6385,6 +6424,7 @@ export interface Page {
     | ContactFormBlock
     | SubscribeToNewsletterBlock
     | MarqueeIconsBlock
+    | AboutWhoWeAreBlock
   )[];
   updatedAt: string;
   createdAt: string;
@@ -6598,6 +6638,7 @@ export interface PagesSelect<T extends boolean = true> {
         'contact-form'?: T | ContactFormBlockSelect<T>;
         'subscribe-to-newsletter'?: T | SubscribeToNewsletterBlockSelect<T>;
         'marquee-icons'?: T | MarqueeIconsBlockSelect<T>;
+        'about-who-we-are'?: T | AboutWhoWeAreBlockSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -6893,6 +6934,43 @@ export interface MarqueeIconsBlockSelect<T extends boolean = true> {
         alt?: T;
         id?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutWhoWeAreBlock_select".
+ */
+export interface AboutWhoWeAreBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  titleBeforeHighlight?: T;
+  highlightedTitle?: T;
+  titleAfterHighlight?: T;
+  subtitle?: T;
+  stats?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  cards?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        description?: T;
+        image?: T;
+        id?: T;
+      };
+  marqueeIcons?:
+    | T
+    | {
+        icon?: T;
+        alt?: T;
+        id?: T;
+      };
+  backgroundImage?: T;
   id?: T;
   blockName?: T;
 }

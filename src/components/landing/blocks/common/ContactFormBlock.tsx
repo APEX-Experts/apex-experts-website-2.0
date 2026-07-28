@@ -4,6 +4,7 @@ import React, { useMemo } from "react";
 import Image from "next/image";
 import * as z from "zod";
 import { GenericForm, FieldConfig } from "../../layout/generic-form";
+import { Eyebrow, HighlightedTitle } from "@/components/ui/highlighted-title";
 import { getMediaAlt, getMediaUrl } from "@/lib/utils";
 import type { ContactFormBlock as ContactFormBlockType } from "@/payload-types";
 import { SectionReveal } from "@/components/ui/section-reveal";
@@ -118,16 +119,13 @@ export const ContactFormBlock: React.FC<ContactFormBlockType> = ({
         <SectionReveal direction="up" className="w-full">
           <div className="flex flex-col items-start gap-4 max-lg:px-4">
             <div className="flex flex-col gap-2 lg:gap-1">
-              {eyebrow && (
-                <span className="font-poppins text-sm leading-[130%] uppercase text-primary-500 lg:text-base">
-                  {eyebrow}
-                </span>
-              )}
-              <h2 className="font-montserrat font-semibold text-xl leading-[130%] uppercase text-foreground md:text-3xl lg:text-5xl lg:max-w-2xl">
-                <span>{titleBeforeHighlight}</span>
-                {highlightedTitle && <span className="text-primary-500"> {highlightedTitle}</span>}
-                {titleAfterHighlight && <span> {titleAfterHighlight}</span>}
-              </h2>
+              <Eyebrow text={eyebrow} />
+              <HighlightedTitle
+                titleBeforeHighlight={titleBeforeHighlight}
+                highlightedTitle={highlightedTitle}
+                titleAfterHighlight={titleAfterHighlight}
+                className="lg:max-w-2xl"
+              />
             </div>
             {subtitle && (
               <p className="font-poppins text-sm leading-[130%] text-gray-500 lg:text-base lg:leading-7.25 lg:max-w-4xl">

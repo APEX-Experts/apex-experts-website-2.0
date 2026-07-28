@@ -1,11 +1,11 @@
+import { Eyebrow, HighlightedTitle } from "@/components/ui/highlighted-title";
+import { SectionReveal } from "@/components/ui/section-reveal";
+import { getPayload } from "@/lib/cms/getPayload";
 import { getMediaAlt, getMediaUrl } from "@/lib/utils";
 import type { HomeBlogsBlock as HomeBlogsBlockType, Media, Post, User } from "@/payload-types";
-import { getPayload } from "@/lib/cms/getPayload";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
-import { SectionReveal } from "@/components/ui/section-reveal";
 
 export const HomeBlogsSection = async ({
   eyebrow,
@@ -41,16 +41,13 @@ export const HomeBlogsSection = async ({
         <SectionReveal direction="up" className="w-full">
           <div className="flex flex-col items-start gap-4">
             <div className="flex flex-col gap-2 lg:gap-1">
-              {eyebrow && (
-                <span className="font-poppins text-sm leading-[130%] uppercase text-primary-500 lg:text-base">
-                  {eyebrow}
-                </span>
-              )}
-              <h2 className="font-montserrat font-semibold text-xl leading-[130%] tracking-[-7%] uppercase text-foreground md:text-3xl lg:text-5xl lg:max-w-lg">
-                <span>{titleBeforeHighlight}</span>
-                {highlightedTitle && <span className="text-primary-500"> {highlightedTitle}</span>}
-                {titleAfterHighlight && <span> {titleAfterHighlight}</span>}
-              </h2>
+              <Eyebrow text={eyebrow} />
+              <HighlightedTitle
+                titleBeforeHighlight={titleBeforeHighlight}
+                highlightedTitle={highlightedTitle}
+                titleAfterHighlight={titleAfterHighlight}
+                className="lg:max-w-xl font-display"
+              />
             </div>
             {subtitle && (
               <p className="font-poppins text-sm leading-[130%] text-gray-500 lg:text-base lg:leading-7.25 lg:max-w-4xl">
@@ -83,9 +80,7 @@ export const HomeBlogsSection = async ({
 
             return (
               <SectionReveal key={post.id} direction="up" delay={index * 0.1}>
-                <div
-                  className="group flex flex-col rounded-[0.75rem] border border-outline/30 bg-white pb-4 shadow-sm hover:shadow-md transition-all duration-300 h-full"
-                >
+                <div className="group flex flex-col rounded-[0.75rem] border border-outline/30 bg-white pb-4 shadow-sm hover:shadow-md transition-all duration-300 h-full">
                   {/* Article Image */}
                   <div className="relative w-full h-52 rounded-t-[0.75rem] overflow-hidden mb-5 bg-gray-100">
                     {imageUrl ? (
@@ -153,4 +148,3 @@ export const HomeBlogsSection = async ({
     </section>
   );
 };
-

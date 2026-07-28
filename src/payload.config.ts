@@ -24,6 +24,7 @@ import { HomeBlogs } from "./payload/blocks/HomeBlogs.ts";
 import { ContactForm } from "./payload/blocks/ContactForm.ts";
 import { SubscribeToNewsletter } from "./payload/blocks/SubscribeToNewsletter.ts";
 import { MarqueeIcons } from "./payload/blocks/MarqueeIcons.ts";
+import { AboutWhoWeAre } from "./payload/blocks/AboutWhoWeAre.ts";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -100,5 +101,6 @@ export default buildConfig({
     ContactForm,
     SubscribeToNewsletter,
     MarqueeIcons,
+    AboutWhoWeAre,
   ],
 });

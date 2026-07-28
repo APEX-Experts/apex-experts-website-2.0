@@ -2,6 +2,7 @@ import type { Page } from "@/payload-types";
 import React from "react";
 import { HeroBlock } from "./home/HeroBlock";
 import { AboutHeroBlock } from "./about/AboutHeroBlock";
+import { AboutWhoWeAreBlock } from "./about/AboutWhoWeAreBlock";
 import { HeroMarqueeBlock } from "./common/HeroMarqueeBlock";
 import { HomeAboutBlock } from "./home/HomeAboutBlock";
 import { HomeCapabilities } from "./home/HomeCapabilities";
@@ -48,6 +49,8 @@ export const RenderBlocks: React.FC<Props> = ({ blocks }) => {
             return <HeroBlock key={key} {...block} />;
           case "about-hero":
             return <AboutHeroBlock key={key} {...block} />;
+          case "about-who-we-are":
+            return <AboutWhoWeAreBlock key={key} {...block} />;
           case "clip-text-marquee":
             return <HeroMarqueeBlock key={key} {...block} />;
           case "home-about":

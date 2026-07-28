@@ -1,5 +1,6 @@
 "use client";
 
+import { Eyebrow, HighlightedTitle } from "@/components/ui/highlighted-title";
 import { cn, getMediaAlt, getMediaUrl, zeroPadNumber } from "@/lib/utils";
 import type { FAQBlock as FAQBlockType } from "@/payload-types";
 import { ArrowUpRight, Minus, Plus } from "lucide-react";
@@ -51,16 +52,13 @@ export const HomeFAQ: React.FC<FAQBlockType> = ({
         <SectionReveal direction="up" className="w-full">
           <div className="flex flex-col items-start gap-4 px-4 lg:px-14">
             <div className="flex flex-col gap-2 lg:gap-1">
-              {eyebrow && (
-                <span className="font-poppins text-sm leading-[130%] uppercase text-primary-500 lg:text-base">
-                  {eyebrow}
-                </span>
-              )}
-              <h2 className="font-semibold text-xl leading-[130%] tracking-[-7%] uppercase text-foreground md:text-3xl lg:text-5xl lg:max-w-195">
-                <span>{titleBeforeHighlight}</span>
-                {highlightedTitle && <span className="text-primary-500"> {highlightedTitle}</span>}
-                {titleAfterHighlight && <span> {titleAfterHighlight}</span>}
-              </h2>
+              <Eyebrow text={eyebrow} />
+              <HighlightedTitle
+                titleBeforeHighlight={titleBeforeHighlight}
+                highlightedTitle={highlightedTitle}
+                titleAfterHighlight={titleAfterHighlight}
+                className="lg:max-w-175"
+              />
             </div>
             {subtitle && (
               <p className="font-poppins text-sm leading-[130%] text-gray-500 lg:text-base lg:leading-7.25 lg:max-w-230">

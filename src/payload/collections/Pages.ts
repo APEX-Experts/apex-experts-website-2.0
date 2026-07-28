@@ -12,6 +12,7 @@ import { ContactForm } from "../blocks/ContactForm";
 import { SubscribeToNewsletter } from "../blocks/SubscribeToNewsletter";
 import { revalidatePageHook } from "../globals/revalidateHook";
 import { MarqueeIcons } from "../blocks/MarqueeIcons";
+import { AboutWhoWeAre } from "../blocks/AboutWhoWeAre";
 
 /**
  * Payload CMS Collection configuration for dynamic Pages.
@@ -78,6 +79,7 @@ export const Pages: CollectionConfig = {
         ContactForm,
         SubscribeToNewsletter,
         MarqueeIcons,
+        AboutWhoWeAre,
       ],
       required: true,
     },

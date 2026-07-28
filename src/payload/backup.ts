@@ -32,7 +32,8 @@ function writeJson(filePath: string, data: unknown) {
  */
 async function downloadFile(url: string, dest: string): Promise<boolean> {
   return new Promise((resolve) => {
-    const protocol = url.startsWith("https") ? https : http;
+    const parsedUrl = new URL(url);
+    const protocol = parsedUrl.protocol === "https:" ? https : http;
     const file = fs.createWriteStream(dest);
 
     protocol
@@ -45,14 +46,15 @@ async function downloadFile(url: string, dest: string): Promise<boolean> {
           res.headers.location
         ) {
           file.close();
-          fs.unlinkSync(dest);
-          downloadFile(res.headers.location, dest).then(resolve);
+          if (fs.existsSync(dest)) fs.unlinkSync(dest);
+          const redirectUrl = new URL(res.headers.location, url).href;
+          downloadFile(redirectUrl, dest).then(resolve);
           return;
         }
 
         if (res.statusCode !== 200) {
           file.close();
-          fs.unlinkSync(dest);
+          if (fs.existsSync(dest)) fs.unlinkSync(dest);
           console.warn(`    ⚠ HTTP ${res.statusCode} for ${url}`);
           resolve(false);
           return;
@@ -153,18 +155,28 @@ async function backup() {
   // Derive the server base URL from the DATABASE_URI hostname or fall back to localhost
   const serverBase = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000";
 
+  const toAbsoluteUrl = (rawUrl?: string, filename?: string): string => {
+    const target = rawUrl || (filename ? `/media/${filename}` : "");
+    if (!target) return "";
+    try {
+      return new URL(target, serverBase).href;
+    } catch {
+      return target;
+    }
+  };
+
   for (const doc of mediaDocs) {
     if (!doc.filename) continue;
 
     // Original file
-    const originalUrl = doc.url || `${serverBase}/media/${doc.filename}`;
+    const originalUrl = toAbsoluteUrl(doc.url, doc.filename);
     const originalDest = path.join(MEDIA_DIR, doc.filename);
 
-    if (!fs.existsSync(originalDest)) {
+    if (originalUrl && !fs.existsSync(originalDest)) {
       process.stdout.write(`  Downloading ${doc.filename} ... `);
       const ok = await downloadFile(originalUrl, originalDest);
       console.log(ok ? "✔" : "✘");
-    } else {
+    } else if (fs.existsSync(originalDest)) {
       console.log(`  Skipping ${doc.filename} (already exists).`);
     }
 
@@ -172,10 +184,10 @@ async function backup() {
     if (doc.sizes) {
       for (const [sizeName, sizeData] of Object.entries(doc.sizes)) {
         if (!sizeData?.filename) continue;
-        const sizeUrl = sizeData.url || `${serverBase}/media/${sizeData.filename}`;
+        const sizeUrl = toAbsoluteUrl(sizeData.url, sizeData.filename);
         const sizeDest = path.join(MEDIA_DIR, sizeData.filename);
 
-        if (!fs.existsSync(sizeDest)) {
+        if (sizeUrl && !fs.existsSync(sizeDest)) {
           process.stdout.write(`  Downloading ${sizeName}/${sizeData.filename} ... `);
           const ok = await downloadFile(sizeUrl, sizeDest);
           console.log(ok ? "✔" : "✘");

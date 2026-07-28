@@ -81,6 +81,7 @@ export interface Config {
     'about-who-we-are': AboutWhoWeAreBlock;
     'highlighted-title-and-eyebrow': HighlightedTitleAndEyebrowBlock;
     'about-our-difference': AboutOurDifferenceBlock;
+    'about-how-we-work': AboutHowWeWorkBlock;
   };
   collections: {
     users: User;
@@ -6425,6 +6426,49 @@ export interface AboutOurDifferenceBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutHowWeWorkBlock".
+ */
+export interface AboutHowWeWorkBlock {
+  eyebrow?: string | null;
+  titleBeforeHighlight: string;
+  highlightedTitle?: string | null;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  textureWavesImage?: (number | null) | Media;
+  foregroundImage?: (number | null) | Media;
+  steps?:
+    | {
+        title: string;
+        paragraphs?:
+          | {
+              text: string;
+              id?: string | null;
+            }[]
+          | null;
+        tags?:
+          | {
+              tag: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  principles?:
+    | {
+        eyebrow?: string | null;
+        title: string;
+        description: string;
+        icon?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'about-how-we-work';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -6473,6 +6517,7 @@ export interface Page {
     | AboutWhoWeAreBlock
     | HighlightedTitleAndEyebrowBlock
     | AboutOurDifferenceBlock
+    | AboutHowWeWorkBlock
   )[];
   updatedAt: string;
   createdAt: string;
@@ -6689,6 +6734,7 @@ export interface PagesSelect<T extends boolean = true> {
         'about-who-we-are'?: T | AboutWhoWeAreBlockSelect<T>;
         'highlighted-title-and-eyebrow'?: T | HighlightedTitleAndEyebrowBlockSelect<T>;
         'about-our-difference'?: T | AboutOurDifferenceBlockSelect<T>;
+        'about-how-we-work'?: T | AboutHowWeWorkBlockSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -7063,6 +7109,48 @@ export interface AboutOurDifferenceBlockSelect<T extends boolean = true> {
   foregroundImage?: T;
   learnMoreText?: T;
   learnMoreHref?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutHowWeWorkBlock_select".
+ */
+export interface AboutHowWeWorkBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  titleBeforeHighlight?: T;
+  highlightedTitle?: T;
+  titleAfterHighlight?: T;
+  subtitle?: T;
+  textureWavesImage?: T;
+  foregroundImage?: T;
+  steps?:
+    | T
+    | {
+        title?: T;
+        paragraphs?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        tags?:
+          | T
+          | {
+              tag?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  principles?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        description?: T;
+        icon?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }

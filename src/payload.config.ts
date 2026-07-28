@@ -27,6 +27,7 @@ import { MarqueeIcons } from "./payload/blocks/MarqueeIcons.ts";
 import { AboutWhoWeAre } from "./payload/blocks/AboutWhoWeAre.ts";
 import { HighlightedTitleAndEyebrow } from "./payload/blocks/HighlightedTitleAndEyebrow.ts";
 import { AboutOurDifference } from "./payload/blocks/AboutOurDifference.ts";
+import { AboutHowWeWork } from "./payload/blocks/AboutHowWeWork.ts";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -106,5 +107,6 @@ export default buildConfig({
     AboutWhoWeAre,
     HighlightedTitleAndEyebrow,
     AboutOurDifference,
+    AboutHowWeWork,
   ],
 });

@@ -37,6 +37,7 @@
   --color-gray-700: var(--gray-700);
   --color-gray-900: var(--gray-900);
 
+  --color-neutral-bg-600: var(--neutral-bg-600);
   --color-footer-gray: var(--footer-gray);
   --color-footer-bottom-gray: var(--footer-bottom-gray);
 
@@ -133,6 +134,8 @@
   --gray-500: #808080;
   --gray-700: #5b5b5b;
   --gray-900: #363636;
+
+  --neutral-bg-600: #45505e;
 
   --footer-gray: #171717;
   --footer-bottom-gray: #1d1d1d;
@@ -329,5 +332,13 @@
 
   .hero-gradient {
     background: linear-gradient(90.17deg, #000000 22.54%, rgba(0, 0, 0, 0) 99.85%);
+  }
+
+  .brain-shadow {
+    filter: drop-shadow(0px 1.92px 3.33px #00000040);
+  }
+
+  .how-we-work-shadow {
+    box-shadow: 0px 0px 82.5px 5px #00000026;
   }
 }

@@ -16,6 +16,7 @@ import { AboutWhoWeAre } from "../blocks/AboutWhoWeAre";
 import { HighlightedTitleAndEyebrow } from "../blocks/HighlightedTitleAndEyebrow";
 import { AboutOurDifference } from "../blocks/AboutOurDifference";
 import { AboutHowWeWork } from "../blocks/AboutHowWeWork";
+import { Industries } from "../blocks/Industries";
 
 /**
  * Payload CMS Collection configuration for dynamic Pages.
@@ -86,6 +87,7 @@ export const Pages: CollectionConfig = {
         HighlightedTitleAndEyebrow,
         AboutOurDifference,
         AboutHowWeWork,
+        Industries,
       ],
       required: true,
     },

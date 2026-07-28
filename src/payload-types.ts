@@ -82,6 +82,7 @@ export interface Config {
     'highlighted-title-and-eyebrow': HighlightedTitleAndEyebrowBlock;
     'about-our-difference': AboutOurDifferenceBlock;
     'about-how-we-work': AboutHowWeWorkBlock;
+    industries: IndustriesBlock;
   };
   collections: {
     users: User;
@@ -6469,6 +6470,30 @@ export interface AboutHowWeWorkBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "IndustriesBlock".
+ */
+export interface IndustriesBlock {
+  eyebrow?: string | null;
+  titleBeforeHighlight: string;
+  highlightedTitle?: string | null;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  backgroundImage?: (number | null) | Media;
+  industriesBackgroundImage?: (number | null) | Media;
+  industries?:
+    | {
+        eyebrow?: string | null;
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'industries';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -6518,6 +6543,7 @@ export interface Page {
     | HighlightedTitleAndEyebrowBlock
     | AboutOurDifferenceBlock
     | AboutHowWeWorkBlock
+    | IndustriesBlock
   )[];
   updatedAt: string;
   createdAt: string;
@@ -6735,6 +6761,7 @@ export interface PagesSelect<T extends boolean = true> {
         'highlighted-title-and-eyebrow'?: T | HighlightedTitleAndEyebrowBlockSelect<T>;
         'about-our-difference'?: T | AboutOurDifferenceBlockSelect<T>;
         'about-how-we-work'?: T | AboutHowWeWorkBlockSelect<T>;
+        industries?: T | IndustriesBlockSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -7149,6 +7176,29 @@ export interface AboutHowWeWorkBlockSelect<T extends boolean = true> {
         title?: T;
         description?: T;
         icon?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "IndustriesBlock_select".
+ */
+export interface IndustriesBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  titleBeforeHighlight?: T;
+  highlightedTitle?: T;
+  titleAfterHighlight?: T;
+  subtitle?: T;
+  backgroundImage?: T;
+  industriesBackgroundImage?: T;
+  industries?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        description?: T;
         id?: T;
       };
   id?: T;

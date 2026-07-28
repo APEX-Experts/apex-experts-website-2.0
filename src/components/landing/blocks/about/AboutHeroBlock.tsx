@@ -36,7 +36,7 @@ export const AboutHeroBlock: React.FC<AboutHeroBlockType> = ({
         <SectionReveal direction="up" className="w-full max-w-262.5 flex flex-col items-center">
           <BreadcrumbNav items={breadcrumb} />
 
-          <h1 className="font-montserrat font-semibold text-xl lg:text-[4.375rem] leading-[130%] lg:leading-17.25 tracking-[-7%] text-center uppercase mb-6">
+          <h1 className="font-montserrat font-semibold text-xl lg:text-[4.375rem] leading-[130%] lg:leading-17.25 tracking-[-7%] text-center uppercase mb-2 lg:mb-6">
             {title}
           </h1>
 

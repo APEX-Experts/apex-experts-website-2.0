@@ -30,6 +30,7 @@ import { AboutOurDifference } from "./payload/blocks/AboutOurDifference.ts";
 import { AboutHowWeWork } from "./payload/blocks/AboutHowWeWork.ts";
 import { Industries } from "./payload/blocks/Industries.ts";
 import { AboutWays } from "./payload/blocks/AboutWays.ts";
+import { AboutTeamMembers } from "./payload/blocks/AboutTeamMembers.ts";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -112,5 +113,6 @@ export default buildConfig({
     AboutHowWeWork,
     Industries,
     AboutWays,
+    AboutTeamMembers,
   ],
 });

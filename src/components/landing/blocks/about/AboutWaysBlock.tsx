@@ -46,7 +46,7 @@ export const AboutWaysBlock: React.FC<AboutWaysBlockType> = ({
         </>
       )}
 
-      <div className="relative z-10 mx-auto flex flex-col lg:flex-row gap-6 px-4 lg:px-14">
+      <div className="relative z-10 mx-auto flex flex-col lg:flex-row gap-6 lg:gap-16 px-4 lg:px-14">
         {/* Heading Section */}
         <SectionReveal direction="up" className="w-full max-w-140">
           <div className="flex flex-col items-start gap-4">

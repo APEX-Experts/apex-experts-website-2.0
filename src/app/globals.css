@@ -343,4 +343,16 @@
   .how-we-work-shadow {
     box-shadow: 0px 0px 82.5px 5px #00000026;
   }
+
+  .member-gradient-0 {
+    background:
+      linear-gradient(141.49deg, #ffffff 10.77%, #cecece 79.78%),
+      linear-gradient(141.32deg, #474747 10.82%, #0b0b0b 99.71%);
+  }
+
+  .member-gradient-1 {
+    background:
+      linear-gradient(141.45deg, #a97f71 11.38%, #1e0c06 80.31%),
+      linear-gradient(141.45deg, #ffffff 11.38%, #cecece 80.31%);
+  }
 }

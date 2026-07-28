@@ -54,8 +54,8 @@ export function Navbar({ navItems = [] }: NavbarProps) {
   };
 
   return (
-    <header className="sticky top-3.5 inset-x-0 mx-auto z-50 w-[95%] h-16 rounded-[1rem] bg-background backdrop-blur-md shadow-sm flex items-center -mb-16">
-      <div className="w-full mx-auto flex items-center justify-between px-4 md:px-6 py-3.5 relative">
+    <header className="sticky top-3.5 inset-x-0 mx-auto z-50 w-[calc(100vw-32px)] lg:w-[calc(100vw-112px)] h-16 rounded-[1rem] bg-background backdrop-blur-md shadow-sm flex items-center -mb-16">
+      <div className="w-full mx-auto flex items-center justify-between px-4 lg:px-6 py-2.5 lg:py-3.5 relative">
         {/* Brand Logo */}
         <Link href="/" className="flex items-center">
           <LogoSvg className="text-foreground" width={200} />

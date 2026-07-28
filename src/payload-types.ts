@@ -84,6 +84,7 @@ export interface Config {
     'about-how-we-work': AboutHowWeWorkBlock;
     industries: IndustriesBlock;
     'about-ways': AboutWaysBlock;
+    'about-team-members': AboutTeamMembersBlock;
   };
   collections: {
     users: User;
@@ -6520,6 +6521,30 @@ export interface AboutWaysBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutTeamMembersBlock".
+ */
+export interface AboutTeamMembersBlock {
+  eyebrow?: string | null;
+  titleBeforeHighlight: string;
+  highlightedTitle?: string | null;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  textureWavesImage?: (number | null) | Media;
+  backgroundImage?: (number | null) | Media;
+  members?:
+    | {
+        photo: number | Media;
+        name: string;
+        role: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'about-team-members';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -6571,6 +6596,7 @@ export interface Page {
     | AboutHowWeWorkBlock
     | IndustriesBlock
     | AboutWaysBlock
+    | AboutTeamMembersBlock
   )[];
   updatedAt: string;
   createdAt: string;
@@ -6790,6 +6816,7 @@ export interface PagesSelect<T extends boolean = true> {
         'about-how-we-work'?: T | AboutHowWeWorkBlockSelect<T>;
         industries?: T | IndustriesBlockSelect<T>;
         'about-ways'?: T | AboutWaysBlockSelect<T>;
+        'about-team-members'?: T | AboutTeamMembersBlockSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -7251,6 +7278,29 @@ export interface AboutWaysBlockSelect<T extends boolean = true> {
         title?: T;
         description?: T;
         bestSuitedForText?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutTeamMembersBlock_select".
+ */
+export interface AboutTeamMembersBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  titleBeforeHighlight?: T;
+  highlightedTitle?: T;
+  titleAfterHighlight?: T;
+  subtitle?: T;
+  textureWavesImage?: T;
+  backgroundImage?: T;
+  members?:
+    | T
+    | {
+        photo?: T;
+        name?: T;
+        role?: T;
         id?: T;
       };
   id?: T;

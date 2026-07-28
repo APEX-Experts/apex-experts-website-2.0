@@ -1,15 +1,17 @@
 import type { Page } from "@/payload-types";
 import React from "react";
-import { HeroBlock } from "./HeroBlock";
-import { HeroMarqueeBlock } from "./HeroMarqueeBlock";
-import { HomeAboutBlock } from "./HomeAboutBlock";
-import { HomeCapabilities } from "./HomeCapabilities";
-import { HomeProjects } from "./HomeProjects";
-import { HomeTechnologies } from "./HomeTechnologies";
-import { HomeFAQ } from "./HomeFAQ";
-import { HomeBlogsSection } from "./HomeBlogsSection";
-import { ContactFormBlock } from "./ContactFormBlock";
-import { SubscribeToNewsletterBlock } from "./SubscribeToNewsletterBlock";
+import { HeroBlock } from "./home/HeroBlock";
+import { AboutHeroBlock } from "./about/AboutHeroBlock";
+import { HeroMarqueeBlock } from "./common/HeroMarqueeBlock";
+import { HomeAboutBlock } from "./home/HomeAboutBlock";
+import { HomeCapabilities } from "./home/HomeCapabilities";
+import { HomeProjects } from "./home/HomeProjects";
+import { HomeTechnologies } from "./home/HomeTechnologies";
+import { HomeFAQ } from "./home/HomeFAQ";
+import { HomeBlogsSection } from "./home/HomeBlogsSection";
+import { ContactFormBlock } from "./common/ContactFormBlock";
+import { SubscribeToNewsletterBlock } from "./common/SubscribeToNewsletterBlock";
+import { MarqueeIconsBlock } from "./common/MarqueeIconsBlock";
 
 /**
  * Props for the RenderBlocks component.
@@ -44,6 +46,8 @@ export const RenderBlocks: React.FC<Props> = ({ blocks }) => {
         switch (block.blockType) {
           case "hero":
             return <HeroBlock key={key} {...block} />;
+          case "about-hero":
+            return <AboutHeroBlock key={key} {...block} />;
           case "clip-text-marquee":
             return <HeroMarqueeBlock key={key} {...block} />;
           case "home-about":
@@ -62,6 +66,8 @@ export const RenderBlocks: React.FC<Props> = ({ blocks }) => {
             return <ContactFormBlock key={key} {...block} />;
           case "subscribe-to-newsletter":
             return <SubscribeToNewsletterBlock key={key} {...block} />;
+          case "marquee-icons":
+            return <MarqueeIconsBlock key={key} {...block} />;
 
           default:
             return (

@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { LogoMarkSvg } from "../layout/logo";
+import { LogoMarkSvg } from "../../layout/logo";
 import { getMediaAlt, getMediaUrl } from "@/lib/utils";
 import { ArrowUpRight } from "lucide-react";
 
@@ -81,7 +81,11 @@ export const HeroBlock: React.FC<HeroBlockType> = ({
             <motion.h2
               variants={{
                 hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 30 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+                },
               }}
               className="font-semibold text-2xl sm:text-3xl lg:text-5xl lg:leading-[120%] tracking-tighter lg:tracking-[0.03rem] uppercase max-lg:text-center wrap-break-word w-full"
             >
@@ -97,7 +101,11 @@ export const HeroBlock: React.FC<HeroBlockType> = ({
             <motion.p
               variants={{
                 hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 20 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+                },
               }}
               className="text-sm sm:text-base lg:text-lg max-lg:text-center lg:leading-6 text-white/70"
             >
@@ -106,11 +114,19 @@ export const HeroBlock: React.FC<HeroBlockType> = ({
             <motion.div
               variants={{
                 hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 20 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+                },
               }}
               className="flex flex-col sm:flex-row gap-3 sm:gap-5 w-full max-lg:justify-center"
             >
-              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="w-full sm:w-auto">
+              <motion.div
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className="w-full sm:w-auto"
+              >
                 <Link
                   href={ctaPrimaryHref}
                   className="w-full sm:w-auto text-sm lg:text-base px-3 lg:px-4 py-3.25 flex flex-row gap-1.5 lg:gap-2 items-center justify-center rounded-full bg-primary-500 hover:bg-primary-700 text-primary-500 border border-transparent transition-all duration-300"
@@ -125,7 +141,11 @@ export const HeroBlock: React.FC<HeroBlockType> = ({
                   </div>
                 </Link>
               </motion.div>
-              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="w-full sm:w-auto">
+              <motion.div
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className="w-full sm:w-auto"
+              >
                 <Link
                   href={ctaSecondaryHref}
                   className="w-full sm:w-auto text-sm lg:text-base px-3 lg:px-4 py-3.25 flex flex-row gap-1.5 lg:gap-2 items-center justify-center rounded-full bg-transparent border border-primary-500 text-primary-500 sm:min-w-55 hover:bg-white transition-all duration-300"
@@ -142,7 +162,11 @@ export const HeroBlock: React.FC<HeroBlockType> = ({
                 <motion.div
                   variants={{
                     hidden: { opacity: 0, x: shouldReduceMotion ? 0 : -20 },
-                    visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
+                    visible: {
+                      opacity: 1,
+                      x: 0,
+                      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+                    },
                   }}
                   className="flex flex-row items-center w-full border-s-4 border-primary-500 ps-3 sm:ps-5 gap-3"
                   key={index}

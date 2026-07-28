@@ -1,11 +1,10 @@
 "use client";
 
+import { SectionReveal } from "@/components/ui/section-reveal";
 import { getMediaAlt, getMediaUrl } from "@/lib/utils";
 import type { ClipTextMarqueeBlock as ClipTextMarqueeBlockType } from "@/payload-types";
 import React from "react";
-import Image from "next/image";
-import { Marquee } from "@/components/ui/marquee";
-import { SectionReveal } from "@/components/ui/section-reveal";
+import MarqueeSection from "../../layout/marquee";
 
 /**
  * HeroBlock Component - Displays high-impact landing hero section with main image,
@@ -59,18 +58,10 @@ export const HeroMarqueeBlock: React.FC<ClipTextMarqueeBlockType> = ({
           {/* Left fade */}
           <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 lg:w-40 bg-linear-to-r from-background to-transparent" />
 
-          <Marquee className="[--duration:20s] [--gap:24px] lg:[--gap:72px] px-4 lg:px-14" repeat={4}>
-            {marqueeIconUrls?.map((src, index) => (
-              <Image
-                key={index}
-                src={src ?? ""}
-                alt={marqueeIconAlts?.[index] ?? "Icon"}
-                width={56}
-                height={56}
-                className="w-8 h-8 lg:w-14 lg:h-14"
-              />
-            ))}
-          </Marquee>
+          <MarqueeSection
+            marqueeIconUrls={(marqueeIconUrls as string[]) ?? []}
+            marqueeIconAlts={marqueeIconAlts ?? []}
+          />
 
           {/* Right fade */}
           <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 lg:w-40 bg-linear-to-l from-background to-transparent" />
@@ -79,4 +70,3 @@ export const HeroMarqueeBlock: React.FC<ClipTextMarqueeBlockType> = ({
     </section>
   );
 };
-

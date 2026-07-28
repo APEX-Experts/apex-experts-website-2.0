@@ -1,5 +1,6 @@
 import { CollectionConfig } from "payload";
 import { Hero } from "../blocks/Hero";
+import { AboutHero } from "../blocks/AboutHero";
 import { ClipTextMarquee } from "../blocks/ClipTextMarquee";
 import { HomeAbout } from "../blocks/HomeAbout";
 import { Capabilities } from "../blocks/Capabilities";
@@ -10,6 +11,7 @@ import { HomeBlogs } from "../blocks/HomeBlogs";
 import { ContactForm } from "../blocks/ContactForm";
 import { SubscribeToNewsletter } from "../blocks/SubscribeToNewsletter";
 import { revalidatePageHook } from "../globals/revalidateHook";
+import { MarqueeIcons } from "../blocks/MarqueeIcons";
 
 /**
  * Payload CMS Collection configuration for dynamic Pages.
@@ -65,6 +67,7 @@ export const Pages: CollectionConfig = {
       type: "blocks",
       blocks: [
         Hero,
+        AboutHero,
         ClipTextMarquee,
         HomeAbout,
         Capabilities,
@@ -74,6 +77,7 @@ export const Pages: CollectionConfig = {
         HomeBlogs,
         ContactForm,
         SubscribeToNewsletter,
+        MarqueeIcons,
       ],
       required: true,
     },

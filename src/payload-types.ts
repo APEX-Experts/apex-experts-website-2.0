@@ -67,6 +67,7 @@ export interface Config {
   };
   blocks: {
     hero: HeroBlock;
+    'about-hero': AboutHeroBlock;
     'clip-text-marquee': ClipTextMarqueeBlock;
     'home-about': HomeAboutBlock;
     capabilities: CapabilitiesBlock;
@@ -76,6 +77,7 @@ export interface Config {
     'home-blogs': HomeBlogsBlock;
     'contact-form': ContactFormBlock;
     'subscribe-to-newsletter': SubscribeToNewsletterBlock;
+    'marquee-icons': MarqueeIconsBlock;
   };
   collections: {
     users: User;
@@ -220,6 +222,25 @@ export interface Media {
       filename?: string | null;
     };
   };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutHeroBlock".
+ */
+export interface AboutHeroBlock {
+  breadcrumb?:
+    | {
+        text: string;
+        href?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  title: string;
+  subtitle?: string | null;
+  backgroundImage?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'about-hero';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6303,6 +6324,22 @@ export interface SubscribeToNewsletterBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MarqueeIconsBlock".
+ */
+export interface MarqueeIconsBlock {
+  marqueeIcons?:
+    | {
+        icon: number | Media;
+        alt?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'marquee-icons';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -6337,6 +6374,7 @@ export interface Page {
   slug: string;
   layout: (
     | HeroBlock
+    | AboutHeroBlock
     | ClipTextMarqueeBlock
     | HomeAboutBlock
     | CapabilitiesBlock
@@ -6346,6 +6384,7 @@ export interface Page {
     | HomeBlogsBlock
     | ContactFormBlock
     | SubscribeToNewsletterBlock
+    | MarqueeIconsBlock
   )[];
   updatedAt: string;
   createdAt: string;
@@ -6548,6 +6587,7 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         hero?: T | HeroBlockSelect<T>;
+        'about-hero'?: T | AboutHeroBlockSelect<T>;
         'clip-text-marquee'?: T | ClipTextMarqueeBlockSelect<T>;
         'home-about'?: T | HomeAboutBlockSelect<T>;
         capabilities?: T | CapabilitiesBlockSelect<T>;
@@ -6557,6 +6597,7 @@ export interface PagesSelect<T extends boolean = true> {
         'home-blogs'?: T | HomeBlogsBlockSelect<T>;
         'contact-form'?: T | ContactFormBlockSelect<T>;
         'subscribe-to-newsletter'?: T | SubscribeToNewsletterBlockSelect<T>;
+        'marquee-icons'?: T | MarqueeIconsBlockSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -6590,6 +6631,24 @@ export interface HeroBlockSelect<T extends boolean = true> {
         alt?: T;
         id?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutHeroBlock_select".
+ */
+export interface AboutHeroBlockSelect<T extends boolean = true> {
+  breadcrumb?:
+    | T
+    | {
+        text?: T;
+        href?: T;
+        id?: T;
+      };
+  title?: T;
+  subtitle?: T;
+  backgroundImage?: T;
   id?: T;
   blockName?: T;
 }
@@ -6819,6 +6878,21 @@ export interface SubscribeToNewsletterBlockSelect<T extends boolean = true> {
   emailInputPlaceholder?: T;
   submitButtonText?: T;
   backgroundImage?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MarqueeIconsBlock_select".
+ */
+export interface MarqueeIconsBlockSelect<T extends boolean = true> {
+  marqueeIcons?:
+    | T
+    | {
+        icon?: T;
+        alt?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }

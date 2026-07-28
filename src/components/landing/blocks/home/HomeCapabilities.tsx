@@ -2,7 +2,7 @@
 
 import type { CapabilitiesBlock as HomeCapabilitiesBlockType } from "@/payload-types";
 import React from "react";
-import Capabilities from "../layout/capabilities";
+import Capabilities from "../../layout/capabilities";
 import { getMediaAlt, getMediaUrl } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -67,4 +67,3 @@ export const HomeCapabilities: React.FC<HomeCapabilitiesBlockType> = ({
     </section>
   );
 };
-

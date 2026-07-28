@@ -6,6 +6,7 @@ import { buildConfig } from "payload";
 import sharp from "sharp";
 import { fileURLToPath } from "url";
 import { Capabilities } from "./payload/blocks/Capabilities.ts";
+import { AboutHero } from "./payload/blocks/AboutHero.ts";
 import { ClipTextMarquee } from "./payload/blocks/ClipTextMarquee.ts";
 import { HomeAbout } from "./payload/blocks/HomeAbout.ts";
 import { Hero } from "./payload/blocks/Hero.ts";
@@ -22,6 +23,7 @@ import { FAQ } from "./payload/blocks/FAQ.ts";
 import { HomeBlogs } from "./payload/blocks/HomeBlogs.ts";
 import { ContactForm } from "./payload/blocks/ContactForm.ts";
 import { SubscribeToNewsletter } from "./payload/blocks/SubscribeToNewsletter.ts";
+import { MarqueeIcons } from "./payload/blocks/MarqueeIcons.ts";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -87,6 +89,7 @@ export default buildConfig({
   ],
   blocks: [
     Hero,
+    AboutHero,
     ClipTextMarquee,
     HomeAbout,
     Capabilities,
@@ -96,5 +99,6 @@ export default buildConfig({
     HomeBlogs,
     ContactForm,
     SubscribeToNewsletter,
+    MarqueeIcons,
   ],
 });

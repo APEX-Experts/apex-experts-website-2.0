@@ -3,7 +3,7 @@
 import React, { useMemo } from "react";
 import Image from "next/image";
 import * as z from "zod";
-import { GenericForm, FieldConfig } from "../layout/generic-form";
+import { GenericForm, FieldConfig } from "../../layout/generic-form";
 import { getMediaAlt, getMediaUrl } from "@/lib/utils";
 import type { ContactFormBlock as ContactFormBlockType } from "@/payload-types";
 import { SectionReveal } from "@/components/ui/section-reveal";
@@ -178,4 +178,3 @@ export const ContactFormBlock: React.FC<ContactFormBlockType> = ({
     </section>
   );
 };
-

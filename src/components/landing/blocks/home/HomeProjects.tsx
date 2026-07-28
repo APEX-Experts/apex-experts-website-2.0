@@ -4,7 +4,7 @@ import { getMediaAlt, getMediaUrl } from "@/lib/utils";
 import type { ProjectsBlock as ProjectsBlockType } from "@/payload-types";
 import Image from "next/image";
 import React from "react";
-import ProjectCard from "../layout/project-card";
+import ProjectCard from "../../layout/project-card";
 import { SectionReveal } from "@/components/ui/section-reveal";
 
 export const HomeProjects: React.FC<ProjectsBlockType> = ({
@@ -67,4 +67,3 @@ export const HomeProjects: React.FC<ProjectsBlockType> = ({
     </section>
   );
 };
-

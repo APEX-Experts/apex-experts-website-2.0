@@ -1,40 +1,12 @@
 import type { Block } from "payload";
 import { lucideIconOptions } from "./icons";
+import { highlightedTitleAndEyebrowFields } from "../fields/highlightedTitleAndEyebrow";
 
 export const Capabilities: Block = {
   slug: "capabilities",
   interfaceName: "CapabilitiesBlock",
   fields: [
-    {
-      name: "eyebrow",
-      type: "text",
-      required: false,
-      localized: true,
-    },
-    {
-      name: "titleBeforeHighlight",
-      type: "text",
-      required: true,
-      localized: true,
-    },
-    {
-      name: "highlightedTitle",
-      type: "text",
-      required: false,
-      localized: true,
-    },
-    {
-      name: "titleAfterHighlight",
-      type: "text",
-      required: false,
-      localized: true,
-    },
-    {
-      name: "subtitle",
-      type: "textarea",
-      required: false,
-      localized: true,
-    },
+    ...highlightedTitleAndEyebrowFields,
     {
       name: "textureImage",
       type: "upload",

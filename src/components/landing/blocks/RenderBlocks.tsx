@@ -3,6 +3,7 @@ import React from "react";
 import { HeroBlock } from "./home/HeroBlock";
 import { AboutHeroBlock } from "./about/AboutHeroBlock";
 import { AboutWhoWeAreBlock } from "./about/AboutWhoWeAreBlock";
+import { AboutOurDifferenceBlock } from "./about/AboutOurDifferenceBlock";
 import { HeroMarqueeBlock } from "./common/HeroMarqueeBlock";
 import { HomeAboutBlock } from "./home/HomeAboutBlock";
 import { HomeCapabilities } from "./home/HomeCapabilities";
@@ -13,6 +14,7 @@ import { HomeBlogsSection } from "./home/HomeBlogsSection";
 import { ContactFormBlock } from "./common/ContactFormBlock";
 import { SubscribeToNewsletterBlock } from "./common/SubscribeToNewsletterBlock";
 import { MarqueeIconsBlock } from "./common/MarqueeIconsBlock";
+import { HighlightedTitleAndEyebrowBlock } from "./common/HighlightedTitleAndEyebrowBlock";
 
 /**
  * Props for the RenderBlocks component.
@@ -51,6 +53,8 @@ export const RenderBlocks: React.FC<Props> = ({ blocks }) => {
             return <AboutHeroBlock key={key} {...block} />;
           case "about-who-we-are":
             return <AboutWhoWeAreBlock key={key} {...block} />;
+          case "about-our-difference":
+            return <AboutOurDifferenceBlock key={key} {...block} />;
           case "clip-text-marquee":
             return <HeroMarqueeBlock key={key} {...block} />;
           case "home-about":
@@ -71,6 +75,8 @@ export const RenderBlocks: React.FC<Props> = ({ blocks }) => {
             return <SubscribeToNewsletterBlock key={key} {...block} />;
           case "marquee-icons":
             return <MarqueeIconsBlock key={key} {...block} />;
+          case "highlighted-title-and-eyebrow":
+            return <HighlightedTitleAndEyebrowBlock key={key} {...block} />;
 
           default:
             return (

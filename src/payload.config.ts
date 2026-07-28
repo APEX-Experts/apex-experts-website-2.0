@@ -25,6 +25,8 @@ import { ContactForm } from "./payload/blocks/ContactForm.ts";
 import { SubscribeToNewsletter } from "./payload/blocks/SubscribeToNewsletter.ts";
 import { MarqueeIcons } from "./payload/blocks/MarqueeIcons.ts";
 import { AboutWhoWeAre } from "./payload/blocks/AboutWhoWeAre.ts";
+import { HighlightedTitleAndEyebrow } from "./payload/blocks/HighlightedTitleAndEyebrow.ts";
+import { AboutOurDifference } from "./payload/blocks/AboutOurDifference.ts";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -102,5 +104,7 @@ export default buildConfig({
     SubscribeToNewsletter,
     MarqueeIcons,
     AboutWhoWeAre,
+    HighlightedTitleAndEyebrow,
+    AboutOurDifference,
   ],
 });

@@ -79,6 +79,8 @@ export interface Config {
     'subscribe-to-newsletter': SubscribeToNewsletterBlock;
     'marquee-icons': MarqueeIconsBlock;
     'about-who-we-are': AboutWhoWeAreBlock;
+    'highlighted-title-and-eyebrow': HighlightedTitleAndEyebrowBlock;
+    'about-our-difference': AboutOurDifferenceBlock;
   };
   collections: {
     users: User;
@@ -4226,7 +4228,7 @@ export interface CapabilitiesBlock {
  */
 export interface ProjectsBlock {
   eyebrow?: string | null;
-  titleBeforeHighlight?: string | null;
+  titleBeforeHighlight: string;
   highlightedTitle?: string | null;
   titleAfterHighlight?: string | null;
   subtitle?: string | null;
@@ -4261,7 +4263,7 @@ export interface ProjectsBlock {
  */
 export interface TechnologiesBlock {
   eyebrow?: string | null;
-  titleBeforeHighlight?: string | null;
+  titleBeforeHighlight: string;
   highlightedTitle?: string | null;
   titleAfterHighlight?: string | null;
   subtitle?: string | null;
@@ -6243,7 +6245,7 @@ export interface TechnologiesBlock {
  */
 export interface FAQBlock {
   eyebrow?: string | null;
-  titleBeforeHighlight?: string | null;
+  titleBeforeHighlight: string;
   highlightedTitle?: string | null;
   titleAfterHighlight?: string | null;
   subtitle?: string | null;
@@ -6271,7 +6273,7 @@ export interface FAQBlock {
  */
 export interface HomeBlogsBlock {
   eyebrow?: string | null;
-  titleBeforeHighlight?: string | null;
+  titleBeforeHighlight: string;
   highlightedTitle?: string | null;
   titleAfterHighlight?: string | null;
   subtitle?: string | null;
@@ -6288,7 +6290,7 @@ export interface HomeBlogsBlock {
  */
 export interface ContactFormBlock {
   eyebrow?: string | null;
-  titleBeforeHighlight?: string | null;
+  titleBeforeHighlight: string;
   highlightedTitle?: string | null;
   titleAfterHighlight?: string | null;
   subtitle?: string | null;
@@ -6346,7 +6348,7 @@ export interface MarqueeIconsBlock {
 export interface AboutWhoWeAreBlock {
   eyebrow?: string | null;
   titleBeforeHighlight: string;
-  highlightedTitle: string;
+  highlightedTitle?: string | null;
   titleAfterHighlight?: string | null;
   subtitle?: string | null;
   stats?:
@@ -6376,6 +6378,50 @@ export interface AboutWhoWeAreBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'about-who-we-are';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HighlightedTitleAndEyebrowBlock".
+ */
+export interface HighlightedTitleAndEyebrowBlock {
+  eyebrow?: string | null;
+  titleBeforeHighlight: string;
+  highlightedTitle?: string | null;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'highlighted-title-and-eyebrow';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutOurDifferenceBlock".
+ */
+export interface AboutOurDifferenceBlock {
+  headerEyebrow?: string | null;
+  headerTitleBeforeHighlight: string;
+  headerHighlightedTitle?: string | null;
+  headerTitleAfterHighlight?: string | null;
+  headerSubtitle?: string | null;
+  secondaryEyebrow?: string | null;
+  secondaryTitleBeforeHighlight: string;
+  secondaryHighlightedTitle?: string | null;
+  secondaryTitleAfterHighlight?: string | null;
+  secondarySubtitle?: string | null;
+  items?:
+    | {
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  backgroundImage?: (number | null) | Media;
+  foregroundImage?: (number | null) | Media;
+  learnMoreText?: string | null;
+  learnMoreHref?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'about-our-difference';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6425,6 +6471,8 @@ export interface Page {
     | SubscribeToNewsletterBlock
     | MarqueeIconsBlock
     | AboutWhoWeAreBlock
+    | HighlightedTitleAndEyebrowBlock
+    | AboutOurDifferenceBlock
   )[];
   updatedAt: string;
   createdAt: string;
@@ -6639,6 +6687,8 @@ export interface PagesSelect<T extends boolean = true> {
         'subscribe-to-newsletter'?: T | SubscribeToNewsletterBlockSelect<T>;
         'marquee-icons'?: T | MarqueeIconsBlockSelect<T>;
         'about-who-we-are'?: T | AboutWhoWeAreBlockSelect<T>;
+        'highlighted-title-and-eyebrow'?: T | HighlightedTitleAndEyebrowBlockSelect<T>;
+        'about-our-difference'?: T | AboutOurDifferenceBlockSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -6971,6 +7021,48 @@ export interface AboutWhoWeAreBlockSelect<T extends boolean = true> {
         id?: T;
       };
   backgroundImage?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HighlightedTitleAndEyebrowBlock_select".
+ */
+export interface HighlightedTitleAndEyebrowBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  titleBeforeHighlight?: T;
+  highlightedTitle?: T;
+  titleAfterHighlight?: T;
+  subtitle?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutOurDifferenceBlock_select".
+ */
+export interface AboutOurDifferenceBlockSelect<T extends boolean = true> {
+  headerEyebrow?: T;
+  headerTitleBeforeHighlight?: T;
+  headerHighlightedTitle?: T;
+  headerTitleAfterHighlight?: T;
+  headerSubtitle?: T;
+  secondaryEyebrow?: T;
+  secondaryTitleBeforeHighlight?: T;
+  secondaryHighlightedTitle?: T;
+  secondaryTitleAfterHighlight?: T;
+  secondarySubtitle?: T;
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  backgroundImage?: T;
+  foregroundImage?: T;
+  learnMoreText?: T;
+  learnMoreHref?: T;
   id?: T;
   blockName?: T;
 }

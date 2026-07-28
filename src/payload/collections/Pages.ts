@@ -13,6 +13,8 @@ import { SubscribeToNewsletter } from "../blocks/SubscribeToNewsletter";
 import { revalidatePageHook } from "../globals/revalidateHook";
 import { MarqueeIcons } from "../blocks/MarqueeIcons";
 import { AboutWhoWeAre } from "../blocks/AboutWhoWeAre";
+import { HighlightedTitleAndEyebrow } from "../blocks/HighlightedTitleAndEyebrow";
+import { AboutOurDifference } from "../blocks/AboutOurDifference";
 
 /**
  * Payload CMS Collection configuration for dynamic Pages.
@@ -80,6 +82,8 @@ export const Pages: CollectionConfig = {
         SubscribeToNewsletter,
         MarqueeIcons,
         AboutWhoWeAre,
+        HighlightedTitleAndEyebrow,
+        AboutOurDifference,
       ],
       required: true,
     },

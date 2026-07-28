@@ -1,39 +1,11 @@
 import type { Block } from "payload";
+import { highlightedTitleAndEyebrowFields } from "../fields/highlightedTitleAndEyebrow";
 
 export const AboutWhoWeAre: Block = {
   slug: "about-who-we-are",
   interfaceName: "AboutWhoWeAreBlock",
   fields: [
-    {
-      name: "eyebrow",
-      type: "text",
-      required: false,
-      localized: true,
-    },
-    {
-      name: "titleBeforeHighlight",
-      type: "text",
-      required: true,
-      localized: true,
-    },
-    {
-      name: "highlightedTitle",
-      type: "text",
-      required: true,
-      localized: true,
-    },
-    {
-      name: "titleAfterHighlight",
-      type: "text",
-      required: false,
-      localized: true,
-    },
-    {
-      name: "subtitle",
-      type: "textarea",
-      required: false,
-      localized: true,
-    },
+    ...highlightedTitleAndEyebrowFields,
     {
       name: "stats",
       type: "array",

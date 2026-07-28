@@ -1,4 +1,5 @@
 import type { Block } from 'payload'
+import { highlightedTitleAndEyebrowFields } from '../fields/highlightedTitleAndEyebrow'
 
 export const HomeAbout: Block = {
   slug: 'home-about',
@@ -10,36 +11,7 @@ export const HomeAbout: Block = {
       relationTo: 'media',
       required: true,
     },
-    {
-      name: 'eyebrow',
-      type: 'text',
-      required: false,
-      localized: true,
-    },
-    {
-      name: 'titleBeforeHighlight',
-      type: 'text',
-      required: true,
-      localized: true,
-    },
-    {
-      name: 'highlightedTitle',
-      type: 'text',
-      required: false,
-      localized: true,
-    },
-    {
-      name: 'titleAfterHighlight',
-      type: 'text',
-      required: false,
-      localized: true,
-    },
-    {
-      name: 'subtitle',
-      type: 'textarea',
-      required: false,
-      localized: true,
-    },
+    ...highlightedTitleAndEyebrowFields,
     {
       name: 'list',
       type: 'array',

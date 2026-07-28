@@ -1,39 +1,11 @@
 import type { Block } from "payload";
+import { highlightedTitleAndEyebrowFields } from "../fields/highlightedTitleAndEyebrow";
 
 export const ContactForm: Block = {
   slug: "contact-form",
   interfaceName: "ContactFormBlock",
   fields: [
-    {
-      name: "eyebrow",
-      type: "text",
-      required: false,
-      localized: true,
-    },
-    {
-      name: "titleBeforeHighlight",
-      type: "text",
-      required: false,
-      localized: true,
-    },
-    {
-      name: "highlightedTitle",
-      type: "text",
-      required: false,
-      localized: true,
-    },
-    {
-      name: "titleAfterHighlight",
-      type: "text",
-      required: false,
-      localized: true,
-    },
-    {
-      name: "subtitle",
-      type: "textarea",
-      required: false,
-      localized: true,
-    },
+    ...highlightedTitleAndEyebrowFields,
     {
       name: "formBackgroundImage",
       type: "upload",

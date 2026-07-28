@@ -41,6 +41,7 @@
   --color-footer-gray: var(--footer-gray);
   --color-footer-bottom-gray: var(--footer-bottom-gray);
 
+  --color-error-100: var(--error-100);
   --color-error-500: var(--error-500);
   --color-warning-500: var(--warning-500);
   --color-yellow-500: var(--yellow-500);
@@ -146,6 +147,7 @@
 
   --outline: #aaa;
 
+  --error-100: #eab8b8;
   --error-500: #ba1a1a;
   --warning-500: #de6134;
   --yellow-500: #fbbc05;

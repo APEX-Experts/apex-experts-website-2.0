@@ -83,6 +83,7 @@ export interface Config {
     'about-our-difference': AboutOurDifferenceBlock;
     'about-how-we-work': AboutHowWeWorkBlock;
     industries: IndustriesBlock;
+    'about-ways': AboutWaysBlock;
   };
   collections: {
     users: User;
@@ -6494,6 +6495,31 @@ export interface IndustriesBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutWaysBlock".
+ */
+export interface AboutWaysBlock {
+  eyebrow?: string | null;
+  titleBeforeHighlight: string;
+  highlightedTitle?: string | null;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  textureWavesImage?: (number | null) | Media;
+  bestSuitedForLabel?: string | null;
+  ways?:
+    | {
+        eyebrow?: string | null;
+        title: string;
+        description: string;
+        bestSuitedForText?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'about-ways';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -6544,6 +6570,7 @@ export interface Page {
     | AboutOurDifferenceBlock
     | AboutHowWeWorkBlock
     | IndustriesBlock
+    | AboutWaysBlock
   )[];
   updatedAt: string;
   createdAt: string;
@@ -6762,6 +6789,7 @@ export interface PagesSelect<T extends boolean = true> {
         'about-our-difference'?: T | AboutOurDifferenceBlockSelect<T>;
         'about-how-we-work'?: T | AboutHowWeWorkBlockSelect<T>;
         industries?: T | IndustriesBlockSelect<T>;
+        'about-ways'?: T | AboutWaysBlockSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -7199,6 +7227,30 @@ export interface IndustriesBlockSelect<T extends boolean = true> {
         eyebrow?: T;
         title?: T;
         description?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutWaysBlock_select".
+ */
+export interface AboutWaysBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  titleBeforeHighlight?: T;
+  highlightedTitle?: T;
+  titleAfterHighlight?: T;
+  subtitle?: T;
+  textureWavesImage?: T;
+  bestSuitedForLabel?: T;
+  ways?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        description?: T;
+        bestSuitedForText?: T;
         id?: T;
       };
   id?: T;

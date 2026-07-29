@@ -87,6 +87,10 @@ export interface Config {
     'about-team-members': AboutTeamMembersBlock;
     'services-main-section': ServicesMainSectionBlock;
     'common-cta': CommonCtaBlock;
+    directory: DirectoryBlock;
+    subservices: SubservicesBlock;
+    'when-you-need-it': WhenYouNeedItBlock;
+    'readiness-check': ReadinessCheckBlock;
   };
   collections: {
     users: User;
@@ -6598,6 +6602,120 @@ export interface CommonCtaBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DirectoryBlock".
+ */
+export interface DirectoryBlock {
+  eyebrow?: string | null;
+  titleBeforeHighlight: string;
+  highlightedTitle?: string | null;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  backgroundImage?: (number | null) | Media;
+  textureWavesImage?: (number | null) | Media;
+  list?:
+    | {
+        icon?: string | null;
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'directory';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SubservicesBlock".
+ */
+export interface SubservicesBlock {
+  eyebrow?: string | null;
+  titleBeforeHighlight: string;
+  highlightedTitle?: string | null;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  backgroundImage?: (number | null) | Media;
+  textureWavesImage?: (number | null) | Media;
+  countGroup?: {
+    countTitle?: string | null;
+    countDescription?: string | null;
+    countBackgroundImage?: (number | null) | Media;
+  };
+  subservices?:
+    | {
+        supertitle?: string | null;
+        title: string;
+        subtitle?: string | null;
+        tags?:
+          | {
+              tag: string;
+              id?: string | null;
+            }[]
+          | null;
+        ctaText?: string | null;
+        ctaHref?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'subservices';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WhenYouNeedItBlock".
+ */
+export interface WhenYouNeedItBlock {
+  eyebrow?: string | null;
+  titleBeforeHighlight: string;
+  highlightedTitle?: string | null;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  textureWavesImage?: (number | null) | Media;
+  backgroundImage?: (number | null) | Media;
+  items?:
+    | {
+        eyebrow?: string | null;
+        supertitle?: string | null;
+        title: string;
+        subtitle?: string | null;
+        tags?:
+          | {
+              tag: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'when-you-need-it';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReadinessCheckBlock".
+ */
+export interface ReadinessCheckBlock {
+  eyebrow?: string | null;
+  titleBeforeHighlight: string;
+  highlightedTitle?: string | null;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  items?:
+    | {
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  textureWavesImage?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'readiness-check';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -6652,6 +6770,10 @@ export interface Page {
     | AboutTeamMembersBlock
     | ServicesMainSectionBlock
     | CommonCtaBlock
+    | DirectoryBlock
+    | SubservicesBlock
+    | WhenYouNeedItBlock
+    | ReadinessCheckBlock
   )[];
   updatedAt: string;
   createdAt: string;
@@ -6874,6 +6996,10 @@ export interface PagesSelect<T extends boolean = true> {
         'about-team-members'?: T | AboutTeamMembersBlockSelect<T>;
         'services-main-section'?: T | ServicesMainSectionBlockSelect<T>;
         'common-cta'?: T | CommonCtaBlockSelect<T>;
+        directory?: T | DirectoryBlockSelect<T>;
+        subservices?: T | SubservicesBlockSelect<T>;
+        'when-you-need-it'?: T | WhenYouNeedItBlockSelect<T>;
+        'readiness-check'?: T | ReadinessCheckBlockSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -7409,6 +7535,118 @@ export interface CommonCtaBlockSelect<T extends boolean = true> {
   secondaryCtaText?: T;
   secondaryCtaHref?: T;
   backgroundImage?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DirectoryBlock_select".
+ */
+export interface DirectoryBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  titleBeforeHighlight?: T;
+  highlightedTitle?: T;
+  titleAfterHighlight?: T;
+  subtitle?: T;
+  backgroundImage?: T;
+  textureWavesImage?: T;
+  list?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SubservicesBlock_select".
+ */
+export interface SubservicesBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  titleBeforeHighlight?: T;
+  highlightedTitle?: T;
+  titleAfterHighlight?: T;
+  subtitle?: T;
+  backgroundImage?: T;
+  textureWavesImage?: T;
+  countGroup?:
+    | T
+    | {
+        countTitle?: T;
+        countDescription?: T;
+        countBackgroundImage?: T;
+      };
+  subservices?:
+    | T
+    | {
+        supertitle?: T;
+        title?: T;
+        subtitle?: T;
+        tags?:
+          | T
+          | {
+              tag?: T;
+              id?: T;
+            };
+        ctaText?: T;
+        ctaHref?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WhenYouNeedItBlock_select".
+ */
+export interface WhenYouNeedItBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  titleBeforeHighlight?: T;
+  highlightedTitle?: T;
+  titleAfterHighlight?: T;
+  subtitle?: T;
+  textureWavesImage?: T;
+  backgroundImage?: T;
+  items?:
+    | T
+    | {
+        eyebrow?: T;
+        supertitle?: T;
+        title?: T;
+        subtitle?: T;
+        tags?:
+          | T
+          | {
+              tag?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReadinessCheckBlock_select".
+ */
+export interface ReadinessCheckBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  titleBeforeHighlight?: T;
+  highlightedTitle?: T;
+  titleAfterHighlight?: T;
+  subtitle?: T;
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  textureWavesImage?: T;
   id?: T;
   blockName?: T;
 }

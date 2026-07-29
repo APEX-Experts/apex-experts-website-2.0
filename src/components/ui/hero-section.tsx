@@ -3,8 +3,9 @@
 import { BackgroundOverlay } from "@/components/ui/background-overlay";
 import { BreadcrumbNav, type BreadcrumbItem } from "@/components/ui/breadcrumb-nav";
 import { SectionReveal } from "@/components/ui/section-reveal";
-import { getMediaAlt, getMediaUrl } from "@/lib/utils";
+import { cn, getMediaAlt, getMediaUrl } from "@/lib/utils";
 import type { Media } from "@/payload-types";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 export type HeroSectionProps = {
@@ -35,6 +36,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 }) => {
   const bgImageUrl = getMediaUrl(backgroundImage);
   const bgImageAlt = getMediaAlt(backgroundImage, defaultAlt);
+  const pathname = usePathname();
+  const isServicePage = pathname.includes("service");
 
   return (
     <section
@@ -45,7 +48,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         src={bgImageUrl}
         alt={bgImageAlt}
         overlayClass={overlayClass}
-        className="object-cover object-top"
+        className={cn(
+          "object-cover",
+          isServicePage ? "object-center scale-150 rotate-180" : "object-top",
+        )}
         priority
       />
 

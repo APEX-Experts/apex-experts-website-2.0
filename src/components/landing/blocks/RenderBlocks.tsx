@@ -10,6 +10,10 @@ import { AboutTeamMembersBlock } from "./about/AboutTeamMembersBlock";
 import { IndustriesBlock } from "./common/IndustriesBlock";
 import { ServicesMainSectionBlock } from "./services/ServicesMainSectionBlock";
 import { CommonCtaBlock } from "./common/CommonCtaBlock";
+import { DirectoryBlock } from "./services/DirectoryBlock";
+import { SubservicesBlock } from "./services/SubservicesBlock";
+import { WhenYouNeedItBlock } from "./services/WhenYouNeedItBlock";
+import { ReadinessCheckBlock } from "./services/ReadinessCheckBlock";
 import { HeroMarqueeBlock } from "./common/HeroMarqueeBlock";
 import { HomeAboutBlock } from "./home/HomeAboutBlock";
 import { HomeCapabilities } from "./home/HomeCapabilities";
@@ -73,6 +77,14 @@ export const RenderBlocks: React.FC<Props> = ({ blocks }) => {
             return <ServicesMainSectionBlock key={key} {...block} />;
           case "common-cta":
             return <CommonCtaBlock key={key} {...block} />;
+          case "directory":
+            return <DirectoryBlock key={key} {...block} />;
+          case "subservices":
+            return <SubservicesBlock key={key} {...block} />;
+          case "when-you-need-it":
+            return <WhenYouNeedItBlock key={key} {...block} />;
+          case "readiness-check":
+            return <ReadinessCheckBlock key={key} {...block} />;
           case "clip-text-marquee":
             return <HeroMarqueeBlock key={key} {...block} />;
           case "home-about":

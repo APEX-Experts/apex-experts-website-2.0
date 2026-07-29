@@ -21,6 +21,10 @@ import { AboutWays } from "../blocks/AboutWays";
 import { AboutTeamMembers } from "../blocks/AboutTeamMembers";
 import { ServicesMainSection } from "../blocks/ServicesMainSection";
 import { CommonCta } from "../blocks/CommonCta";
+import { Directory } from "../blocks/Directory";
+import { Subservices } from "../blocks/Subservices";
+import { WhenYouNeedIt } from "../blocks/WhenYouNeedIt";
+import { ReadinessCheck } from "../blocks/ReadinessCheck";
 
 /**
  * Payload CMS Collection configuration for dynamic Pages.
@@ -56,16 +60,18 @@ export const Pages: CollectionConfig = {
       hooks: {
         beforeValidate: [
           ({ value, data }) => {
-            if (value)
-              return value
+            const formatSlug = (val: string) => {
+              return val
                 .toLowerCase()
-                .replace(/ /g, "-")
-                .replace(/[^\w-]+/g, "");
-            if (data?.title)
-              return data.title
-                .toLowerCase()
-                .replace(/ /g, "-")
-                .replace(/[^\w-]+/g, "");
+                .replace(/ /g, "-") // Replace spaces with dashes
+                .replace(/[^\w-\/]+/g, "") // ALLOW forward slashes, remove other special chars
+                .replace(/\/+/g, "/") // Prevent multiple slashes (e.g. 'services//web' -> 'services/web')
+                .replace(/^\/|\/$/g, ""); // Remove leading and trailing slashes (e.g. '/about/' -> 'about')
+            };
+
+            if (value) return formatSlug(value);
+            if (data?.title) return formatSlug(data.title);
+
             return value;
           },
         ],
@@ -96,6 +102,10 @@ export const Pages: CollectionConfig = {
         AboutTeamMembers,
         ServicesMainSection,
         CommonCta,
+        Directory,
+        Subservices,
+        WhenYouNeedIt,
+        ReadinessCheck,
       ],
       required: true,
     },

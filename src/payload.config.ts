@@ -33,6 +33,10 @@ import { AboutWays } from "./payload/blocks/AboutWays.ts";
 import { AboutTeamMembers } from "./payload/blocks/AboutTeamMembers.ts";
 import { ServicesMainSection } from "./payload/blocks/ServicesMainSection.ts";
 import { CommonCta } from "./payload/blocks/CommonCta.ts";
+import { Directory } from "./payload/blocks/Directory.ts";
+import { Subservices } from "./payload/blocks/Subservices.ts";
+import { WhenYouNeedIt } from "./payload/blocks/WhenYouNeedIt.ts";
+import { ReadinessCheck } from "./payload/blocks/ReadinessCheck.ts";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -118,5 +122,9 @@ export default buildConfig({
     AboutTeamMembers,
     ServicesMainSection,
     CommonCta,
+    Directory,
+    Subservices,
+    WhenYouNeedIt,
+    ReadinessCheck,
   ],
 });

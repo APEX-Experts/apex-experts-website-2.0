@@ -89,7 +89,7 @@ export function Logo({
         />
       ) : logoSvg ? (
         <div
-          className="flex items-center justify-center shrink-0 [&>svg]:w-full [&>svg]:h-full [&>svg]:fill-current"
+          className="flex items-center justify-center shrink-0 [&>svg]:w-full [&>svg]:h-full"
           style={logoWidth && logoHeight ? { width: logoWidth, height: logoHeight } : undefined}
           {...(isSvgString
             ? { dangerouslySetInnerHTML: { __html: logoSvg } }

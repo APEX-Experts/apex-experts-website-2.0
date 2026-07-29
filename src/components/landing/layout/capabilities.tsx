@@ -137,7 +137,7 @@ const Capabilities = ({ capabilities }: Props) => {
                 src={capabilitiesBackgroundUrls?.[activeCapIndex] ?? ""}
                 alt={capabilitiesBackgroundAlts?.[activeCapIndex] ?? ""}
                 fill
-                className="object-cover object-center"
+                className="object-cover object-center scale-150"
               />
             </div>
 

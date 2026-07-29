@@ -38,7 +38,7 @@ export const HighlightedTitle: React.FC<HighlightedTitleProps> = ({
 
   return (
     <Component
-      className={`font-montserrat font-semibold text-xl md:text-3xl lg:text-5xl leading-[130%] tracking-[-7%] uppercase text-foreground ${className}`}
+      className={`font-montserrat font-semibold text-xl md:text-3xl lg:text-4xl leading-[130%] tracking-[-7%] uppercase text-foreground ${className}`}
     >
       {titleBeforeHighlight && <span>{titleBeforeHighlight}</span>}
       {highlightedTitle && <span className={` ${highlightClassName}`}> {highlightedTitle}</span>}

@@ -363,4 +363,12 @@
   .subservice-gradient {
     background: linear-gradient(270deg, #b9001a 0%, #53000c 100%);
   }
+
+  .count-gradient {
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.9) 1.44%, rgba(0, 0, 0, 0) 100%);
+  }
+
+  .service-shadow-blur {
+    box-shadow: 0px 0px 14.2px 0px #0000001a;
+  }
 }

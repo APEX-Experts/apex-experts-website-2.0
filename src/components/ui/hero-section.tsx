@@ -48,10 +48,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         src={bgImageUrl}
         alt={bgImageAlt}
         overlayClass={overlayClass}
-        className={cn(
-          "object-cover",
-          isServicePage ? "object-center scale-150 rotate-180" : "object-top",
-        )}
+        className={cn("object-cover", isServicePage ? "object-center scale-150" : "object-top")}
         priority
       />
 

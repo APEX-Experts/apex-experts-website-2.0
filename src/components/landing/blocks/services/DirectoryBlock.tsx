@@ -64,7 +64,7 @@ export const DirectoryBlock: React.FC<DirectoryBlockType> = ({
                     alt={title}
                     className="text-primary-500 w-10 h-10"
                   />
-                  <div className="flex flex-col">
+                  <div className="flex flex-col pb-4 border-b border-outline/30">
                     <span className="font-poppins font-semibold text-xl leading-[160%] tracking-[-7%] uppercase">
                       {title}
                     </span>

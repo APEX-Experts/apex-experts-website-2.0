@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { MegaMenuData } from "./navbar-types";
 import { Logo } from "./logo";
+import ServiceIcon from "./service-icon";
 
 export interface MegaMenuProps {
   megaMenu: MegaMenuData;
@@ -67,7 +68,7 @@ export function MegaMenu({
                 <div className="flex flex-row items-center gap-2">
                   <div
                     className={cn(
-                      "bg-white rounded-lg border border-nile-300 flex items-center justify-center",
+                      "bg-white rounded-lg border border-nile-300 flex items-center justify-center text-foreground",
                       subitem?.iconSvg ? "w-16 h-10" : "w-8 h-8",
                     )}
                   >
@@ -79,10 +80,7 @@ export function MegaMenu({
                         className="w-12 h-12 text-foreground"
                       />
                     ) : (
-                      <LucideIcon
-                        name={subitem?.subitems?.[0]?.icon || "Database"}
-                        className="w-5 h-5 text-foreground"
-                      />
+                      <ServiceIcon index={index} width={20} height={20} />
                     )}
                   </div>
                   <span

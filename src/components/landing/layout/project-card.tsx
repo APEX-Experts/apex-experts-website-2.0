@@ -1,10 +1,10 @@
-import React from "react";
-import type { ProjectsBlock as ProjectsBlockType } from "@/payload-types";
-import Image from "next/image";
 import { getMediaAlt, getMediaUrl } from "@/lib/utils";
-import { ArrowUpRight, ChevronRight } from "lucide-react";
-import Link from "next/link";
+import type { ProjectsBlock as ProjectsBlockType } from "@/payload-types";
+import { ArrowRight, ChevronRight } from "lucide-react";
 import { motion } from "motion/react";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 
 type Project = NonNullable<ProjectsBlockType["projects"]>[number];
 
@@ -31,7 +31,11 @@ const ProjectCard: React.FC<Props> = ({ project }) => {
   const blurImageUrl = getMediaUrl(backgroundImageBlur);
   const blurImageAlt = getMediaAlt(backgroundImageBlur, "Blur");
   return (
-    <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }} transition={{ duration: 0.3 }}>
+    <motion.div
+      whileHover={{ scale: 1.01 }}
+      whileTap={{ scale: 0.99 }}
+      transition={{ duration: 0.3 }}
+    >
       <Link
         className="w-full project-card bg-noise relative rounded-[1.5rem] lg:rounded-[5rem] overflow-hidden block"
         href={href ?? "#"}
@@ -62,7 +66,7 @@ const ProjectCard: React.FC<Props> = ({ project }) => {
                       {ctaText}
                     </span>
                     <span className="w-7.5 h-7.5 rounded-full border border-white flex justify-center items-center">
-                      <ArrowUpRight className="w-5.5 h-5.5 text-white" />
+                      <ArrowRight className="w-5.5 h-5.5 text-white -rotate-30" />
                     </span>
                   </div>
                 )}
@@ -93,7 +97,7 @@ const ProjectCard: React.FC<Props> = ({ project }) => {
                     {ctaText}
                   </span>
                   <span className="rounded-full w-7.5 h-7.5 border border-white flex items-center justify-center">
-                    <ArrowUpRight className="w-5.5 h-5.5 text-white" />
+                    <ArrowRight className="w-5.5 h-5.5 text-white -rotate-30" />
                   </span>
                 </div>
               )}
@@ -128,4 +132,3 @@ const ProjectCard: React.FC<Props> = ({ project }) => {
 };
 
 export default ProjectCard;
-

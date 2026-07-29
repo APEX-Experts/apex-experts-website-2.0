@@ -59,7 +59,7 @@ export function DesktopNav({
                 {item.label}
                 <span
                   className={cn(
-                    "absolute bottom-0 start-1/2 -translate-x-1/2 h-0.5 bg-primary-500 rounded-full w-[120%]",
+                    "absolute bottom-0 inset-s-1/2 -translate-x-1/2 h-0.5 bg-primary-500 rounded-full w-[120%]",
                     isActive ? "block" : "hidden group-hover:block",
                   )}
                 />

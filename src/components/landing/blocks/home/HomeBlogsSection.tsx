@@ -3,7 +3,7 @@ import { SectionReveal } from "@/components/ui/section-reveal";
 import { getPayload } from "@/lib/cms/getPayload";
 import { getMediaAlt, getMediaUrl } from "@/lib/utils";
 import type { HomeBlogsBlock as HomeBlogsBlockType, Media, Post, User } from "@/payload-types";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -123,7 +123,7 @@ export const HomeBlogsSection = async ({
                       {viewArticleText}
                     </span>
                     <div className="text-foreground border border-foreground rounded-full p-1">
-                      <ArrowUpRight className="w-4 h-4" />
+                      <ArrowRight className="w-4 h-4 -rotate-30" />
                     </div>
                   </Link>
                 </div>

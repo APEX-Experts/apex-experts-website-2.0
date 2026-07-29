@@ -3,9 +3,11 @@
 import { BackgroundOverlay } from "@/components/ui/background-overlay";
 import { FeatureCard } from "@/components/ui/feature-card";
 import { Eyebrow, HighlightedTitle } from "@/components/ui/highlighted-title";
+import { SectionReveal } from "@/components/ui/section-reveal";
 import { StatPairBlock } from "@/components/ui/stat-pair-block";
 import { getMediaAlt, getMediaUrl } from "@/lib/utils";
 import type { AboutWhoWeAreBlock as AboutWhoWeAreBlockType } from "@/payload-types";
+import { motion } from "motion/react";
 import React from "react";
 import MarqueeSection from "../../layout/marquee";
 
@@ -42,13 +44,15 @@ export const AboutWhoWeAreBlock: React.FC<AboutWhoWeAreBlockType> = ({
       />
 
       <div className="flex flex-col gap-10 lg:gap-14">
-        <MarqueeSection
-          marqueeIconAlts={marqueeIconAlts ?? []}
-          marqueeIconUrls={(marqueeIconUrls ?? []) as string[]}
-        />
+        <SectionReveal direction="up">
+          <MarqueeSection
+            marqueeIconAlts={marqueeIconAlts ?? []}
+            marqueeIconUrls={(marqueeIconUrls ?? []) as string[]}
+          />
+        </SectionReveal>
         <div className="flex flex-col gap-8 lg:gap-18">
           <div className="flex flex-col lg:flex-row justify-between gap-8">
-            <div className="flex flex-col gap-4 lg:gap-10">
+            <SectionReveal direction="up" className="flex flex-col gap-4 lg:gap-10">
               <div className="flex flex-col gap-2 lg:gap-1">
                 <Eyebrow text={eyebrow} />
                 <HighlightedTitle
@@ -69,10 +73,10 @@ export const AboutWhoWeAreBlock: React.FC<AboutWhoWeAreBlockType> = ({
                     </p>
                   ))}
               </div>
-            </div>
+            </SectionReveal>
 
             {/* Stats Grid */}
-            <div className="flex flex-col gap-6 lg:max-w-lg">
+            <SectionReveal direction="up" delay={0.1} className="flex flex-col gap-6 lg:max-w-lg">
               {stats?.map((_, index) => {
                 if (index % 2 !== 0) return null;
 
@@ -83,22 +87,43 @@ export const AboutWhoWeAreBlock: React.FC<AboutWhoWeAreBlockType> = ({
                   <StatPairBlock key={left.id ?? index} left={left} right={right} />
                 );
               })}
-            </div>
+            </SectionReveal>
           </div>
 
           {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-between gap-8 w-full">
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.15 }}
+            variants={{
+              hidden: {},
+              show: {
+                transition: {
+                  staggerChildren: 0.1,
+                },
+              },
+            }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-between gap-8 w-full"
+          >
             {cards?.map(({ title, description, eyebrow, id }, index) => (
-              <FeatureCard
+              <motion.div
                 key={id ?? index}
-                title={title}
-                description={description}
-                eyebrow={eyebrow}
-                iconUrl={cardImageUrls?.[index]}
-                iconAlt={cardImageAlts?.[index]}
-              />
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
+                }}
+                whileHover={{ y: -4 }}
+              >
+                <FeatureCard
+                  title={title}
+                  description={description}
+                  eyebrow={eyebrow}
+                  iconUrl={cardImageUrls?.[index]}
+                  iconAlt={cardImageAlts?.[index]}
+                />
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

@@ -1,15 +1,16 @@
 "use client";
 
 import { Eyebrow, HighlightedTitle } from "@/components/ui/highlighted-title";
+import { SectionReveal } from "@/components/ui/section-reveal";
+import { TextureWaves } from "@/components/ui/texture-waves";
 import { cn, getMediaAlt, getMediaUrl, zeroPadNumber } from "@/lib/utils";
 import type { FAQBlock as FAQBlockType } from "@/payload-types";
-import { ArrowUpRight, Minus, Plus } from "lucide-react";
+import { ArrowRight, Minus, Plus } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
+import { Karantina } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import { Karantina } from "next/font/google";
-import { SectionReveal } from "@/components/ui/section-reveal";
-import { motion, AnimatePresence } from "motion/react";
 
 const karantina = Karantina({
   subsets: ["latin"],
@@ -36,8 +37,6 @@ export const HomeFAQ: React.FC<FAQBlockType> = ({
   const ctaImageAlt = getMediaAlt(ctaImage, "CTA Image");
   const backgroundImageUrl = getMediaUrl(backgroundImage);
   const backgroundImageAlt = getMediaAlt(backgroundImage, "Background Image");
-  const textureWavesImageUrl = getMediaUrl(textureWavesImage);
-  const textureWavesImageAlt = getMediaAlt(textureWavesImage, "Texture Waves Image");
 
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
@@ -95,14 +94,20 @@ export const HomeFAQ: React.FC<FAQBlockType> = ({
                   </p>
                 )}
                 {ctaButtonText && (
-                  <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="w-full lg:w-fit">
+                  <motion.div
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="w-full lg:w-fit"
+                  >
                     <Link
                       href={"/contact"}
                       className="mt-4 bg-primary-500 text-white py-2 px-4 rounded-full flex flex-row items-center gap-4 w-full lg:w-fit max-lg:justify-center"
                     >
-                      <span className="text-base tracking-normal font-poppins">{ctaButtonText}</span>
+                      <span className="text-base tracking-normal font-poppins">
+                        {ctaButtonText}
+                      </span>
                       <div className="w-8 h-8 rounded-full border border-white flex items-center justify-center">
-                        <ArrowUpRight className="w-5 h-5 text-white" />
+                        <ArrowRight className="w-5 h-5 text-white -rotate-30" />
                       </div>
                     </Link>
                   </motion.div>
@@ -187,15 +192,7 @@ export const HomeFAQ: React.FC<FAQBlockType> = ({
       </div>
 
       {/* Texture Waves */}
-      <div className="absolute max-lg:hidden top-0 inset-e-0 w-145.5 h-105.75 pointer-events-none z-0">
-        <Image
-          src={textureWavesImageUrl || ""}
-          alt={textureWavesImageAlt}
-          fill
-          className="object-cover"
-        />
-      </div>
+      <TextureWaves image={textureWavesImage} position="top" />
     </section>
   );
 };
-

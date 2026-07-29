@@ -2,8 +2,10 @@
 
 import { Eyebrow, HighlightedTitle } from "@/components/ui/highlighted-title";
 import { SectionReveal } from "@/components/ui/section-reveal";
+import { TextureWaves } from "@/components/ui/texture-waves";
 import { getMediaAlt, getMediaUrl } from "@/lib/utils";
 import type { AboutHowWeWorkBlock as AboutHowWeWorkBlockType } from "@/payload-types";
+import { motion } from "motion/react";
 import Image from "next/image";
 import React from "react";
 
@@ -21,8 +23,6 @@ export const AboutHowWeWorkBlock: React.FC<AboutHowWeWorkBlockType> = ({
   steps,
   principles,
 }) => {
-  const textureWavesUrl = getMediaUrl(textureWavesImage);
-  const textureWavesAlt = getMediaAlt(textureWavesImage, "Waves texture");
   const fgImageUrl = getMediaUrl(foregroundImage);
   const fgImageAlt = getMediaAlt(foregroundImage, "How we work illustration");
   const iconsImageUrls = principles?.map((p) => getMediaUrl(p.icon));
@@ -30,16 +30,7 @@ export const AboutHowWeWorkBlock: React.FC<AboutHowWeWorkBlockType> = ({
 
   return (
     <section className="relative overflow-hidden bg-background py-10 lg:py-18" id="how-we-work">
-      {textureWavesUrl && (
-        <div className="absolute top-0 inset-e-0 w-51.5 h-37.5 lg:w-145.5 lg:h-105.75 pointer-events-none">
-          <Image
-            src={textureWavesUrl}
-            alt={textureWavesAlt}
-            fill
-            className="object-cover object-center"
-          />
-        </div>
-      )}
+      <TextureWaves image={textureWavesImage} position="top" />
 
       <div className="relative z-10 mx-auto px-4 lg:px-14">
         {/* Heading Section */}
@@ -78,7 +69,7 @@ export const AboutHowWeWorkBlock: React.FC<AboutHowWeWorkBlockType> = ({
             {/* Steps */}
             <div className="flex flex-row flex-wrap gap-8 px-4 lg:px-6 pb-10 border-b lg:border-b-3 border-primary-100/20">
               {steps?.map(({ title, id, paragraphs, tags }, index) => (
-                <div key={id ?? index} className="flex flex-col max-w-110">
+                <motion.div key={id ?? index} whileHover={{ y: -2 }} transition={{ duration: 0.2 }} className="flex flex-col max-w-110">
                   <div className="border-b-3 border-primary-100/20 mb-4">
                     <h4 className="font-poppins font-semibold text-2xl leading-6 text-foreground mb-3 lg:mb-2">
                       {title}
@@ -103,13 +94,13 @@ export const AboutHowWeWorkBlock: React.FC<AboutHowWeWorkBlockType> = ({
                       </span>
                     ))}
                   </p>
-                </div>
+                </motion.div>
               ))}
             </div>
             {/* Principles */}
             <div className="flex flex-row flex-wrap gap-8.5 items-center  px-4">
               {principles?.map(({ id, description, title, eyebrow }, index) => (
-                <div key={id ?? index} className="flex flex-row gap-4 items-start max-w-101.5">
+                <motion.div key={id ?? index} whileHover={{ y: -2 }} transition={{ duration: 0.2 }} className="flex flex-row gap-4 items-start max-w-101.5">
                   {/* Icon */}
                   <div className="w-8 h-8 lg:w-12 lg:h-12 flex items-center justify-center relative">
                     <Image
@@ -131,7 +122,7 @@ export const AboutHowWeWorkBlock: React.FC<AboutHowWeWorkBlockType> = ({
                     </div>
                     <p className="font-poppins text-sm leading-5 text-foreground">{description}</p>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>

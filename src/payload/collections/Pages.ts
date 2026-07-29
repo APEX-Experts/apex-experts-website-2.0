@@ -19,6 +19,7 @@ import { AboutHowWeWork } from "../blocks/AboutHowWeWork";
 import { Industries } from "../blocks/Industries";
 import { AboutWays } from "../blocks/AboutWays";
 import { AboutTeamMembers } from "../blocks/AboutTeamMembers";
+import { ServicesMainSection } from "../blocks/ServicesMainSection";
 
 /**
  * Payload CMS Collection configuration for dynamic Pages.
@@ -92,6 +93,7 @@ export const Pages: CollectionConfig = {
         Industries,
         AboutWays,
         AboutTeamMembers,
+        ServicesMainSection,
       ],
       required: true,
     },

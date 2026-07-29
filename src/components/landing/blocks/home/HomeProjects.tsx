@@ -7,6 +7,7 @@ import Image from "next/image";
 import React from "react";
 import ProjectCard from "../../layout/project-card";
 import { SectionReveal } from "@/components/ui/section-reveal";
+import { TextureWaves } from "@/components/ui/texture-waves";
 
 export const HomeProjects: React.FC<ProjectsBlockType> = ({
   eyebrow,
@@ -20,8 +21,6 @@ export const HomeProjects: React.FC<ProjectsBlockType> = ({
 }) => {
   const bgImageUrl = getMediaUrl(backgroundImage);
   const bgImageAlt = getMediaAlt(backgroundImage, "Background Image");
-  const textureUrl = getMediaUrl(texture);
-  const textureAlt = getMediaAlt(texture, "Texture");
 
   return (
     <section className="relative overflow-hidden min-h-screen pt-10 lg:py-18" id="projects">
@@ -30,11 +29,7 @@ export const HomeProjects: React.FC<ProjectsBlockType> = ({
           <Image src={bgImageUrl} alt={bgImageAlt} fill className="object-cover" />
         </div>
       )}
-      {texture && textureUrl && (
-        <div className="max-lg:hidden w-145.5 h-105.75 absolute top-0 inset-e-0 pointer-events-none">
-          <Image src={textureUrl} alt={textureAlt} fill className="object-cover" />
-        </div>
-      )}
+      {texture && <TextureWaves image={texture} position="top" />}
       <div className="w-full relative flex flex-col gap-8 lg:gap-18">
         {/* Content */}
         <SectionReveal direction="up" className="w-full">

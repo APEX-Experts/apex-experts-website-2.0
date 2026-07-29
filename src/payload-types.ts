@@ -85,6 +85,7 @@ export interface Config {
     industries: IndustriesBlock;
     'about-ways': AboutWaysBlock;
     'about-team-members': AboutTeamMembersBlock;
+    'services-main-section': ServicesMainSectionBlock;
   };
   collections: {
     users: User;
@@ -6545,6 +6546,41 @@ export interface AboutTeamMembersBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesMainSectionBlock".
+ */
+export interface ServicesMainSectionBlock {
+  eyebrow?: string | null;
+  titleBeforeHighlight: string;
+  highlightedTitle?: string | null;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  textureWavesImage?: (number | null) | Media;
+  backgroundImage?: (number | null) | Media;
+  services?:
+    | {
+        cardBackgroundImage?: (number | null) | Media;
+        eyebrow?: string | null;
+        title: string;
+        description: string;
+        ctaText?: string | null;
+        ctaHref?: string | null;
+        subservices?:
+          | {
+              title: string;
+              subtitle?: string | null;
+              href?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'services-main-section';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -6597,6 +6633,7 @@ export interface Page {
     | IndustriesBlock
     | AboutWaysBlock
     | AboutTeamMembersBlock
+    | ServicesMainSectionBlock
   )[];
   updatedAt: string;
   createdAt: string;
@@ -6817,6 +6854,7 @@ export interface PagesSelect<T extends boolean = true> {
         industries?: T | IndustriesBlockSelect<T>;
         'about-ways'?: T | AboutWaysBlockSelect<T>;
         'about-team-members'?: T | AboutTeamMembersBlockSelect<T>;
+        'services-main-section'?: T | ServicesMainSectionBlockSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -7301,6 +7339,40 @@ export interface AboutTeamMembersBlockSelect<T extends boolean = true> {
         photo?: T;
         name?: T;
         role?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesMainSectionBlock_select".
+ */
+export interface ServicesMainSectionBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  titleBeforeHighlight?: T;
+  highlightedTitle?: T;
+  titleAfterHighlight?: T;
+  subtitle?: T;
+  textureWavesImage?: T;
+  backgroundImage?: T;
+  services?:
+    | T
+    | {
+        cardBackgroundImage?: T;
+        eyebrow?: T;
+        title?: T;
+        description?: T;
+        ctaText?: T;
+        ctaHref?: T;
+        subservices?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              href?: T;
+              id?: T;
+            };
         id?: T;
       };
   id?: T;

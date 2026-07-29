@@ -8,6 +8,7 @@ import { Eyebrow, HighlightedTitle } from "@/components/ui/highlighted-title";
 import { getMediaAlt, getMediaUrl } from "@/lib/utils";
 import type { ContactFormBlock as ContactFormBlockType } from "@/payload-types";
 import { SectionReveal } from "@/components/ui/section-reveal";
+import { TextureWaves } from "@/components/ui/texture-waves";
 
 type FormShape = Record<string, string>;
 
@@ -32,8 +33,6 @@ export const ContactFormBlock: React.FC<ContactFormBlockType> = ({
   const formBgImageAlt = getMediaAlt(formBackgroundImage, "Background Image");
   const formFgImageUrl = getMediaUrl(formForegroundImage);
   const formFgImageAlt = getMediaAlt(formForegroundImage, "Foreground Image");
-  const textureWavesImageUrl = getMediaUrl(textureWavesImage);
-  const textureWavesImageAlt = getMediaAlt(textureWavesImage, "Texture Waves Image");
   const backgroundImageUrl = getMediaUrl(backgroundImage);
   const backgroundAlt = getMediaAlt(backgroundImage, "Background Image");
 
@@ -106,14 +105,7 @@ export const ContactFormBlock: React.FC<ContactFormBlockType> = ({
         <Image src={backgroundImageUrl ?? ""} alt={backgroundAlt} fill className="object-cover" />
       </div>
       {/* Texture Waves */}
-      <div className="absolute top-0 inset-e-0 w-51.5 h-37.5 lg:w-145.5 lg:h-105.75 pointer-events-none">
-        <Image
-          src={textureWavesImageUrl ?? ""}
-          alt={textureWavesImageAlt}
-          fill
-          className="object-cover"
-        />
-      </div>
+      <TextureWaves image={textureWavesImage} position="top" />
       <div className="flex flex-col gap-8 lg:gap-18">
         {/* Heading */}
         <SectionReveal direction="up" className="w-full">

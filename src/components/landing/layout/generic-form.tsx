@@ -13,7 +13,7 @@ import { CustomPhoneInput } from "@/components/ui/phone-input";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { DeepValue, FormValidateOrFn, Updater, useForm } from "@tanstack/react-form";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import "react-international-phone/style.css";
 import * as z from "zod";
 import { $ZodTypeInternals } from "zod/v4/core";
@@ -283,7 +283,7 @@ export function GenericForm<T>({
                 {isSubmitting ? "Submitting..." : submitText}
               </span>
               <span className="w-6 h-6 lg:w-7.5 lg:h-7.5 flex items-center justify-center bg-white rounded-full">
-                <ArrowUpRight className="text-primary-500 w-4.5 h-4.5 lg:w-5.5 lg:h-5.5" />
+                <ArrowRight className="text-primary-500 w-4.5 h-4.5 lg:w-5.5 lg:h-5.5 -rotate-30" />
               </span>
             </Button>
           )}

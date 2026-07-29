@@ -355,4 +355,12 @@
       linear-gradient(141.45deg, #a97f71 11.38%, #1e0c06 80.31%),
       linear-gradient(141.45deg, #ffffff 11.38%, #cecece 80.31%);
   }
+
+  .service-circle {
+    background: linear-gradient(360deg, rgba(0, 0, 0, 0.9) 1.44%, rgba(0, 0, 0, 0) 100%);
+  }
+
+  .subservice-gradient {
+    background: linear-gradient(270deg, #b9001a 0%, #53000c 100%);
+  }
 }

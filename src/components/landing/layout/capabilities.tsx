@@ -1,12 +1,12 @@
 import { LucideIcon } from "@/components/ui/lucide-icon";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { cn, zeroPadNumber, getMediaAlt, getMediaUrl } from "@/lib/utils";
+import { cn, getMediaAlt, getMediaUrl, zeroPadNumber } from "@/lib/utils";
 import { CapabilitiesBlock } from "@/payload-types";
-import { ArrowUpRight, ChevronRight } from "lucide-react";
+import { ArrowRight, ChevronRight } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
 
 type Props = {
   capabilities: CapabilitiesBlock["capabilities"];
@@ -163,7 +163,11 @@ const Capabilities = ({ capabilities }: Props) => {
               {/* Services */}
               <div className="flex flex-row gap-4 flex-wrap max-w-240">
                 {activeCap?.services?.map(({ icon, title, href, id }, index) => (
-                  <motion.div key={id ?? index} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}>
+                  <motion.div
+                    key={id ?? index}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.96 }}
+                  >
                     <Link
                       className={cn(
                         "rounded-full border flex flex-row items-center justify-between px-4 py-3 border-white/20 text-white",
@@ -212,9 +216,11 @@ const Capabilities = ({ capabilities }: Props) => {
                   href={activeCap?.href ?? "#"}
                   className="flex flex-row items-center gap-2 bg-primary-500 text-white rounded-full px-4 py-3 hover:bg-primary-700 transition-colors duration-300"
                 >
-                  <span className="font-display font-medium text-lg leading-none">View Service</span>
+                  <span className="font-display font-medium text-lg leading-none">
+                    View Service
+                  </span>
                   <div className="bg-white text-primary-500 rounded-full p-1.5 flex items-center justify-center">
-                    <ArrowUpRight className="w-5 h-5 shrink-0" />
+                    <ArrowRight className="w-5 h-5 shrink-0 -rotate-30" />
                   </div>
                 </Link>
               </motion.div>
@@ -227,4 +233,3 @@ const Capabilities = ({ capabilities }: Props) => {
 };
 
 export default Capabilities;
-

@@ -9,6 +9,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { SectionReveal } from "@/components/ui/section-reveal";
 import { motion, AnimatePresence } from "motion/react";
+import { TextureWaves } from "@/components/ui/texture-waves";
 
 export const HomeTechnologies: React.FC<TechnologiesBlockType> = ({
   eyebrow,
@@ -21,8 +22,6 @@ export const HomeTechnologies: React.FC<TechnologiesBlockType> = ({
   backgroundImage,
   servicesBackgroundImage,
 }) => {
-  const wavesTextureUrl = getMediaUrl(wavesTexture);
-  const wavesTextureAlt = getMediaAlt(wavesTexture, "Waves Texture");
   const backgroundImageUrl = getMediaUrl(backgroundImage);
   const backgroundImageAlt = getMediaAlt(backgroundImage, "Background");
   const servicesBackgroundImageUrl = getMediaUrl(servicesBackgroundImage);
@@ -60,12 +59,13 @@ export const HomeTechnologies: React.FC<TechnologiesBlockType> = ({
               titleAfterHighlight={titleAfterHighlight}
               className="lg:max-w-xl"
             />
-          </div>  {/* Subtitle */}
-            {subtitle && (
-              <p className="mt-4 font-poppins text-sm leading-[130%] text-gray-500 lg:text-base lg:leading-7.25 lg:max-w-4xl">
-                {subtitle}
-              </p>
-            )}
+          </div>{" "}
+          {/* Subtitle */}
+          {subtitle && (
+            <p className="mt-4 font-poppins text-sm leading-[130%] text-gray-500 lg:text-base lg:leading-7.25 lg:max-w-4xl">
+              {subtitle}
+            </p>
+          )}
         </SectionReveal>
         {/* Services */}
         <SectionReveal direction="up" delay={0.2} className="lg:px-14">
@@ -184,15 +184,7 @@ export const HomeTechnologies: React.FC<TechnologiesBlockType> = ({
           className="w-full h-full object-cover opacity-2"
         />
       </div>
-      <div className="absolute top-0 inset-e-0 w-51.5 h-37.5 lg:w-145.5 lg:h-105.75">
-        <Image
-          src={wavesTextureUrl ?? ""}
-          alt={wavesTextureAlt}
-          fill
-          className="object-cover w-full h-full"
-        />
-      </div>
+      <TextureWaves image={wavesTexture} position="top" />
     </section>
   );
 };
-

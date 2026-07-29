@@ -1,13 +1,13 @@
 "use client";
 
+import { getMediaAlt, getMediaUrl } from "@/lib/utils";
 import type { HeroBlock as HeroBlockType } from "@/payload-types";
+import { ArrowRight } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { motion, useReducedMotion } from "motion/react";
 import { LogoMarkSvg } from "../../layout/logo";
-import { getMediaAlt, getMediaUrl } from "@/lib/utils";
-import { ArrowUpRight } from "lucide-react";
 
 const ELLIPSE_RADIUS = 268; // matches the ellipse's semi-major axis
 const ELLIPSE_BOX = { width: 202, height: 538 };
@@ -133,8 +133,8 @@ export const HeroBlock: React.FC<HeroBlockType> = ({
                 >
                   <span className="font-medium text-white">{ctaPrimaryText}</span>
                   <div className="w-6 h-6 lg:w-7.5 lg:h-7.5 bg-white rounded-full flex items-center justify-center">
-                    <ArrowUpRight
-                      className="w-4 h-4 lg:w-5.5 lg:h-5.5 text-primary-500"
+                    <ArrowRight
+                      className="w-4 h-4 lg:w-5.5 lg:h-5.5 text-primary-500 -rotate-30"
                       width={"22"}
                       height={"22"}
                     />

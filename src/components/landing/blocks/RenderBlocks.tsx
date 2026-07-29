@@ -8,6 +8,7 @@ import { AboutHowWeWorkBlock } from "./about/AboutHowWeWorkBlock";
 import { AboutWaysBlock } from "./about/AboutWaysBlock";
 import { AboutTeamMembersBlock } from "./about/AboutTeamMembersBlock";
 import { IndustriesBlock } from "./common/IndustriesBlock";
+import { ServicesMainSectionBlock } from "./services/ServicesMainSectionBlock";
 import { HeroMarqueeBlock } from "./common/HeroMarqueeBlock";
 import { HomeAboutBlock } from "./home/HomeAboutBlock";
 import { HomeCapabilities } from "./home/HomeCapabilities";
@@ -67,6 +68,8 @@ export const RenderBlocks: React.FC<Props> = ({ blocks }) => {
             return <AboutTeamMembersBlock key={key} {...block} />;
           case "industries":
             return <IndustriesBlock key={key} {...block} />;
+          case "services-main-section":
+            return <ServicesMainSectionBlock key={key} {...block} />;
           case "clip-text-marquee":
             return <HeroMarqueeBlock key={key} {...block} />;
           case "home-about":

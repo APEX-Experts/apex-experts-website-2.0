@@ -4,6 +4,7 @@ import { Eyebrow, HighlightedTitle } from "@/components/ui/highlighted-title";
 import { SectionReveal } from "@/components/ui/section-reveal";
 import { getMediaAlt, getMediaUrl } from "@/lib/utils";
 import type { AboutOurDifferenceBlock as AboutOurDifferenceBlockType } from "@/payload-types";
+import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -69,7 +70,7 @@ export const AboutOurDifferenceBlock: React.FC<AboutOurDifferenceBlockType> = ({
         {/* Content Section: Secondary Header + Items List + Foreground Image */}
         <div className="flex flex-col gap-8 lg:gap-18 items-center">
           {/* Items Column */}
-          <SectionReveal direction="left" className="flex-1 w-full flex flex-col gap-8 lg:gap-18">
+          <SectionReveal direction="up" className="flex-1 w-full flex flex-col gap-8 lg:gap-18">
             {/* Secondary Title & Eyebrow */}
             {(secondaryTitleBeforeHighlight || secondaryHighlightedTitle || secondaryEyebrow) && (
               <div className="flex flex-col gap-2 pb-8 max-lg:border-b border-primary-100/50">
@@ -91,43 +92,55 @@ export const AboutOurDifferenceBlock: React.FC<AboutOurDifferenceBlockType> = ({
             <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_420px_minmax(0,1fr)] xl:grid-cols-[minmax(0,1fr)_445px_minmax(0,1fr)] items-center lg:items-start max-lg:justify-center gap-8">
               <div className="h-full flex flex-col justify-between gap-8 order-2 lg:order-1">
                 {items?.slice(0, 2).map(({ description, title, id }, index) => (
-                  <CardTextBlock key={id ?? index} title={title} description={description} />
+                  <motion.div key={id ?? index} whileHover={{ x: -4 }} transition={{ duration: 0.2 }}>
+                    <CardTextBlock title={title} description={description} />
+                  </motion.div>
                 ))}
               </div>
-              <div className="w-70 h-120 lg:w-105 lg:h-180 relative order-1 lg:order-2 shrink-0 justify-self-center">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="w-70 h-120 lg:w-105 lg:h-180 relative order-1 lg:order-2 shrink-0 justify-self-center"
+              >
                 <Image
                   src={fgImageUrl ?? ""}
                   alt={fgImageAlt}
                   fill
                   className="object-cover object-center"
                 />
-              </div>
+              </motion.div>
               <div className="h-full flex flex-col justify-between gap-8 order-3">
                 {items?.slice(2, 4).map(({ description, title, id }, index) => (
-                  <CardTextBlock key={id ?? index} title={title} description={description} />
+                  <motion.div key={id ?? index} whileHover={{ x: 4 }} transition={{ duration: 0.2 }}>
+                    <CardTextBlock title={title} description={description} />
+                  </motion.div>
                 ))}
               </div>
             </div>
           </SectionReveal>
         </div>
-        <div className="w-full flex flex-row items-center gap-6">
+        <SectionReveal direction="up" delay={0.1} className="w-full flex flex-row items-center gap-6">
           {/* Left Line */}
           <div className="flex-1 h-16 lg:h-32 -mt-8 lg:-mt-16 relative">
             <div className="absolute top-0 bottom-1/2 left-0 right-0 lg:border-l border-b border-primary-100 lg:rounded-bl-[1rem]"></div>
           </div>
 
-          <Link
-            href={learnMoreHref || "/about-us"}
-            className="font-montserrat text-primary-500 text-xs md:text-base lg:text-lg hover:underline font-medium -mt-8 lg:-mt-16 mx-4 lg:mx-16"
-          >
-            {learnMoreText}
-          </Link>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
+            <Link
+              href={learnMoreHref || "/about-us"}
+              className="font-montserrat text-primary-500 text-xs md:text-base lg:text-lg hover:underline font-medium -mt-8 lg:-mt-16 mx-4 lg:mx-16 inline-block"
+            >
+              {learnMoreText}
+            </Link>
+          </motion.div>
 
           {/* Right Line */}
           <div className="flex-1 h-16 lg:h-32 -mt-8 lg:-mt-16 relative">
             <div className="absolute top-0 bottom-1/2 left-0 right-0 lg:border-r border-b border-primary-100 lg:rounded-br-[1rem]"></div>
           </div>
-        </div>
+        </SectionReveal>
       </div>
     </section>
   );

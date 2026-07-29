@@ -86,6 +86,7 @@ export interface Config {
     'about-ways': AboutWaysBlock;
     'about-team-members': AboutTeamMembersBlock;
     'services-main-section': ServicesMainSectionBlock;
+    'common-cta': CommonCtaBlock;
   };
   collections: {
     users: User;
@@ -6581,6 +6582,22 @@ export interface ServicesMainSectionBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CommonCtaBlock".
+ */
+export interface CommonCtaBlock {
+  title: string;
+  description: string;
+  primaryCtaText?: string | null;
+  primaryCtaHref?: string | null;
+  secondaryCtaText?: string | null;
+  secondaryCtaHref?: string | null;
+  backgroundImage?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'common-cta';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -6634,6 +6651,7 @@ export interface Page {
     | AboutWaysBlock
     | AboutTeamMembersBlock
     | ServicesMainSectionBlock
+    | CommonCtaBlock
   )[];
   updatedAt: string;
   createdAt: string;
@@ -6855,6 +6873,7 @@ export interface PagesSelect<T extends boolean = true> {
         'about-ways'?: T | AboutWaysBlockSelect<T>;
         'about-team-members'?: T | AboutTeamMembersBlockSelect<T>;
         'services-main-section'?: T | ServicesMainSectionBlockSelect<T>;
+        'common-cta'?: T | CommonCtaBlockSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -7375,6 +7394,21 @@ export interface ServicesMainSectionBlockSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CommonCtaBlock_select".
+ */
+export interface CommonCtaBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  primaryCtaText?: T;
+  primaryCtaHref?: T;
+  secondaryCtaText?: T;
+  secondaryCtaHref?: T;
+  backgroundImage?: T;
   id?: T;
   blockName?: T;
 }

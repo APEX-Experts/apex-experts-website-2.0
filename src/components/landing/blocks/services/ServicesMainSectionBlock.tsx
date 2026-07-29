@@ -7,6 +7,7 @@ import { TextureWaves } from "@/components/ui/texture-waves";
 import { cn, getMediaAlt, getMediaUrl } from "@/lib/utils";
 import type { ServicesMainSectionBlock as ServicesMainSectionBlockType } from "@/payload-types";
 import { ArrowRight } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -34,6 +35,7 @@ export const ServicesMainSectionBlock: React.FC<ServicesMainSectionBlockType> = 
 
   const [activeServiceIndex, setActiveServiceIndex] = useState(0);
   const activeService = services?.[activeServiceIndex];
+  const shouldReduceMotion = useReducedMotion();
 
   const handleChangeActiveService = (index: number) => {
     setActiveServiceIndex(index);
@@ -46,6 +48,25 @@ export const ServicesMainSectionBlock: React.FC<ServicesMainSectionBlockType> = 
   const centerHoleMaskStyle = {
     maskImage: "radial-gradient(circle at center, rgba(0, 0, 0, 60%) 219px, black 220px)",
     WebkitMaskImage: "radial-gradient(circle at center, rgba(0, 0, 0, 70%) 219px, black 220px)",
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: shouldReduceMotion ? 0 : 0.08,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 15 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const },
+    },
   };
 
   return (
@@ -144,25 +165,32 @@ export const ServicesMainSectionBlock: React.FC<ServicesMainSectionBlockType> = 
               </div>
             </div>
             {/* Mobile Subservice List */}
-            <div className="lg:hidden w-full px-4 flex flex-col gap-10">
+            <motion.div
+              key={`mobile-subservices-${activeServiceIndex}`}
+              initial="hidden"
+              animate="visible"
+              variants={containerVariants}
+              className="lg:hidden w-full px-4 flex flex-col gap-10"
+            >
               {activeService?.subservices?.map(({ title, href, id, subtitle }, index) => (
-                <Link
-                  key={id ?? index}
-                  href={href ?? "#"}
-                  className="flex flex-row gap-2 justify-between pb-6 border-b border-outline/30"
-                >
-                  <div className="flex flex-col gap-1">
-                    <span className="font-poppins font-medium text-xl leading-8 uppercase text-black">
-                      {title}
-                    </span>
-                    <p className="font-poppins text-sm leading-5 text-foreground/70">{subtitle}</p>
-                  </div>
-                  <div className="w-7.5 h-7.5 flex items-center justify-center rounded-full border border-primary-500 mt-1">
-                    <ArrowRight className="w-5.5 h-7.5 text-primary-500 -rotate-30" />
-                  </div>
-                </Link>
+                <motion.div key={id ?? index} variants={itemVariants}>
+                  <Link
+                    href={href ?? "#"}
+                    className="flex flex-row gap-2 justify-between pb-6 border-b border-outline/30"
+                  >
+                    <div className="flex flex-col gap-1">
+                      <span className="font-poppins font-medium text-xl leading-8 uppercase text-black">
+                        {title}
+                      </span>
+                      <p className="font-poppins text-sm leading-5 text-foreground/70">{subtitle}</p>
+                    </div>
+                    <div className="w-7.5 h-7.5 flex items-center justify-center rounded-full border border-primary-500 mt-1">
+                      <ArrowRight className="w-5.5 h-7.5 text-primary-500 -rotate-30" />
+                    </div>
+                  </Link>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
 
             {/* Desktop Card */}
             <div className="max-lg:hidden">
@@ -210,26 +238,34 @@ export const ServicesMainSectionBlock: React.FC<ServicesMainSectionBlockType> = 
                       {/* Center Circle (Fixed at 440px width so the 220px CSS mask perfectly traces it) */}
                       <div className="relative flex flex-col items-center justify-center gap-4 rounded-full backdrop-blur-sm w-110 shrink-0 aspect-square my-auto service-circle">
                         <CenterCircleEffects activeServiceIndex={activeServiceIndex} />
-                        <div className="w-16.5 h-16.5 flex items-center justify-center relative text-white">
-                          <ServiceIcon index={activeServiceIndex} width={66} height={66} />
-                        </div>
-                        <span className="font-montserrat font-semibold text-2xl uppercase leading-6 text-center text-white max-w-75 z-10 drop-shadow-md">
-                          {activeService?.title}
-                        </span>
-                        <p className="font-poppins max-w-87.5 text-sm leading-[160%] text-center text-gray-200 z-10 drop-shadow-md">
-                          {activeService?.description}
-                        </p>
-                        <Link
-                          href={activeService?.ctaHref ?? "#"}
-                          className="w-full max-w-sm rounded-full p-2 flex items-center justify-center gap-2 hover:underline z-10"
+                        <motion.div
+                          key={`center-circle-${activeServiceIndex}`}
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                          className="flex flex-col items-center justify-center gap-4"
                         >
-                          <span className="font-montserrat font-medium leading-[160%] text-white drop-shadow-md">
-                            {activeService?.ctaText}
-                          </span>
-                          <div className="w-7.5 h-7.5 flex items-center justify-center relative border border-white rounded-full bg-black/20 backdrop-blur-sm">
-                            <ArrowRight className="w-5.5 h-5.5 text-white -rotate-30" />
+                          <div className="w-16.5 h-16.5 flex items-center justify-center relative text-white">
+                            <ServiceIcon index={activeServiceIndex} width={66} height={66} />
                           </div>
-                        </Link>
+                          <span className="font-montserrat font-semibold text-2xl uppercase leading-6 text-center text-white max-w-75 z-10 drop-shadow-md">
+                            {activeService?.title}
+                          </span>
+                          <p className="font-poppins max-w-87.5 text-sm leading-[160%] text-center text-gray-200 z-10 drop-shadow-md">
+                            {activeService?.description}
+                          </p>
+                          <Link
+                            href={activeService?.ctaHref ?? "#"}
+                            className="w-full max-w-sm rounded-full p-2 flex items-center justify-center gap-2 hover:underline z-10"
+                          >
+                            <span className="font-montserrat font-medium leading-[160%] text-white drop-shadow-md">
+                              {activeService?.ctaText}
+                            </span>
+                            <div className="w-7.5 h-7.5 flex items-center justify-center relative border border-white rounded-full bg-black/20 backdrop-blur-sm">
+                              <ArrowRight className="w-5.5 h-5.5 text-white -rotate-30" />
+                            </div>
+                          </Link>
+                        </motion.div>
                       </div>
 
                       {/* Right Side with odd indexed */}
@@ -249,29 +285,36 @@ export const ServicesMainSectionBlock: React.FC<ServicesMainSectionBlockType> = 
                 </div>
 
                 {/* Subservices list */}
-                <div className="grid grid-cols-2 gap-10 py-10 px-8 flex-1">
+                <motion.div
+                  key={`desktop-subservices-${activeServiceIndex}`}
+                  initial="hidden"
+                  animate="visible"
+                  variants={containerVariants}
+                  className="grid grid-cols-2 gap-10 py-10 px-8 flex-1"
+                >
                   {activeService?.subservices?.map(({ title, href, id, subtitle }, index) => (
-                    <Link
-                      href={href ?? "#"}
-                      key={id ?? index}
-                      className={cn(
-                        "hover:p-4 flex flex-row gap-4 justify-between items-start bg-transparent hover:bg-linear-to-l hover:from-[#b9001a] hover:to-[#53000c] group hover:cursor-pointer transition-all duration-300 rounded-[0.5rem]",
-                      )}
-                    >
-                      <div className="flex flex-col gap-1">
-                        <span className="font-poppins font-medium text-xl leading-8 uppercase group-hover:text-white transition-all duration-300">
-                          {title}
-                        </span>
-                        <p className="font-poppins text-sm leading-5 text-foreground/70 group-hover:text-white transition-all duration-300">
-                          {subtitle}
-                        </p>
-                      </div>
-                      <div className="w-7.5 h-7.5 border border-primary-500 group-hover:border-white rounded-full flex items-center justify-center transition-all duration-300">
-                        <ArrowRight className="w-5.5 h-5.5 text-primary-500 group-hover:text-white transition-all duration-300 -rotate-30 group-hover:rotate-0" />
-                      </div>
-                    </Link>
+                    <motion.div key={id ?? index} variants={itemVariants}>
+                      <Link
+                        href={href ?? "#"}
+                        className={cn(
+                          "hover:p-4 flex flex-row gap-4 justify-between items-start bg-transparent hover:bg-linear-to-l hover:from-[#b9001a] hover:to-[#53000c] group hover:cursor-pointer transition-all duration-300 rounded-[0.5rem]",
+                        )}
+                      >
+                        <div className="flex flex-col gap-1">
+                          <span className="font-poppins font-medium text-xl leading-8 uppercase group-hover:text-white transition-all duration-300">
+                            {title}
+                          </span>
+                          <p className="font-poppins text-sm leading-5 text-foreground/70 group-hover:text-white transition-all duration-300">
+                            {subtitle}
+                          </p>
+                        </div>
+                        <div className="w-7.5 h-7.5 border border-primary-500 group-hover:border-white rounded-full flex items-center justify-center transition-all duration-300">
+                          <ArrowRight className="w-5.5 h-5.5 text-primary-500 group-hover:text-white transition-all duration-300 -rotate-30 group-hover:rotate-0" />
+                        </div>
+                      </Link>
+                    </motion.div>
                   ))}
-                </div>
+                </motion.div>
               </div>
             </div>
           </SectionReveal>

@@ -20,6 +20,7 @@ import { Industries } from "../blocks/Industries";
 import { AboutWays } from "../blocks/AboutWays";
 import { AboutTeamMembers } from "../blocks/AboutTeamMembers";
 import { ServicesMainSection } from "../blocks/ServicesMainSection";
+import { CommonCta } from "../blocks/CommonCta";
 
 /**
  * Payload CMS Collection configuration for dynamic Pages.
@@ -94,6 +95,7 @@ export const Pages: CollectionConfig = {
         AboutWays,
         AboutTeamMembers,
         ServicesMainSection,
+        CommonCta,
       ],
       required: true,
     },

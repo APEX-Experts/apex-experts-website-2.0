@@ -3,11 +3,9 @@
 import { BackgroundOverlay } from "@/components/ui/background-overlay";
 import { Eyebrow, HighlightedTitle } from "@/components/ui/highlighted-title";
 import { SectionReveal } from "@/components/ui/section-reveal";
-import { TextureWaves } from "@/components/ui/texture-waves";
+import { ServiceCard } from "@/components/ui/service-card";
 import { getMediaAlt, getMediaUrl, zeroPadNumber } from "@/lib/utils";
 import type { SubservicesBlock as SubservicesBlockType } from "@/payload-types";
-import { ArrowRight } from "lucide-react";
-import Link from "next/link";
 import React from "react";
 
 /**
@@ -78,50 +76,20 @@ export const SubservicesBlock: React.FC<SubservicesBlockType> = ({
         <div className="grid grid-cols-1 lg:grid-cols-2 lg:px-14 gap-7.5">
           {subservices?.map(
             ({ title, ctaHref, ctaText, id, subtitle, supertitle, tags }, index) => (
-              <div
+              <ServiceCard
                 key={id ?? index}
-                className="relative w-full p-6 flex flex-col gap-18 bg-footer-gray service-shadow-blur lg:rounded-[1rem]"
-              >
-                <TextureWaves
-                  image={textureWavesImage}
-                  className="w-57.5! h-49.5! lg:w-62! lg:h-53.5!"
-                />
-                <span className="font-poppins text-sm uppercase text-gray-300">
-                  {zeroPadNumber(index + 1, 2)} / {zeroPadNumber(subservices?.length ?? 0, 2)}
-                </span>
-                <div className="flex flex-col gap-6 lg:gap-2">
-                  <div className="flex flex-col pb-6 lg:pb-8 border-b border-outline/30">
-                    <span className="font-poppins font-semibold text-sm leading-[160%] uppercase text-white/80 mb-0.5">
-                      {supertitle}
-                    </span>
-                    <h4 className="font-montserrat font-semibold text-[1.875rem] leading-[160%] uppercase text-white mb-2">
-                      {title}
-                    </h4>
-                    <p className="font-poppins text-sm leading-[160%] text-white/70">{subtitle}</p>
-                  </div>
-                  <div className="flex flex-col lg:flex-row gap-4 lg:justify-between w-full">
-                    <div className="font-poppins font-medium text-sm leading-[160%] text-gray-300 lg:py-3">
-                      {tags?.map(({ id, tag }, index) => (
-                        <span key={id ?? index}>
-                          {index > 0 ? " · " : ""}
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <Link
-                      href={ctaHref ?? "#"}
-                      className="max-lg:w-full rounded-full max-lg:border max-lg:border-outline/30 max-lg:py-2.5 max-lg:px-2 lg:p-2 flex items-center justify-center gap-2"
-                    >
-                      <span className="text-white font-montserrat font-medium text-base">
-                        {ctaText}
-                      </span>
-                      <div className="rounded-full border border-white w-7 h-7 flex items-center justify-center">
-                        <ArrowRight className="-rotate-30 w-5 h-5 text-white" />
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-              </div>
+                title={title}
+                eyebrow={`${zeroPadNumber(index + 1, 2)} / ${zeroPadNumber(subservices.length, 2)}`}
+                supertitle={supertitle}
+                subtitle={subtitle}
+                tags={tags}
+                ctaText={ctaText}
+                ctaHref={ctaHref}
+                index={index}
+                totalCount={subservices.length}
+                textureWavesImage={textureWavesImage}
+                variant="dark"
+              />
             ),
           )}
         </div>

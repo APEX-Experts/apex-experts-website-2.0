@@ -3,11 +3,9 @@
 import { BackgroundOverlay } from "@/components/ui/background-overlay";
 import { Eyebrow, HighlightedTitle } from "@/components/ui/highlighted-title";
 import { SectionReveal } from "@/components/ui/section-reveal";
-import { TextureWaves } from "@/components/ui/texture-waves";
+import { ServiceCard } from "@/components/ui/service-card";
 import { getMediaAlt, getMediaUrl } from "@/lib/utils";
 import type { WhenYouNeedItBlock as WhenYouNeedItBlockType } from "@/payload-types";
-import { ArrowRight } from "lucide-react";
-import Link from "next/link";
 import React from "react";
 
 /**
@@ -27,13 +25,15 @@ export const WhenYouNeedItBlock: React.FC<WhenYouNeedItBlockType> = ({
   const bgAlt = getMediaAlt(backgroundImage, "Background");
 
   return (
-    <section className="relative overflow-hidden bg-background py-10 lg:py-18" id="when-you-need-it">
-      <BackgroundOverlay src={bgUrl} alt={bgAlt} opacityClass="opacity-5" />
-      <TextureWaves image={textureWavesImage} position="top" />
+    <section
+      className="relative overflow-hidden bg-background py-10 lg:py-18"
+      id="when-you-need-it"
+    >
+      <BackgroundOverlay src={bgUrl} alt={bgAlt} opacityClass="opacity-3" />
 
-      <div className="relative z-10 mx-auto flex flex-col gap-8 lg:gap-18 px-4 lg:px-14">
+      <div className="relative z-10 mx-auto flex flex-col gap-8 lg:gap-18">
         {/* Heading Section */}
-        <SectionReveal direction="up" className="w-full max-w-4xl">
+        <SectionReveal direction="up" className="w-full px-4 lg:px-14">
           <div className="flex flex-col items-start gap-4">
             <div className="flex flex-col gap-2 lg:gap-1">
               <Eyebrow text={eyebrow} />
@@ -45,7 +45,7 @@ export const WhenYouNeedItBlock: React.FC<WhenYouNeedItBlockType> = ({
               />
             </div>
             {subtitle && (
-              <p className="font-poppins text-sm leading-[130%] text-gray-500 lg:text-base lg:leading-7.25 max-w-4xl">
+              <p className="font-poppins text-sm leading-[130%] text-gray-500 lg:text-base lg:leading-7.25 max-w-6xl">
                 {subtitle}
               </p>
             )}
@@ -54,58 +54,19 @@ export const WhenYouNeedItBlock: React.FC<WhenYouNeedItBlockType> = ({
 
         {/* Scenario Items */}
         {items && items.length > 0 && (
-          <SectionReveal direction="up" delay={0.1} className="w-full">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-              {items.map((item, index) => (
-                <div
-                  key={item.id || index}
-                  className="flex flex-col p-6 rounded-2xl bg-white border border-outline/30 shadow-sm justify-between gap-6"
-                >
-                  <div className="flex flex-col gap-3">
-                    {item.eyebrow && (
-                      <span className="font-poppins text-xs font-semibold text-primary-500 uppercase">
-                        {item.eyebrow}
-                      </span>
-                    )}
-                    {item.supertitle && (
-                      <span className="font-poppins text-xs font-medium text-gray-400 uppercase">
-                        {item.supertitle}
-                      </span>
-                    )}
-                    <h3 className="font-montserrat font-semibold text-lg lg:text-xl text-foreground uppercase">
-                      {item.title}
-                    </h3>
-                    {item.subtitle && (
-                      <p className="font-poppins text-sm leading-relaxed text-foreground/70">
-                        {item.subtitle}
-                      </p>
-                    )}
-                    {item.tags && item.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-2 pt-2">
-                        {item.tags.map((t, tIdx) => (
-                          <span
-                            key={t.id || tIdx}
-                            className="font-poppins text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-700 font-medium"
-                          >
-                            {t.tag}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-
-                  {item.ctaText && item.ctaHref && (
-                    <div className="pt-4 border-t border-outline/20">
-                      <Link
-                        href={item.ctaHref}
-                        className="inline-flex items-center gap-2 font-display font-semibold text-sm text-primary-500 hover:text-primary-600 uppercase"
-                      >
-                        <span>{item.ctaText}</span>
-                        <ArrowRight className="w-4 h-4 -rotate-30" />
-                      </Link>
-                    </div>
-                  )}
-                </div>
+          <SectionReveal direction="up" delay={0.1} className="w-full lg:px-14">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-7.5">
+              {items.map(({ title, eyebrow, id, subtitle, supertitle, tags }, index) => (
+                <ServiceCard
+                  key={id ?? index}
+                  title={title}
+                  eyebrow={eyebrow}
+                  supertitle={supertitle}
+                  subtitle={subtitle}
+                  tags={tags}
+                  textureWavesImage={textureWavesImage}
+                  variant="light"
+                />
               ))}
             </div>
           </SectionReveal>

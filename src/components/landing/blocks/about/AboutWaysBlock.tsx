@@ -3,7 +3,6 @@
 import { Eyebrow, HighlightedTitle } from "@/components/ui/highlighted-title";
 import { SectionReveal } from "@/components/ui/section-reveal";
 import { TextureWaves } from "@/components/ui/texture-waves";
-import { getMediaAlt, getMediaUrl } from "@/lib/utils";
 import type { AboutWaysBlock as AboutWaysBlockType } from "@/payload-types";
 import { motion } from "motion/react";
 import React from "react";

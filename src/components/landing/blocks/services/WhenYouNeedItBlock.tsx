@@ -54,22 +54,23 @@ export const WhenYouNeedItBlock: React.FC<WhenYouNeedItBlockType> = ({
 
         {/* Scenario Items */}
         {items && items.length > 0 && (
-          <SectionReveal direction="up" delay={0.1} className="w-full lg:px-14">
+          <div className="w-full lg:px-14">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-7.5">
               {items.map(({ title, eyebrow, id, subtitle, supertitle, tags }, index) => (
-                <ServiceCard
-                  key={id ?? index}
-                  title={title}
-                  eyebrow={eyebrow}
-                  supertitle={supertitle}
-                  subtitle={subtitle}
-                  tags={tags}
-                  textureWavesImage={textureWavesImage}
-                  variant="light"
-                />
+                <SectionReveal key={id ?? index} direction="up" delay={0.1 + index * 0.08}>
+                  <ServiceCard
+                    title={title}
+                    eyebrow={eyebrow}
+                    supertitle={supertitle}
+                    subtitle={subtitle}
+                    tags={tags}
+                    textureWavesImage={textureWavesImage}
+                    variant="light"
+                  />
+                </SectionReveal>
               ))}
             </div>
-          </SectionReveal>
+          </div>
         )}
       </div>
     </section>

@@ -336,7 +336,10 @@ export const DesktopServiceCard = ({
   activeServiceIndex: number;
 }) => {
   return (
-    <button
+    <motion.button
+      whileHover={{ scale: 1.05, y: -2 }}
+      whileTap={{ scale: 0.95 }}
+      transition={{ duration: 0.2 }}
       onClick={() => handleChangeServiceIndex(index)}
       className={cn(
         "relative flex flex-col items-center justify-center text-center gap-2 pb-7.5 border-b text-white cursor-pointer",
@@ -352,7 +355,7 @@ export const DesktopServiceCard = ({
       <span className="font-montserrat text-2xl leading-[130%] uppercase max-w-68">
         {service.title}
       </span>
-    </button>
+    </motion.button>
   );
 };
 

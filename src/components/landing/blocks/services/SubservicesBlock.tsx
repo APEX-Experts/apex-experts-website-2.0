@@ -51,43 +51,47 @@ export const SubservicesBlock: React.FC<SubservicesBlockType> = ({
               )}
             </div>
           </SectionReveal>
-          <div className="w-full lg:max-w-111 rounded-[0.5rem] p-4 flex flex-row gap-3 relative lg:rounded-[1.5rem] lg:border lg:border-white/40 lg:py-5.5 lg:px-4 overflow-hidden">
-            <div className="absolute inset-0 w-full h-full bg-linear-[90deg] from-black/90 to-transparent z-10"></div>
-            <BackgroundOverlay
-              src={countBgUrl}
-              alt={countBgAlt}
-              overlayClass="bg-black/30"
-              className="scale-150 object-cover"
-            />
-            <span className="mt-1 text-white relative font-montserrat font-extralight italic text-2xl leading-10 lg:text-6xl z-11">
-              {zeroPadNumber(subservices?.length ?? 0, 2)}
-            </span>
-            <div className="flex flex-col gap-2 z-11">
-              <span className="font-montserrat font-semibold text-lg leading-[160%] uppercase text-white lg:text-xl">
-                {countGroup?.countTitle}
+          {/* Count Banner */}
+          <SectionReveal direction="left" delay={0.2} className="w-full lg:max-w-111">
+            <div className="w-full rounded-[0.5rem] p-4 flex flex-row gap-3 relative lg:rounded-[1.5rem] lg:border lg:border-white/40 lg:py-5.5 lg:px-4 overflow-hidden">
+              <div className="absolute inset-0 w-full h-full bg-linear-[90deg] from-black/90 to-transparent z-10"></div>
+              <BackgroundOverlay
+                src={countBgUrl}
+                alt={countBgAlt}
+                overlayClass="bg-black/30"
+                className="scale-150 object-cover"
+              />
+              <span className="mt-1 text-white relative font-montserrat font-extralight italic text-2xl leading-10 lg:text-6xl z-11">
+                {zeroPadNumber(subservices?.length ?? 0, 2)}
               </span>
-              <p className="font-montserrat text-sm leading-[160%] text-white lg:text-base">
-                {countGroup?.countDescription}
-              </p>
+              <div className="flex flex-col gap-2 z-11">
+                <span className="font-montserrat font-semibold text-lg leading-[160%] uppercase text-white lg:text-xl">
+                  {countGroup?.countTitle}
+                </span>
+                <p className="font-montserrat text-sm leading-[160%] text-white lg:text-base">
+                  {countGroup?.countDescription}
+                </p>
+              </div>
             </div>
-          </div>
+          </SectionReveal>
         </div>
         {/* List */}
         <div className="grid grid-cols-1 lg:grid-cols-2 lg:px-14 gap-7.5">
           {subservices?.map(
             ({ title, ctaHref, ctaText, id, subtitle, supertitle, tags }, index) => (
-              <ServiceCard
-                key={id ?? index}
-                title={title}
-                eyebrow={`${zeroPadNumber(index + 1, 2)} / ${zeroPadNumber(subservices.length, 2)}`}
-                supertitle={supertitle}
-                subtitle={subtitle}
-                tags={tags}
-                ctaText={ctaText}
-                ctaHref={ctaHref}
-                textureWavesImage={textureWavesImage}
-                variant="dark"
-              />
+              <SectionReveal key={id ?? index} direction="up" delay={0.1 + index * 0.08}>
+                <ServiceCard
+                  title={title}
+                  eyebrow={`${zeroPadNumber(index + 1, 2)} / ${zeroPadNumber(subservices.length, 2)}`}
+                  supertitle={supertitle}
+                  subtitle={subtitle}
+                  tags={tags}
+                  ctaText={ctaText}
+                  ctaHref={ctaHref}
+                  textureWavesImage={textureWavesImage}
+                  variant="dark"
+                />
+              </SectionReveal>
             ),
           )}
         </div>

@@ -53,31 +53,39 @@ export const DirectoryBlock: React.FC<DirectoryBlockType> = ({
 
         {/* Directory List */}
         {list && list.length > 0 && (
-          <SectionReveal direction="up" delay={0.1} className="w-full flex lg:mt-7">
+          <div className="w-full flex lg:mt-7">
             <div className="grid grid-cols-1 lg:grid-cols-2 max-lg:gap-12 lg:justify-between lg:gap-18 flex-1">
               {list?.map(({ description, title, icon, id }, index) => (
-                <div key={id ?? index} className="flex flex-row gap-6 items-start h-fit">
-                  <Logo
-                    logoSvg={icon}
-                    width={40}
-                    height={40}
-                    alt={title}
-                    className="text-primary-500 w-10 h-10"
-                  />
-                  <div className="flex flex-col pb-4 border-b border-outline/30">
-                    <span className="font-poppins font-semibold text-xl leading-[160%] tracking-[-7%] uppercase">
-                      {title}
-                    </span>
-                    <p className="font-poppins text-sm leading-[160%] text-foreground/70">
-                      {description}
-                    </p>
+                <SectionReveal
+                  key={id ?? index}
+                  direction="up"
+                  delay={0.1 + index * 0.08}
+                  className="h-fit"
+                >
+                  <div className="flex flex-row gap-6 items-start h-fit group">
+                    <Logo
+                      logoSvg={icon}
+                      width={40}
+                      height={40}
+                      alt={title}
+                      className="text-primary-500 w-10 h-10 group-hover:scale-110 transition-transform duration-300 shrink-0"
+                    />
+                    <div className="flex flex-col pb-4 border-b border-outline/30 flex-1">
+                      <span className="font-poppins font-semibold text-xl leading-[160%] tracking-[-7%] uppercase group-hover:text-primary-500 transition-colors duration-300">
+                        {title}
+                      </span>
+                      <p className="font-poppins text-sm leading-[160%] text-foreground/70">
+                        {description}
+                      </p>
+                    </div>
                   </div>
-                </div>
+                </SectionReveal>
               ))}
             </div>
-          </SectionReveal>
+          </div>
         )}
       </div>
     </section>
   );
 };
+

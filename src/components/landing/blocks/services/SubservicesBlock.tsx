@@ -85,8 +85,6 @@ export const SubservicesBlock: React.FC<SubservicesBlockType> = ({
                 tags={tags}
                 ctaText={ctaText}
                 ctaHref={ctaHref}
-                index={index}
-                totalCount={subservices.length}
                 textureWavesImage={textureWavesImage}
                 variant="dark"
               />

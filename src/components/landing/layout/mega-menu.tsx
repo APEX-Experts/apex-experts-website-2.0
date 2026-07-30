@@ -1,7 +1,7 @@
 "use client";
 
 import { LucideIcon } from "@/components/ui/lucide-icon";
-import { cn } from "@/lib/utils";
+import { cn, getMediaAlt, getMediaUrl } from "@/lib/utils";
 import { ArrowRight, ArrowRightCircle, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -33,6 +33,9 @@ export function MegaMenu({
   const activeSubItem = megaMenu.items?.[activeSubMenuItem];
   const activeSubSubItem = activeSubItem?.subitems?.[activeSubSubMenuItem];
   const hasCenterMenu = !!activeSubItem?.subitems?.length;
+
+  const bgUrl = getMediaUrl(activeSubItem?.backgroundImage);
+  const bgAlt = getMediaAlt(activeSubItem?.backgroundImage, activeSubItem?.title ?? "Project");
 
   return (
     <div
@@ -173,12 +176,12 @@ export function MegaMenu({
           )}
           {/* Right Menu in projects */}
           {!hasCenterMenu && (
-            <div className="col-span-2 relative ms-8 bg-noise rounded-[1.5rem] pointer-events-none overflow-hidden border border-outline/30 p-6">
+            <div className="col-span-2 relative ms-8 bg-noise rounded-[1.5rem] overflow-hidden border border-outline/30 p-6">
               {/* Background image */}
-              <div className="absolute inset-0 z-0">
+              <div className="absolute inset-0 z-0 pointer-events-none">
                 <Image
-                  src="/project_placeholder.png"
-                  alt="placeholder"
+                  src={bgUrl ?? ""}
+                  alt={bgAlt ?? ""}
                   width={761}
                   height={311}
                   className="w-full h-full object-cover"

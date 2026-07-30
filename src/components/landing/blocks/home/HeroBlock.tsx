@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { getMediaAlt, getMediaUrl } from "@/lib/utils";
 import type { HeroBlock as HeroBlockType } from "@/payload-types";
 import { ArrowRight } from "lucide-react";
@@ -127,31 +128,27 @@ export const HeroBlock: React.FC<HeroBlockType> = ({
                 whileTap={{ scale: 0.97 }}
                 className="w-full sm:w-auto"
               >
-                <Link
-                  href={ctaPrimaryHref}
-                  className="w-full sm:w-auto text-sm lg:text-base px-3 lg:px-4 py-3.25 flex flex-row gap-1.5 lg:gap-2 items-center justify-center rounded-full bg-primary-500 hover:bg-primary-700 text-primary-500 border border-transparent transition-all duration-300"
-                >
-                  <span className="font-medium text-white">{ctaPrimaryText}</span>
-                  <div className="w-6 h-6 lg:w-7.5 lg:h-7.5 bg-white rounded-full flex items-center justify-center">
-                    <ArrowRight
-                      className="w-4 h-4 lg:w-5.5 lg:h-5.5 text-primary-500 -rotate-30"
-                      width={"22"}
-                      height={"22"}
-                    />
-                  </div>
-                </Link>
+                <Button asChild variant="ctaPrimary">
+                  <Link href={ctaPrimaryHref}>
+                    <span className="font-medium text-white">{ctaPrimaryText}</span>
+                    <div className="w-6 h-6 lg:w-7.5 lg:h-7.5 bg-white rounded-full flex items-center justify-center">
+                      <ArrowRight
+                        className="w-4 h-4 lg:w-5.5 lg:h-5.5 text-primary-500 -rotate-30"
+                        width={"22"}
+                        height={"22"}
+                      />
+                    </div>
+                  </Link>
+                </Button>
               </motion.div>
               <motion.div
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 className="w-full sm:w-auto"
               >
-                <Link
-                  href={ctaSecondaryHref}
-                  className="w-full sm:w-auto text-sm lg:text-base px-3 lg:px-4 py-3.25 flex flex-row gap-1.5 lg:gap-2 items-center justify-center rounded-full bg-transparent border border-primary-500 text-primary-500 sm:min-w-55 hover:bg-white transition-all duration-300"
-                >
-                  {ctaSecondaryText}
-                </Link>
+                <Button asChild variant="ctaSecondary">
+                  <Link href={ctaSecondaryHref}>{ctaSecondaryText}</Link>
+                </Button>
               </motion.div>
             </motion.div>
           </div>

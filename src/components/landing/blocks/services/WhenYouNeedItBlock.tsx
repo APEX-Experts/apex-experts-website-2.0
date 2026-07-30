@@ -57,7 +57,12 @@ export const WhenYouNeedItBlock: React.FC<WhenYouNeedItBlockType> = ({
           <div className="w-full lg:px-14">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-7.5">
               {items.map(({ title, eyebrow, id, subtitle, supertitle, tags }, index) => (
-                <SectionReveal key={id ?? index} direction="up" delay={0.1 + index * 0.08}>
+                <SectionReveal
+                  key={id ?? index}
+                  direction="up"
+                  delay={0.1 + index * 0.08}
+                  className="h-full!"
+                >
                   <ServiceCard
                     title={title}
                     eyebrow={eyebrow}
@@ -66,6 +71,7 @@ export const WhenYouNeedItBlock: React.FC<WhenYouNeedItBlockType> = ({
                     tags={tags}
                     textureWavesImage={textureWavesImage}
                     variant="light"
+                    className="h-full!"
                   />
                 </SectionReveal>
               ))}

@@ -79,7 +79,12 @@ export const SubservicesBlock: React.FC<SubservicesBlockType> = ({
         <div className="grid grid-cols-1 lg:grid-cols-2 lg:px-14 gap-7.5">
           {subservices?.map(
             ({ title, ctaHref, ctaText, id, subtitle, supertitle, tags }, index) => (
-              <SectionReveal key={id ?? index} direction="up" delay={0.1 + index * 0.08}>
+              <SectionReveal
+                key={id ?? index}
+                direction="up"
+                delay={0.1 + index * 0.08}
+                className="h-full"
+              >
                 <ServiceCard
                   title={title}
                   eyebrow={`${zeroPadNumber(index + 1, 2)} / ${zeroPadNumber(subservices.length, 2)}`}
@@ -90,6 +95,7 @@ export const SubservicesBlock: React.FC<SubservicesBlockType> = ({
                   ctaHref={ctaHref}
                   textureWavesImage={textureWavesImage}
                   variant="dark"
+                  className="h-full"
                 />
               </SectionReveal>
             ),

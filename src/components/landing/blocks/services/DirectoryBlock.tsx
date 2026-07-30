@@ -32,7 +32,7 @@ export const DirectoryBlock: React.FC<DirectoryBlockType> = ({
 
       <div className="relative z-10 mx-auto flex flex-col lg:flex-row gap-6 lg:gap-18 px-4 lg:px-14 lg:items-stretch">
         {/* Heading Section */}
-        <SectionReveal direction="up" className="w-full max-w-2xl">
+        <SectionReveal direction="up" className="w-full max-w-4xl">
           <div className="flex flex-col items-start gap-4">
             <div className="flex flex-col gap-2 lg:gap-1">
               <Eyebrow text={eyebrow} />
@@ -88,4 +88,3 @@ export const DirectoryBlock: React.FC<DirectoryBlockType> = ({
     </section>
   );
 };
-

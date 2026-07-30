@@ -101,4 +101,3 @@ export const SubscribeToNewsletterBlock: React.FC<SubscribeToNewsletterBlockType
     </section>
   );
 };
-

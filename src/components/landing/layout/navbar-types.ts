@@ -1,28 +1,11 @@
-export interface MegaSubItem {
-  title: string;
-  icon: string;
-  description: string;
-  href: string;
-}
+import { Header } from "@/payload-types";
 
-export interface MegaItem {
-  title: string;
-  subtitle: string;
-  href?: string | null;
-  subitems?: MegaSubItem[] | null;
-  iconSvg?: string | null;
-  sublist?: {
-    title: string;
-  }[] | null;
-}
+export type NavItemData = Header["navItems"];
 
-export interface MegaMenuData {
-  title?: string | null;
-  items?: MegaItem[] | null;
-}
+export type MegaMenuData = NonNullable<NonNullable<NavItemData>[number]["megaMenu"]>;
 
-export interface NavItemData {
-  label: string;
-  link: string;
-  megaMenu?: MegaMenuData | null;
-}
+export type MegaItem = NonNullable<MegaMenuData>["items"];
+
+export type MegaSubItem = NonNullable<MegaItem>[number]["subitems"];
+
+export type MegSublistItem = NonNullable<MegaItem>[number]["sublist"];

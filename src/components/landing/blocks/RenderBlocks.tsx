@@ -14,6 +14,7 @@ import { DirectoryBlock } from "./services/DirectoryBlock";
 import { SubservicesBlock } from "./services/SubservicesBlock";
 import { WhenYouNeedItBlock } from "./services/WhenYouNeedItBlock";
 import { ReadinessCheckBlock } from "./services/ReadinessCheckBlock";
+import { ContactWhatWeDeliverBlock } from "./common/ContactWhatWeDeliverBlock";
 import { HeroMarqueeBlock } from "./common/HeroMarqueeBlock";
 import { HomeAboutBlock } from "./home/HomeAboutBlock";
 import { HomeCapabilities } from "./home/HomeCapabilities";
@@ -85,6 +86,8 @@ export const RenderBlocks: React.FC<Props> = ({ blocks }) => {
             return <WhenYouNeedItBlock key={key} {...block} />;
           case "readiness-check":
             return <ReadinessCheckBlock key={key} {...block} />;
+          case "contact-what-we-deliver":
+            return <ContactWhatWeDeliverBlock key={key} {...block} />;
           case "clip-text-marquee":
             return <HeroMarqueeBlock key={key} {...block} />;
           case "home-about":

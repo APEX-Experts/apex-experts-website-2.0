@@ -69,8 +69,8 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 
       <span className={`font-poppins text-sm uppercase ${eyebrowStyles}`}>{eyebrow}</span>
 
-      <div className="flex flex-col gap-6 lg:gap-2">
-        <div className={`flex flex-col pb-6 lg:pb-8 border-b ${borderDividerStyles}`}>
+      <div className="flex flex-col gap-6 lg:gap-2 lg:justify-between flex-1">
+        <div className={`flex flex-col pb-6 lg:pb-8`}>
           {supertitle && (
             <span
               className={`font-poppins font-semibold text-sm leading-[160%] uppercase mb-0.5 ${supertitleStyles}`}
@@ -84,11 +84,15 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
             {title}
           </h4>
           {subtitle && (
-            <p className={`font-poppins text-sm leading-[160%] ${subtitleStyles}`}>{subtitle}</p>
+            <p className={`font-poppins text-sm leading-[160%] max-w-2xl ${subtitleStyles}`}>
+              {subtitle}
+            </p>
           )}
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-4 lg:justify-between w-full">
+        <div
+          className={`flex flex-col lg:flex-row gap-4 lg:justify-between w-full pt-2 border-t ${borderDividerStyles}`}
+        >
           <div className={`font-poppins font-medium text-sm leading-[160%] lg:py-3 ${tagsStyles}`}>
             {tags?.map(({ id, tag }, idx) => (
               <span key={id ?? idx}>

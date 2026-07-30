@@ -53,7 +53,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       />
 
       <div className="relative z-10 mx-auto px-4 lg:px-14 flex flex-col items-center text-center">
-        <SectionReveal direction="up" className="w-full max-w-280 flex flex-col items-center">
+        <SectionReveal direction="up" className="w-full flex flex-col items-center">
           {breadcrumb && <BreadcrumbNav items={breadcrumb} />}
 
           <h1 className="font-montserrat font-semibold text-xl lg:text-[4.375rem] leading-[130%] lg:leading-17.25 tracking-[-7%] text-center uppercase mb-2 lg:mb-6">
@@ -61,7 +61,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           </h1>
 
           {subtitle && (
-            <p className="font-poppins lg:text-[1.1875rem] leading-[130%] text-sm lg:text-base text-center text-white/70 max-w-4xl">
+            <p className="font-poppins lg:text-[1.1875rem] leading-[130%] text-sm lg:text-base text-center text-white/70 max-w-7xl">
               {subtitle}
             </p>
           )}

@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Eyebrow, HighlightedTitle } from "@/components/ui/highlighted-title";
 import { SectionReveal } from "@/components/ui/section-reveal";
 import { getPayload } from "@/lib/cms/getPayload";
@@ -115,17 +116,16 @@ export const HomeBlogsSection = async ({
                   </div>
 
                   {/* CTA Link */}
-                  <Link
-                    href={href}
-                    className="rounded-full mx-3 mt-6 border border-outline/30 hover:border-foreground transition-colors duration-300 py-2 px-8 flex items-center justify-center gap-2"
-                  >
-                    <span className="font-montserrat text-foreground font-medium text-sm lg:text-base">
-                      {viewArticleText}
-                    </span>
-                    <div className="text-foreground border border-foreground rounded-full p-1">
-                      <ArrowRight className="w-4 h-4 -rotate-30" />
-                    </div>
-                  </Link>
+                  <Button asChild variant="ctaOutline" className="mx-3 mt-6">
+                    <Link href={href}>
+                      <span className="font-montserrat text-foreground font-medium text-sm lg:text-base">
+                        {viewArticleText}
+                      </span>
+                      <div className="text-foreground border border-foreground rounded-full p-1">
+                        <ArrowRight className="w-4 h-4 -rotate-30" />
+                      </div>
+                    </Link>
+                  </Button>
                 </div>
               </SectionReveal>
             );

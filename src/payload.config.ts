@@ -37,6 +37,7 @@ import { Directory } from "./payload/blocks/Directory.ts";
 import { Subservices } from "./payload/blocks/Subservices.ts";
 import { WhenYouNeedIt } from "./payload/blocks/WhenYouNeedIt.ts";
 import { ReadinessCheck } from "./payload/blocks/ReadinessCheck.ts";
+import { ContactWhatWeDeliver } from "./payload/blocks/ContactWhatWeDeliver.ts";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -126,5 +127,6 @@ export default buildConfig({
     Subservices,
     WhenYouNeedIt,
     ReadinessCheck,
+    ContactWhatWeDeliver,
   ],
 });

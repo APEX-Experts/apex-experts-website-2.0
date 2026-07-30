@@ -92,7 +92,11 @@ export const AboutOurDifferenceBlock: React.FC<AboutOurDifferenceBlockType> = ({
             <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_420px_minmax(0,1fr)] xl:grid-cols-[minmax(0,1fr)_445px_minmax(0,1fr)] items-center lg:items-start max-lg:justify-center gap-8">
               <div className="h-full flex flex-col justify-between gap-8 order-2 lg:order-1">
                 {items?.slice(0, 2).map(({ description, title, id }, index) => (
-                  <motion.div key={id ?? index} whileHover={{ x: -4 }} transition={{ duration: 0.2 }}>
+                  <motion.div
+                    key={id ?? index}
+                    whileHover={{ x: -4 }}
+                    transition={{ duration: 0.2 }}
+                  >
                     <CardTextBlock title={title} description={description} />
                   </motion.div>
                 ))}
@@ -113,7 +117,11 @@ export const AboutOurDifferenceBlock: React.FC<AboutOurDifferenceBlockType> = ({
               </motion.div>
               <div className="h-full flex flex-col justify-between gap-8 order-3">
                 {items?.slice(2, 4).map(({ description, title, id }, index) => (
-                  <motion.div key={id ?? index} whileHover={{ x: 4 }} transition={{ duration: 0.2 }}>
+                  <motion.div
+                    key={id ?? index}
+                    whileHover={{ x: 4 }}
+                    transition={{ duration: 0.2 }}
+                  >
                     <CardTextBlock title={title} description={description} />
                   </motion.div>
                 ))}
@@ -121,23 +129,27 @@ export const AboutOurDifferenceBlock: React.FC<AboutOurDifferenceBlockType> = ({
             </div>
           </SectionReveal>
         </div>
-        <SectionReveal direction="up" delay={0.1} className="w-full flex flex-row items-center gap-6">
+        <SectionReveal
+          direction="up"
+          delay={0.1}
+          className="w-full flex flex-row items-center gap-6 mt-8"
+        >
           {/* Left Line */}
-          <div className="flex-1 h-16 lg:h-32 -mt-8 lg:-mt-16 relative">
+          <div className="flex-1 h-16 lg:h-32 relative">
             <div className="absolute top-0 bottom-1/2 left-0 right-0 lg:border-l border-b border-primary-100 lg:rounded-bl-[1rem]"></div>
           </div>
 
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
             <Link
               href={learnMoreHref || "/about-us"}
-              className="font-montserrat text-primary-500 text-xs md:text-base lg:text-lg hover:underline font-medium -mt-8 lg:-mt-16 mx-4 lg:mx-16 inline-block"
+              className="font-montserrat text-primary-500 text-xs md:text-base lg:text-lg hover:underline font-medium mx-4 lg:mx-16 inline-block"
             >
               {learnMoreText}
             </Link>
           </motion.div>
 
           {/* Right Line */}
-          <div className="flex-1 h-16 lg:h-32 -mt-8 lg:-mt-16 relative">
+          <div className="flex-1 h-16 lg:h-32 relative">
             <div className="absolute top-0 bottom-1/2 left-0 right-0 lg:border-r border-b border-primary-100 lg:rounded-br-[1rem]"></div>
           </div>
         </SectionReveal>
@@ -153,9 +165,7 @@ const CardTextBlock = ({ title, description }: { title: string; description: str
         {title}
       </h4>
       <div className="font-poppins text-sm lg:text-base lg:leading-[160%] text-foreground/70 flex flex-col gap-1 lg:gap-4">
-        {description?.split(".").map((par, index) => (
-          <p key={index}>{par}.</p>
-        ))}
+        {description?.split(".").map((par, index) => par.length > 0 && <p key={index}>{par}.</p>)}
       </div>
     </div>
   );

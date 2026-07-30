@@ -59,8 +59,7 @@ export const Header: GlobalConfig = {
           type: "group",
 
           admin: {
-            description:
-              "Optional mega menu content for this navigation item.",
+            description: "Optional mega menu content for this navigation item.",
           },
 
           fields: [
@@ -113,8 +112,8 @@ export const Header: GlobalConfig = {
                       type: "text",
                       required: true,
                       localized: true,
-                    }
-                  ]
+                    },
+                  ],
                 },
 
                 {
@@ -154,6 +153,12 @@ export const Header: GlobalConfig = {
                     initCollapsed: true,
                   },
                 },
+                {
+                  name: "backgroundImage",
+                  type: "upload",
+                  relationTo: "media",
+                  required: false,
+                },
               ],
 
               admin: {
@@ -167,6 +172,6 @@ export const Header: GlobalConfig = {
       admin: {
         initCollapsed: true,
       },
-    }
+    },
   ],
 };

@@ -91,6 +91,7 @@ export interface Config {
     subservices: SubservicesBlock;
     'when-you-need-it': WhenYouNeedItBlock;
     'readiness-check': ReadinessCheckBlock;
+    'contact-what-we-deliver': ContactWhatWeDeliverBlock;
   };
   collections: {
     users: User;
@@ -251,6 +252,14 @@ export interface AboutHeroBlock {
   title: string;
   subtitle?: string | null;
   backgroundImage?: (number | null) | Media;
+  ctaGroup?:
+    | {
+        text: string;
+        href: string;
+        type: 'primary' | 'secondary';
+        id?: string | null;
+      }[]
+    | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'about-hero';
@@ -6716,6 +6725,26 @@ export interface ReadinessCheckBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactWhatWeDeliverBlock".
+ */
+export interface ContactWhatWeDeliverBlock {
+  eyebrow?: string | null;
+  titleBeforeHighlight: string;
+  highlightedTitle?: string | null;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  items?:
+    | {
+        item: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contact-what-we-deliver';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -6774,6 +6803,7 @@ export interface Page {
     | SubservicesBlock
     | WhenYouNeedItBlock
     | ReadinessCheckBlock
+    | ContactWhatWeDeliverBlock
   )[];
   updatedAt: string;
   createdAt: string;
@@ -7000,6 +7030,7 @@ export interface PagesSelect<T extends boolean = true> {
         subservices?: T | SubservicesBlockSelect<T>;
         'when-you-need-it'?: T | WhenYouNeedItBlockSelect<T>;
         'readiness-check'?: T | ReadinessCheckBlockSelect<T>;
+        'contact-what-we-deliver'?: T | ContactWhatWeDeliverBlockSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -7051,6 +7082,14 @@ export interface AboutHeroBlockSelect<T extends boolean = true> {
   title?: T;
   subtitle?: T;
   backgroundImage?: T;
+  ctaGroup?:
+    | T
+    | {
+        text?: T;
+        href?: T;
+        type?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -7647,6 +7686,25 @@ export interface ReadinessCheckBlockSelect<T extends boolean = true> {
         id?: T;
       };
   textureWavesImage?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactWhatWeDeliverBlock_select".
+ */
+export interface ContactWhatWeDeliverBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  titleBeforeHighlight?: T;
+  highlightedTitle?: T;
+  titleAfterHighlight?: T;
+  subtitle?: T;
+  items?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -9706,6 +9764,7 @@ export interface Header {
                       id?: string | null;
                     }[]
                   | null;
+                backgroundImage?: (number | null) | Media;
                 id?: string | null;
               }[]
             | null;
@@ -9816,6 +9875,7 @@ export interface HeaderSelect<T extends boolean = true> {
                           href?: T;
                           id?: T;
                         };
+                    backgroundImage?: T;
                     id?: T;
                   };
             };

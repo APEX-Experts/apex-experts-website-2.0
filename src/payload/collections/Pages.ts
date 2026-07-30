@@ -25,6 +25,7 @@ import { Directory } from "../blocks/Directory";
 import { Subservices } from "../blocks/Subservices";
 import { WhenYouNeedIt } from "../blocks/WhenYouNeedIt";
 import { ReadinessCheck } from "../blocks/ReadinessCheck";
+import { ContactWhatWeDeliver } from "../blocks/ContactWhatWeDeliver";
 
 /**
  * Payload CMS Collection configuration for dynamic Pages.
@@ -106,6 +107,7 @@ export const Pages: CollectionConfig = {
         Subservices,
         WhenYouNeedIt,
         ReadinessCheck,
+        ContactWhatWeDeliver,
       ],
       required: true,
     },

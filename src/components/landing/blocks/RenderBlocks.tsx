@@ -33,6 +33,7 @@ import { HomeProjects } from "./home/HomeProjects";
 import { HomeTechnologies } from "./home/HomeTechnologies";
 import { HomeFAQ } from "./home/HomeFAQ";
 import { HomeBlogsSection } from "./home/HomeBlogsSection";
+import { FeaturedPostBlock } from "./home/FeaturedPostBlock";
 import { ContactFormBlock } from "./common/ContactFormBlock";
 import { SubscribeToNewsletterBlock } from "./common/SubscribeToNewsletterBlock";
 import { MarqueeIconsBlock } from "./common/MarqueeIconsBlock";
@@ -136,6 +137,8 @@ export const RenderBlocks: React.FC<Props> = ({ blocks }) => {
             return <HomeFAQ key={key} {...block} />;
           case "home-blogs":
             return <HomeBlogsSection key={key} {...block} />;
+          case "featured-post":
+            return <FeaturedPostBlock key={key} {...block} />;
           case "contact-form":
             return <ContactFormBlock key={key} {...block} />;
           case "subscribe-to-newsletter":

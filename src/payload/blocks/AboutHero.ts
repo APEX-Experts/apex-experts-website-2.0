@@ -58,6 +58,11 @@ export const AboutHero: Block = {
           required: true,
           localized: true,
         },
+        {
+          name: "href",
+          type: "text",
+          required: true,
+        },
       ],
       admin: {
         initCollapsed: true,

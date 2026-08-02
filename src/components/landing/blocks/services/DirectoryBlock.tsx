@@ -57,7 +57,7 @@ export const DirectoryBlock: React.FC<DirectoryBlockType> = ({
           <div className={cn("w-full flex", isProjectPage ? "" : "lg:mt-7")}>
             <div
               className={cn(
-                "grid grid-cols-1 lg:grid-cols-2 flex-1",
+                "grid grid-cols-1 lg:grid-cols-2 flex-1 h-full",
                 isProjectPage ? "gap-7.5 w-full" : "max-lg:gap-12 lg:justify-between lg:gap-18",
               )}
             >
@@ -66,14 +66,14 @@ export const DirectoryBlock: React.FC<DirectoryBlockType> = ({
                   key={id ?? index}
                   direction="up"
                   delay={0.1 + index * 0.08}
-                  className="h-fit flex-1"
+                  className="h-full last:col-span-2"
                 >
                   <div
                     className={cn(
-                      "flex gap-6 group",
+                      "flex gap-6 group h-full",
                       isProjectPage
                         ? "flex-row px-4 py-8 rounded-[1rem] bg-white border border-outline/30 shadow-sm"
-                        : "flex-row items-start h-fit",
+                        : "flex-row items-start",
                     )}
                   >
                     <Logo

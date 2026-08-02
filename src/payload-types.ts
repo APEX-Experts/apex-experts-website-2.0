@@ -103,6 +103,7 @@ export interface Config {
     'subservice-use-cases': SubserviceUseCasesBlock;
     'subservice-text-and-tags': SubserviceTextAndTagsBlock;
     'subservice-deliverables': SubserviceDeliverablesBlock;
+    'featured-post': FeaturedPostBlock;
   };
   collections: {
     users: User;
@@ -267,6 +268,7 @@ export interface AboutHeroBlock {
   tags?:
     | {
         tag: string;
+        href: string;
         id?: string | null;
       }[]
     | null;
@@ -6758,6 +6760,7 @@ export interface ContactWhatWeDeliverBlock {
         id?: string | null;
       }[]
     | null;
+  backgroundImage?: (number | null) | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'contact-what-we-deliver';
@@ -6839,6 +6842,7 @@ export interface ProjectCtaBlock {
  */
 export interface ProjectBuiltForBlock {
   backgroundImage?: (number | null) | Media;
+  cardBackgroundImage?: (number | null) | Media;
   foregroundImages?:
     | {
         image: number | Media;
@@ -7045,6 +7049,57 @@ export interface SubserviceDeliverablesBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeaturedPostBlock".
+ */
+export interface FeaturedPostBlock {
+  eyebrow?: string | null;
+  titleBeforeHighlight: string;
+  highlightedTitle?: string | null;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  /**
+   * Select a specific post to feature. If left empty, the latest published post will be used.
+   */
+  selectedPost?: (number | null) | Post;
+  readMoreText?: string | null;
+  backgroundImage?: (number | null) | Media;
+  textureWavesImage?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'featured-post';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: number;
+  title: string;
+  slug: string;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  featuredImage?: (number | null) | Media;
+  author: number | User;
+  publishedDate?: string | null;
+  tags?: string[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -7115,37 +7170,8 @@ export interface Page {
     | SubserviceUseCasesBlock
     | SubserviceTextAndTagsBlock
     | SubserviceDeliverablesBlock
+    | FeaturedPostBlock
   )[];
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
- */
-export interface Post {
-  id: number;
-  title: string;
-  slug: string;
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  featuredImage?: (number | null) | Media;
-  author: number | User;
-  publishedDate?: string | null;
-  tags?: string[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -7353,6 +7379,7 @@ export interface PagesSelect<T extends boolean = true> {
         'subservice-use-cases'?: T | SubserviceUseCasesBlockSelect<T>;
         'subservice-text-and-tags'?: T | SubserviceTextAndTagsBlockSelect<T>;
         'subservice-deliverables'?: T | SubserviceDeliverablesBlockSelect<T>;
+        'featured-post'?: T | FeaturedPostBlockSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -7409,6 +7436,7 @@ export interface AboutHeroBlockSelect<T extends boolean = true> {
     | T
     | {
         tag?: T;
+        href?: T;
         id?: T;
       };
   ctaGroup?:
@@ -8035,6 +8063,7 @@ export interface ContactWhatWeDeliverBlockSelect<T extends boolean = true> {
         item?: T;
         id?: T;
       };
+  backgroundImage?: T;
   id?: T;
   blockName?: T;
 }
@@ -8112,6 +8141,7 @@ export interface ProjectCtaBlockSelect<T extends boolean = true> {
  */
 export interface ProjectBuiltForBlockSelect<T extends boolean = true> {
   backgroundImage?: T;
+  cardBackgroundImage?: T;
   foregroundImages?:
     | T
     | {
@@ -8305,6 +8335,23 @@ export interface SubserviceDeliverablesBlockSelect<T extends boolean = true> {
         id?: T;
       };
   markerSvg?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeaturedPostBlock_select".
+ */
+export interface FeaturedPostBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  titleBeforeHighlight?: T;
+  highlightedTitle?: T;
+  titleAfterHighlight?: T;
+  subtitle?: T;
+  selectedPost?: T;
+  readMoreText?: T;
+  backgroundImage?: T;
+  textureWavesImage?: T;
   id?: T;
   blockName?: T;
 }

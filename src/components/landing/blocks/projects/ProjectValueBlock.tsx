@@ -21,7 +21,6 @@ export const ProjectValueBlock: React.FC<ProjectValueBlockType> = ({
   return (
     <section className="relative overflow-hidden bg-background py-10 lg:py-18" id="project-value">
       <TextureWaves image={textureWavesImage} position="top" />
-
       <div className="relative z-10 mx-auto flex flex-col gap-8 lg:gap-14 px-4 lg:px-14">
         {/* Heading Section */}
         <SectionReveal direction="up" className="w-full max-w-4xl">
@@ -42,7 +41,6 @@ export const ProjectValueBlock: React.FC<ProjectValueBlockType> = ({
             )}
           </div>
         </SectionReveal>
-
         {/* Value Items Grid */}
         {items && items.length > 0 && (
           <SectionReveal direction="up" delay={0.1} className="w-full">

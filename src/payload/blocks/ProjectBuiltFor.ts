@@ -11,6 +11,12 @@ export const ProjectBuiltFor: Block = {
       required: false,
     },
     {
+      name: "cardBackgroundImage",
+      type: "upload",
+      relationTo: "media",
+      required: false,
+    },
+    {
       name: "foregroundImages",
       type: "array",
       maxRows: 4,

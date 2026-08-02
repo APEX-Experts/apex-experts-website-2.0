@@ -49,6 +49,7 @@ import { SubserviceFeaturesSteps } from "./payload/blocks/SubserviceFeaturesAndS
 import { SubserviceUseCases } from "./payload/blocks/SubserviceUseCases.ts";
 import { SubserviceTextAndTags } from "./payload/blocks/SubserviceTextAndTags.ts";
 import { SubserviceDeliverables } from "./payload/blocks/SubserviceDeliverables.ts";
+import { FeaturedPost } from "./payload/blocks/FeaturedPost.ts";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -150,5 +151,6 @@ export default buildConfig({
     SubserviceUseCases,
     SubserviceTextAndTags,
     SubserviceDeliverables,
+    FeaturedPost,
   ],
 });

@@ -37,6 +37,7 @@ import { SubserviceFeaturesSteps } from "../blocks/SubserviceFeaturesAndSteps";
 import { SubserviceUseCases } from "../blocks/SubserviceUseCases";
 import { SubserviceTextAndTags } from "../blocks/SubserviceTextAndTags";
 import { SubserviceDeliverables } from "../blocks/SubserviceDeliverables";
+import { FeaturedPost } from "../blocks/FeaturedPost";
 
 /**
  * Payload CMS Collection configuration for dynamic Pages.
@@ -130,6 +131,7 @@ export const Pages: CollectionConfig = {
         SubserviceUseCases,
         SubserviceTextAndTags,
         SubserviceDeliverables,
+        FeaturedPost,
       ],
       required: true,
     },

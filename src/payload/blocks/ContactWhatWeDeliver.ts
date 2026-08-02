@@ -21,5 +21,11 @@ export const ContactWhatWeDeliver: Block = {
         initCollapsed: true,
       },
     },
+    {
+      name: "backgroundImage",
+      type: "upload",
+      relationTo: "media",
+      required: false,
+    },
   ],
 };

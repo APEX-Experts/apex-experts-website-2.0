@@ -26,6 +26,17 @@ import { Subservices } from "../blocks/Subservices";
 import { WhenYouNeedIt } from "../blocks/WhenYouNeedIt";
 import { ReadinessCheck } from "../blocks/ReadinessCheck";
 import { ContactWhatWeDeliver } from "../blocks/ContactWhatWeDeliver";
+import { ProjectPrinciples } from "../blocks/ProjectPrinciples";
+import { ProjectValue } from "../blocks/ProjectValue";
+import { ProjectCta } from "../blocks/ProjectCta";
+import { ProjectBuiltFor } from "../blocks/ProjectBuiltFor";
+import { ProjectTextBlock } from "../blocks/ProjectTextBlock";
+import { ProjectWhatComesNext } from "../blocks/ProjectWhatComesNext";
+import { SubservicePipeline } from "../blocks/SubservicePipeline";
+import { SubserviceFeaturesSteps } from "../blocks/SubserviceFeaturesAndSteps";
+import { SubserviceUseCases } from "../blocks/SubserviceUseCases";
+import { SubserviceTextAndTags } from "../blocks/SubserviceTextAndTags";
+import { SubserviceDeliverables } from "../blocks/SubserviceDeliverables";
 
 /**
  * Payload CMS Collection configuration for dynamic Pages.
@@ -108,6 +119,17 @@ export const Pages: CollectionConfig = {
         WhenYouNeedIt,
         ReadinessCheck,
         ContactWhatWeDeliver,
+        ProjectPrinciples,
+        ProjectValue,
+        ProjectCta,
+        ProjectBuiltFor,
+        ProjectTextBlock,
+        ProjectWhatComesNext,
+        SubservicePipeline,
+        SubserviceFeaturesSteps,
+        SubserviceUseCases,
+        SubserviceTextAndTags,
+        SubserviceDeliverables,
       ],
       required: true,
     },

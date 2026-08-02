@@ -6,10 +6,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as React from "react";
 import { MegaMenu } from "./mega-menu";
-import { NavItemData } from "./navbar-types";
+import { Header } from "@/payload-types";
 
 export interface DesktopNavProps {
-  navItems: NavItemData[];
+  navItems: Header["navItems"];
   activeHoverLabel: string | null;
   activeSubMenuItem: number;
   activeSubSubMenuItem: number;
@@ -33,7 +33,7 @@ export function DesktopNav({
 
   return (
     <nav className="hidden lg:flex items-center space-x-8 text-sm font-medium">
-      {navItems.map((item) => {
+      {navItems?.map((item) => {
         const hasMegaMenu = !!item.megaMenu?.items && item.megaMenu.items.length > 0;
         const isActive =
           pathname === item.link || (item.link !== "/" && pathname.startsWith(item.link));

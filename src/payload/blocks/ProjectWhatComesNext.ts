@@ -1,37 +1,15 @@
 import type { Block } from "payload";
 import { highlightedTitleAndEyebrowFields } from "../fields/highlightedTitleAndEyebrow";
 
-export const Directory: Block = {
-  slug: "directory",
-  interfaceName: "DirectoryBlock",
+export const ProjectWhatComesNext: Block = {
+  slug: "project-what-comes-next",
+  interfaceName: "ProjectWhatComesNextBlock",
   fields: [
     ...highlightedTitleAndEyebrowFields,
     {
-      name: "isProjectPage",
-      type: "checkbox",
-      defaultValue: false,
-    },
-    {
-      name: "backgroundImage",
-      type: "upload",
-      relationTo: "media",
-      required: false,
-    },
-    {
-      name: "textureWavesImage",
-      type: "upload",
-      relationTo: "media",
-      required: false,
-    },
-    {
-      name: "list",
+      name: "items",
       type: "array",
       fields: [
-        {
-          name: "icon",
-          type: "textarea",
-          required: false,
-        },
         {
           name: "title",
           type: "text",
@@ -48,6 +26,18 @@ export const Directory: Block = {
       admin: {
         initCollapsed: true,
       },
+    },
+    {
+      name: "backgroundImage",
+      type: "upload",
+      relationTo: "media",
+      required: false,
+    },
+    {
+      name: "textureWavesImage",
+      type: "upload",
+      relationTo: "media",
+      required: false,
     },
   ],
 };

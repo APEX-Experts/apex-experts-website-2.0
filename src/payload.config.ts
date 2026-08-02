@@ -38,6 +38,17 @@ import { Subservices } from "./payload/blocks/Subservices.ts";
 import { WhenYouNeedIt } from "./payload/blocks/WhenYouNeedIt.ts";
 import { ReadinessCheck } from "./payload/blocks/ReadinessCheck.ts";
 import { ContactWhatWeDeliver } from "./payload/blocks/ContactWhatWeDeliver.ts";
+import { ProjectPrinciples } from "./payload/blocks/ProjectPrinciples.ts";
+import { ProjectValue } from "./payload/blocks/ProjectValue.ts";
+import { ProjectCta } from "./payload/blocks/ProjectCta.ts";
+import { ProjectBuiltFor } from "./payload/blocks/ProjectBuiltFor.ts";
+import { ProjectTextBlock } from "./payload/blocks/ProjectTextBlock.ts";
+import { ProjectWhatComesNext } from "./payload/blocks/ProjectWhatComesNext.ts";
+import { SubservicePipeline } from "./payload/blocks/SubservicePipeline.ts";
+import { SubserviceFeaturesSteps } from "./payload/blocks/SubserviceFeaturesAndSteps.ts";
+import { SubserviceUseCases } from "./payload/blocks/SubserviceUseCases.ts";
+import { SubserviceTextAndTags } from "./payload/blocks/SubserviceTextAndTags.ts";
+import { SubserviceDeliverables } from "./payload/blocks/SubserviceDeliverables.ts";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -128,5 +139,16 @@ export default buildConfig({
     WhenYouNeedIt,
     ReadinessCheck,
     ContactWhatWeDeliver,
+    ProjectPrinciples,
+    ProjectValue,
+    ProjectCta,
+    ProjectBuiltFor,
+    ProjectTextBlock,
+    ProjectWhatComesNext,
+    SubservicePipeline,
+    SubserviceFeaturesSteps,
+    SubserviceUseCases,
+    SubserviceTextAndTags,
+    SubserviceDeliverables,
   ],
 });

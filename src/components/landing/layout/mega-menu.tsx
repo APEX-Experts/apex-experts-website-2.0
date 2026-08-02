@@ -5,12 +5,12 @@ import { cn, getMediaAlt, getMediaUrl } from "@/lib/utils";
 import { ArrowRight, ArrowRightCircle, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { MegaMenuData } from "./navbar-types";
 import { Logo } from "./logo";
 import ServiceIcon from "./service-icon";
+import { Header } from "@/payload-types";
 
 export interface MegaMenuProps {
-  megaMenu: MegaMenuData;
+  megaMenu: NonNullable<Header["navItems"]>[number]["megaMenu"];
   label: string;
   currentLocale: "EN" | "AR";
   activeSubMenuItem: number;
@@ -30,7 +30,7 @@ export function MegaMenu({
   onMouseLeave,
   onMouseEnterSubmenuItem,
 }: MegaMenuProps) {
-  const activeSubItem = megaMenu.items?.[activeSubMenuItem];
+  const activeSubItem = megaMenu?.items?.[activeSubMenuItem];
   const activeSubSubItem = activeSubItem?.subitems?.[activeSubSubMenuItem];
   const hasCenterMenu = !!activeSubItem?.subitems?.length;
 
@@ -50,7 +50,7 @@ export function MegaMenu({
             className={cn("h-4 w-4 text-primary-500", currentLocale === "AR" ? "rotate-180" : "")}
           />
           <div className="font-semibold text-lg md:text-xl leading-[150%] tracking-[0.5px] uppercase text-foreground">
-            {megaMenu.title}
+            {megaMenu?.title}
           </div>
         </div>
 
@@ -58,7 +58,7 @@ export function MegaMenu({
         <div className="w-full grid grid-cols-1 md:grid-cols-[300px_minmax(0,1fr)_420px] flex-1">
           {/* Left Menu */}
           <div className="flex flex-col gap-1.5 bg-nile-100 rounded-[1rem] p-4">
-            {megaMenu.items?.map((subitem, index) => (
+            {megaMenu?.items?.map((subitem, index) => (
               <Link
                 href={subitem.href ?? "#"}
                 className={cn(

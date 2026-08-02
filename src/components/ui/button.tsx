@@ -21,9 +21,9 @@ const buttonVariants = cva(
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
         ctaPrimary:
-          "w-full sm:w-auto text-sm lg:text-base px-3 lg:px-4 py-3.25 flex flex-row gap-1.5 lg:gap-2 items-center justify-center rounded-full bg-primary-500 hover:bg-primary-700 text-primary-500 border border-transparent transition-all duration-300",
+          "w-full sm:w-auto text-sm lg:text-base px-3 lg:px-4 py-3.25 flex flex-row gap-1.5 lg:gap-2 items-center justify-center rounded-full bg-primary-500 hover:bg-primary-700 text-primary-500 border border-transparent transition-all duration-300 lg:min-w-55",
         ctaSecondary:
-          "w-full sm:w-auto text-sm lg:text-base px-3 lg:px-4 py-3.25 flex flex-row gap-1.5 lg:gap-2 items-center justify-center rounded-full bg-transparent border border-primary-500 text-primary-500 sm:min-w-55 hover:bg-white transition-all duration-300",
+          "w-full sm:w-auto text-sm lg:text-base px-3 lg:px-4 py-3.25 flex flex-row gap-1.5 lg:gap-2 items-center justify-center rounded-full bg-transparent border border-primary-500 text-white sm:min-w-55 hover:bg-white hover:text-primary-500 transition-all duration-300",
         ctaGhost: "inline-flex items-center gap-2 hover:underline cursor-pointer group text-white",
         ctaOutline:
           "rounded-full border border-outline/30 hover:border-foreground transition-colors duration-300 py-2 px-8 flex items-center justify-center gap-2 cursor-pointer text-foreground",

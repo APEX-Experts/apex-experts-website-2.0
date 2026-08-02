@@ -15,10 +15,10 @@ import Link from "next/link";
 import { useState } from "react";
 import { LocaleSelector } from "./locale-selector";
 import { Logo, LogoSvg } from "./logo";
-import { NavItemData } from "./navbar-types";
+import { Header } from "@/payload-types";
 
 export interface MobileNavProps {
-  navItems: NavItemData[];
+  navItems: Header["navItems"];
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
   currentLocale: "EN" | "AR";
@@ -80,7 +80,7 @@ export function MobileNav({
 
           {/* Nav Items List */}
           <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
-            {navItems.map((item) => {
+            {navItems?.map((item) => {
               const hasMegaMenu = !!item.megaMenu?.items && item.megaMenu.items.length > 0;
               const isExpanded = expandedNav === item.label;
 

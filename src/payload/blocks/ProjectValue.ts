@@ -1,22 +1,11 @@
 import type { Block } from "payload";
 import { highlightedTitleAndEyebrowFields } from "../fields/highlightedTitleAndEyebrow";
 
-export const Directory: Block = {
-  slug: "directory",
-  interfaceName: "DirectoryBlock",
+export const ProjectValue: Block = {
+  slug: "project-value",
+  interfaceName: "ProjectValueBlock",
   fields: [
     ...highlightedTitleAndEyebrowFields,
-    {
-      name: "isProjectPage",
-      type: "checkbox",
-      defaultValue: false,
-    },
-    {
-      name: "backgroundImage",
-      type: "upload",
-      relationTo: "media",
-      required: false,
-    },
     {
       name: "textureWavesImage",
       type: "upload",
@@ -24,11 +13,11 @@ export const Directory: Block = {
       required: false,
     },
     {
-      name: "list",
+      name: "items",
       type: "array",
       fields: [
         {
-          name: "icon",
+          name: "iconSvg",
           type: "textarea",
           required: false,
         },

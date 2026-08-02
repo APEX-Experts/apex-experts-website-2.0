@@ -6,13 +6,11 @@ import { DesktopNav } from "./desktop-nav";
 import { LocaleSelector } from "./locale-selector";
 import { LogoProps, LogoSvg } from "./logo";
 import { MobileNav } from "./mobile-nav";
-import { NavItemData } from "./navbar-types";
-
-export type { MegaItem, MegaMenuData, MegaSubItem, NavItemData } from "./navbar-types";
+import { Header } from "@/payload-types";
 
 export interface NavbarProps extends Omit<LogoProps, "brandName"> {
   brandName?: string | null;
-  navItems: NavItemData[];
+  navItems: Header["navItems"];
 }
 
 export function Navbar({ navItems = [] }: NavbarProps) {

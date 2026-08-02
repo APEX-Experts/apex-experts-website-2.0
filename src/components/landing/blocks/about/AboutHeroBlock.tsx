@@ -41,7 +41,7 @@ export const AboutHeroBlock: React.FC<AboutHeroBlockType> = ({
                 <Link href={cta.href}>
                   {cta.type === "primary" ? (
                     <>
-                      <span className="font-medium text-white">{cta.text}</span>
+                      <span className="font-medium text-white text-base">{cta.text}</span>
                       <div className="w-6 h-6 lg:w-7.5 lg:h-7.5 bg-white rounded-full flex items-center justify-center">
                         <ArrowRight
                           className="w-4 h-4 lg:w-5.5 lg:h-5.5 text-primary-500 -rotate-30"
@@ -51,7 +51,7 @@ export const AboutHeroBlock: React.FC<AboutHeroBlockType> = ({
                       </div>
                     </>
                   ) : (
-                    <span>{cta.text}</span>
+                    <span className="text-base font-medium">{cta.text}</span>
                   )}
                 </Link>
               </Button>

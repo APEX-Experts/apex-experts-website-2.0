@@ -44,6 +44,26 @@ export const AboutHero: Block = {
       required: false,
     },
     {
+      name: "justifyFromStart",
+      type: "checkbox",
+      defaultValue: false,
+    },
+    {
+      name: "tags",
+      type: "array",
+      fields: [
+        {
+          name: "tag",
+          type: "text",
+          required: true,
+          localized: true,
+        },
+      ],
+      admin: {
+        initCollapsed: true,
+      },
+    },
+    {
       name: "ctaGroup",
       type: "array",
       fields: [

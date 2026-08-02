@@ -61,7 +61,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           </h1>
 
           {subtitle && (
-            <p className="font-poppins lg:text-[1.1875rem] leading-[130%] text-sm lg:text-base text-center text-white/70 max-w-7xl">
+            <p className="font-poppins lg:text-[1.1875rem] leading-[160%] text-sm lg:text-base text-center text-white/70 max-w-7xl">
               {subtitle}
             </p>
           )}

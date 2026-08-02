@@ -15,6 +15,17 @@ import { SubservicesBlock } from "./services/SubservicesBlock";
 import { WhenYouNeedItBlock } from "./services/WhenYouNeedItBlock";
 import { ReadinessCheckBlock } from "./services/ReadinessCheckBlock";
 import { ContactWhatWeDeliverBlock } from "./common/ContactWhatWeDeliverBlock";
+import { ProjectPrinciplesBlock } from "./projects/ProjectPrinciplesBlock";
+import { ProjectValueBlock } from "./projects/ProjectValueBlock";
+import { ProjectCtaBlock } from "./projects/ProjectCtaBlock";
+import { ProjectBuiltForBlock } from "./projects/ProjectBuiltForBlock";
+import { ProjectTextBlockBlock } from "./projects/ProjectTextBlockBlock";
+import { ProjectWhatComesNextBlock } from "./projects/ProjectWhatComesNextBlock";
+import { SubservicePipelineBlock } from "./services/SubservicePipelineBlock";
+import { SubserviceFeaturesAndStepsBlock } from "./services/SubserviceFeaturesAndStepsBlock";
+import { SubserviceCapabilitiesUseCasesBlock } from "./services/SubserviceCapabilitiesUseCasesBlock";
+import { SubserviceTextAndTagsBlock } from "./services/SubserviceTextAndTagsBlock";
+import { SubserviceDeliverablesBlock } from "./services/SubserviceDeliverablesBlock";
 import { HeroMarqueeBlock } from "./common/HeroMarqueeBlock";
 import { HomeAboutBlock } from "./home/HomeAboutBlock";
 import { HomeCapabilities } from "./home/HomeCapabilities";
@@ -88,6 +99,29 @@ export const RenderBlocks: React.FC<Props> = ({ blocks }) => {
             return <ReadinessCheckBlock key={key} {...block} />;
           case "contact-what-we-deliver":
             return <ContactWhatWeDeliverBlock key={key} {...block} />;
+
+          case "project-principles":
+            return <ProjectPrinciplesBlock key={key} {...block} />;
+          case "project-value":
+            return <ProjectValueBlock key={key} {...block} />;
+          case "project-cta":
+            return <ProjectCtaBlock key={key} {...block} />;
+          case "project-built-for":
+            return <ProjectBuiltForBlock key={key} {...block} />;
+          case "project-text-block":
+            return <ProjectTextBlockBlock key={key} {...block} />;
+          case "project-what-comes-next":
+            return <ProjectWhatComesNextBlock key={key} {...block} />;
+          case "subservice-pipeline":
+            return <SubservicePipelineBlock key={key} {...block} />;
+          case "subservice-features-steps":
+            return <SubserviceFeaturesAndStepsBlock key={key} {...block} />;
+          case "subservice-use-cases":
+            return <SubserviceCapabilitiesUseCasesBlock key={key} {...block} />;
+          case "subservice-text-and-tags":
+            return <SubserviceTextAndTagsBlock key={key} {...block} />;
+          case "subservice-deliverables":
+            return <SubserviceDeliverablesBlock key={key} {...block} />;
           case "clip-text-marquee":
             return <HeroMarqueeBlock key={key} {...block} />;
           case "home-about":

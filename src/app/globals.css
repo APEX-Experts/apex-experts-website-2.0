@@ -371,4 +371,8 @@
   .service-shadow-blur {
     box-shadow: 0px 0px 14.2px 0px #0000001a;
   }
+
+  .principle-shadow {
+    box-shadow: 0px 0px 82.5px 5px #00000026;
+  }
 }

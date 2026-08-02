@@ -92,6 +92,17 @@ export interface Config {
     'when-you-need-it': WhenYouNeedItBlock;
     'readiness-check': ReadinessCheckBlock;
     'contact-what-we-deliver': ContactWhatWeDeliverBlock;
+    'project-principles': ProjectPrinciplesBlock;
+    'project-value': ProjectValueBlock;
+    'project-cta': ProjectCtaBlock;
+    'project-built-for': ProjectBuiltForBlock;
+    'project-text-block': ProjectTextBlockBlock;
+    'project-what-comes-next': ProjectWhatComesNextBlock;
+    'subservice-pipeline': SubservicePipelineBlock;
+    'subservice-features-steps': SubserviceFeaturesStepsBlock;
+    'subservice-use-cases': SubserviceUseCasesBlock;
+    'subservice-text-and-tags': SubserviceTextAndTagsBlock;
+    'subservice-deliverables': SubserviceDeliverablesBlock;
   };
   collections: {
     users: User;
@@ -252,6 +263,13 @@ export interface AboutHeroBlock {
   title: string;
   subtitle?: string | null;
   backgroundImage?: (number | null) | Media;
+  justifyFromStart?: boolean | null;
+  tags?:
+    | {
+        tag: string;
+        id?: string | null;
+      }[]
+    | null;
   ctaGroup?:
     | {
         text: string;
@@ -6619,6 +6637,7 @@ export interface DirectoryBlock {
   highlightedTitle?: string | null;
   titleAfterHighlight?: string | null;
   subtitle?: string | null;
+  isProjectPage?: boolean | null;
   backgroundImage?: (number | null) | Media;
   textureWavesImage?: (number | null) | Media;
   list?:
@@ -6745,6 +6764,287 @@ export interface ContactWhatWeDeliverBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProjectPrinciplesBlock".
+ */
+export interface ProjectPrinciplesBlock {
+  eyebrow?: string | null;
+  titleBeforeHighlight: string;
+  highlightedTitle?: string | null;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  backgroundImage?: (number | null) | Media;
+  cardForegroundImage?: (number | null) | Media;
+  principles?:
+    | {
+        iconSvg?: string | null;
+        eyebrow?: string | null;
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'project-principles';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProjectValueBlock".
+ */
+export interface ProjectValueBlock {
+  eyebrow?: string | null;
+  titleBeforeHighlight: string;
+  highlightedTitle?: string | null;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  textureWavesImage?: (number | null) | Media;
+  items?:
+    | {
+        iconSvg?: string | null;
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'project-value';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProjectCtaBlock".
+ */
+export interface ProjectCtaBlock {
+  eyebrow?: string | null;
+  titleBeforeHighlight: string;
+  highlightedTitle?: string | null;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  ctaGroup?:
+    | {
+        text: string;
+        href: string;
+        type: 'primary' | 'secondary';
+        id?: string | null;
+      }[]
+    | null;
+  backgroundImage?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'project-cta';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProjectBuiltForBlock".
+ */
+export interface ProjectBuiltForBlock {
+  backgroundImage?: (number | null) | Media;
+  foregroundImages?:
+    | {
+        image: number | Media;
+        id?: string | null;
+      }[]
+    | null;
+  title: string;
+  bulletPoints?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'project-built-for';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProjectTextBlockBlock".
+ */
+export interface ProjectTextBlockBlock {
+  eyebrow?: string | null;
+  titleBeforeHighlight: string;
+  highlightedTitle?: string | null;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  backgroundImage?: (number | null) | Media;
+  wavesTextureImage?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'project-text-block';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProjectWhatComesNextBlock".
+ */
+export interface ProjectWhatComesNextBlock {
+  eyebrow?: string | null;
+  titleBeforeHighlight: string;
+  highlightedTitle?: string | null;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  items?:
+    | {
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  backgroundImage?: (number | null) | Media;
+  textureWavesImage?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'project-what-comes-next';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SubservicePipelineBlock".
+ */
+export interface SubservicePipelineBlock {
+  eyebrow?: string | null;
+  titleBeforeHighlight: string;
+  highlightedTitle?: string | null;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  pipeline?:
+    | {
+        title: string;
+        description: string;
+        images?:
+          | {
+              image: number | Media;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  backgroundImage?: (number | null) | Media;
+  textureWavesImage?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'subservice-pipeline';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SubserviceFeaturesStepsBlock".
+ */
+export interface SubserviceFeaturesStepsBlock {
+  eyebrow?: string | null;
+  titleBeforeHighlight: string;
+  highlightedTitle?: string | null;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  mainIconSvg?: string | null;
+  items?:
+    | {
+        eyebrow?: string | null;
+        titleBeforeHighlight: string;
+        highlightedTitle?: string | null;
+        titleAfterHighlight?: string | null;
+        subtitle?: string | null;
+        subitems?:
+          | {
+              title: string;
+              description: string;
+              backgroundImage?: (number | null) | Media;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  steps?:
+    | {
+        iconSvg?: string | null;
+        eyebrow?: string | null;
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'subservice-features-steps';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SubserviceUseCasesBlock".
+ */
+export interface SubserviceUseCasesBlock {
+  eyebrow?: string | null;
+  titleBeforeHighlight: string;
+  highlightedTitle?: string | null;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  backgroundImage?: (number | null) | Media;
+  foregroundImage?: (number | null) | Media;
+  capabilities?:
+    | {
+        eyebrow?: string | null;
+        supertitle?: string | null;
+        title: string;
+        description: string;
+        useCasesLabel?: string | null;
+        useCases?:
+          | {
+              useCase: string;
+              id?: string | null;
+            }[]
+          | null;
+        sideNoteIconSvg?: string | null;
+        sideNoteTitle?: string | null;
+        sideNoteDescription?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'subservice-use-cases';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SubserviceTextAndTagsBlock".
+ */
+export interface SubserviceTextAndTagsBlock {
+  eyebrow?: string | null;
+  titleBeforeHighlight: string;
+  highlightedTitle?: string | null;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  tags?:
+    | {
+        tag: string;
+        id?: string | null;
+      }[]
+    | null;
+  backgroundImage?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'subservice-text-and-tags';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SubserviceDeliverablesBlock".
+ */
+export interface SubserviceDeliverablesBlock {
+  eyebrow?: string | null;
+  titleBeforeHighlight: string;
+  highlightedTitle?: string | null;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  deliverables?:
+    | {
+        deliverable: string;
+        id?: string | null;
+      }[]
+    | null;
+  markerSvg?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'subservice-deliverables';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -6804,6 +7104,17 @@ export interface Page {
     | WhenYouNeedItBlock
     | ReadinessCheckBlock
     | ContactWhatWeDeliverBlock
+    | ProjectPrinciplesBlock
+    | ProjectValueBlock
+    | ProjectCtaBlock
+    | ProjectBuiltForBlock
+    | ProjectTextBlockBlock
+    | ProjectWhatComesNextBlock
+    | SubservicePipelineBlock
+    | SubserviceFeaturesStepsBlock
+    | SubserviceUseCasesBlock
+    | SubserviceTextAndTagsBlock
+    | SubserviceDeliverablesBlock
   )[];
   updatedAt: string;
   createdAt: string;
@@ -7031,6 +7342,17 @@ export interface PagesSelect<T extends boolean = true> {
         'when-you-need-it'?: T | WhenYouNeedItBlockSelect<T>;
         'readiness-check'?: T | ReadinessCheckBlockSelect<T>;
         'contact-what-we-deliver'?: T | ContactWhatWeDeliverBlockSelect<T>;
+        'project-principles'?: T | ProjectPrinciplesBlockSelect<T>;
+        'project-value'?: T | ProjectValueBlockSelect<T>;
+        'project-cta'?: T | ProjectCtaBlockSelect<T>;
+        'project-built-for'?: T | ProjectBuiltForBlockSelect<T>;
+        'project-text-block'?: T | ProjectTextBlockBlockSelect<T>;
+        'project-what-comes-next'?: T | ProjectWhatComesNextBlockSelect<T>;
+        'subservice-pipeline'?: T | SubservicePipelineBlockSelect<T>;
+        'subservice-features-steps'?: T | SubserviceFeaturesStepsBlockSelect<T>;
+        'subservice-use-cases'?: T | SubserviceUseCasesBlockSelect<T>;
+        'subservice-text-and-tags'?: T | SubserviceTextAndTagsBlockSelect<T>;
+        'subservice-deliverables'?: T | SubserviceDeliverablesBlockSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -7082,6 +7404,13 @@ export interface AboutHeroBlockSelect<T extends boolean = true> {
   title?: T;
   subtitle?: T;
   backgroundImage?: T;
+  justifyFromStart?: T;
+  tags?:
+    | T
+    | {
+        tag?: T;
+        id?: T;
+      };
   ctaGroup?:
     | T
     | {
@@ -7587,6 +7916,7 @@ export interface DirectoryBlockSelect<T extends boolean = true> {
   highlightedTitle?: T;
   titleAfterHighlight?: T;
   subtitle?: T;
+  isProjectPage?: T;
   backgroundImage?: T;
   textureWavesImage?: T;
   list?:
@@ -7705,6 +8035,276 @@ export interface ContactWhatWeDeliverBlockSelect<T extends boolean = true> {
         item?: T;
         id?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProjectPrinciplesBlock_select".
+ */
+export interface ProjectPrinciplesBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  titleBeforeHighlight?: T;
+  highlightedTitle?: T;
+  titleAfterHighlight?: T;
+  subtitle?: T;
+  backgroundImage?: T;
+  cardForegroundImage?: T;
+  principles?:
+    | T
+    | {
+        iconSvg?: T;
+        eyebrow?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProjectValueBlock_select".
+ */
+export interface ProjectValueBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  titleBeforeHighlight?: T;
+  highlightedTitle?: T;
+  titleAfterHighlight?: T;
+  subtitle?: T;
+  textureWavesImage?: T;
+  items?:
+    | T
+    | {
+        iconSvg?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProjectCtaBlock_select".
+ */
+export interface ProjectCtaBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  titleBeforeHighlight?: T;
+  highlightedTitle?: T;
+  titleAfterHighlight?: T;
+  subtitle?: T;
+  ctaGroup?:
+    | T
+    | {
+        text?: T;
+        href?: T;
+        type?: T;
+        id?: T;
+      };
+  backgroundImage?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProjectBuiltForBlock_select".
+ */
+export interface ProjectBuiltForBlockSelect<T extends boolean = true> {
+  backgroundImage?: T;
+  foregroundImages?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  title?: T;
+  bulletPoints?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProjectTextBlockBlock_select".
+ */
+export interface ProjectTextBlockBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  titleBeforeHighlight?: T;
+  highlightedTitle?: T;
+  titleAfterHighlight?: T;
+  subtitle?: T;
+  backgroundImage?: T;
+  wavesTextureImage?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProjectWhatComesNextBlock_select".
+ */
+export interface ProjectWhatComesNextBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  titleBeforeHighlight?: T;
+  highlightedTitle?: T;
+  titleAfterHighlight?: T;
+  subtitle?: T;
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  backgroundImage?: T;
+  textureWavesImage?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SubservicePipelineBlock_select".
+ */
+export interface SubservicePipelineBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  titleBeforeHighlight?: T;
+  highlightedTitle?: T;
+  titleAfterHighlight?: T;
+  subtitle?: T;
+  pipeline?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        images?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  backgroundImage?: T;
+  textureWavesImage?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SubserviceFeaturesStepsBlock_select".
+ */
+export interface SubserviceFeaturesStepsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  titleBeforeHighlight?: T;
+  highlightedTitle?: T;
+  titleAfterHighlight?: T;
+  subtitle?: T;
+  mainIconSvg?: T;
+  items?:
+    | T
+    | {
+        eyebrow?: T;
+        titleBeforeHighlight?: T;
+        highlightedTitle?: T;
+        titleAfterHighlight?: T;
+        subtitle?: T;
+        subitems?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              backgroundImage?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  steps?:
+    | T
+    | {
+        iconSvg?: T;
+        eyebrow?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SubserviceUseCasesBlock_select".
+ */
+export interface SubserviceUseCasesBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  titleBeforeHighlight?: T;
+  highlightedTitle?: T;
+  titleAfterHighlight?: T;
+  subtitle?: T;
+  backgroundImage?: T;
+  foregroundImage?: T;
+  capabilities?:
+    | T
+    | {
+        eyebrow?: T;
+        supertitle?: T;
+        title?: T;
+        description?: T;
+        useCasesLabel?: T;
+        useCases?:
+          | T
+          | {
+              useCase?: T;
+              id?: T;
+            };
+        sideNoteIconSvg?: T;
+        sideNoteTitle?: T;
+        sideNoteDescription?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SubserviceTextAndTagsBlock_select".
+ */
+export interface SubserviceTextAndTagsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  titleBeforeHighlight?: T;
+  highlightedTitle?: T;
+  titleAfterHighlight?: T;
+  subtitle?: T;
+  tags?:
+    | T
+    | {
+        tag?: T;
+        id?: T;
+      };
+  backgroundImage?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SubserviceDeliverablesBlock_select".
+ */
+export interface SubserviceDeliverablesBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  titleBeforeHighlight?: T;
+  highlightedTitle?: T;
+  titleAfterHighlight?: T;
+  subtitle?: T;
+  deliverables?:
+    | T
+    | {
+        deliverable?: T;
+        id?: T;
+      };
+  markerSvg?: T;
   id?: T;
   blockName?: T;
 }

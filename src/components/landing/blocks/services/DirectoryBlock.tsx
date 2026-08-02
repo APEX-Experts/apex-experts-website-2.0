@@ -66,7 +66,7 @@ export const DirectoryBlock: React.FC<DirectoryBlockType> = ({
                   key={id ?? index}
                   direction="up"
                   delay={0.1 + index * 0.08}
-                  className="h-full last:col-span-2"
+                  className="h-full lg:last:odd:col-span-2"
                 >
                   <div
                     className={cn(

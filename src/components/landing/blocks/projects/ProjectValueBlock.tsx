@@ -4,6 +4,7 @@ import { Eyebrow, HighlightedTitle } from "@/components/ui/highlighted-title";
 import { SectionReveal } from "@/components/ui/section-reveal";
 import { TextureWaves } from "@/components/ui/texture-waves";
 import type { ProjectValueBlock as ProjectValueBlockType } from "@/payload-types";
+import { motion, useReducedMotion } from "motion/react";
 import React from "react";
 
 /**
@@ -18,6 +19,27 @@ export const ProjectValueBlock: React.FC<ProjectValueBlockType> = ({
   textureWavesImage,
   items,
 }) => {
+  const shouldReduceMotion = useReducedMotion();
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: shouldReduceMotion ? 0 : 0.08,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const },
+    },
+  };
+
   return (
     <section className="relative overflow-hidden bg-background py-10 lg:py-18" id="project-value">
       <TextureWaves image={textureWavesImage} position="top" />
@@ -44,27 +66,38 @@ export const ProjectValueBlock: React.FC<ProjectValueBlockType> = ({
         {/* Value Items Grid */}
         {items && items.length > 0 && (
           <SectionReveal direction="up" delay={0.1} className="w-full">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.15 }}
+              variants={containerVariants}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+            >
               {items.map((item, index) => (
-                <div
+                <motion.div
                   key={item.id || index}
-                  className="flex flex-col p-6 rounded-2xl bg-white border border-outline/30 shadow-sm gap-4"
+                  variants={itemVariants}
+                  whileHover={{
+                    y: shouldReduceMotion ? 0 : -6,
+                  }}
+                  transition={{ duration: 0.25 }}
+                  className="flex flex-col p-6 rounded-2xl bg-white border border-outline/30 shadow-sm hover:shadow-md hover:border-outline/60 gap-4 group cursor-default transition-shadow duration-300"
                 >
                   {item.iconSvg && (
                     <div
-                      className="w-10 h-10 text-primary-500 flex items-center justify-center shrink-0"
+                      className="w-10 h-10 text-primary-500 flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
                       dangerouslySetInnerHTML={{ __html: item.iconSvg }}
                     />
                   )}
-                  <h3 className="font-montserrat font-semibold text-lg lg:text-xl text-foreground uppercase">
+                  <h3 className="font-montserrat font-semibold text-lg lg:text-xl text-foreground uppercase transition-colors duration-300 group-hover:text-primary-600">
                     {item.title}
                   </h3>
-                  <p className="font-poppins text-sm leading-relaxed text-foreground/70">
+                  <p className="font-poppins text-sm leading-relaxed text-foreground/70 transition-colors duration-300 group-hover:text-foreground/90">
                     {item.description}
                   </p>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </SectionReveal>
         )}
       </div>

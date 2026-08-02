@@ -5,6 +5,7 @@ import { Eyebrow, HighlightedTitle } from "@/components/ui/highlighted-title";
 import { SectionReveal } from "@/components/ui/section-reveal";
 import { getMediaAlt, getMediaUrl } from "@/lib/utils";
 import type { ProjectPrinciplesBlock as ProjectPrinciplesBlockType } from "@/payload-types";
+import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import React from "react";
 import { Logo } from "../../layout/logo";
@@ -22,10 +23,30 @@ export const ProjectPrinciplesBlock: React.FC<ProjectPrinciplesBlockType> = ({
   cardForegroundImage,
   principles,
 }) => {
+  const shouldReduceMotion = useReducedMotion();
   const bgUrl = getMediaUrl(backgroundImage);
   const bgAlt = getMediaAlt(backgroundImage, "Background");
   const fgUrl = getMediaUrl(cardForegroundImage);
   const fgAlt = getMediaAlt(cardForegroundImage, "Foreground");
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: shouldReduceMotion ? 0 : 0.08,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const },
+    },
+  };
 
   return (
     <section
@@ -62,25 +83,43 @@ export const ProjectPrinciplesBlock: React.FC<ProjectPrinciplesBlockType> = ({
         >
           <div className="w-full flex flex-col gap-6 lg:gap-10 lg:rounded-[1.5rem] lg:border lg:border-outline/30 principle-shadow lg:pb-10 bg-white overflow-hidden">
             {/* Foreground Image */}
-            <div className="relative w-full h-55 lg:h-112 overflow-hidden">
+            <motion.div
+              whileHover={{ scale: shouldReduceMotion ? 1 : 1.01 }}
+              transition={{ duration: 0.4 }}
+              className="relative w-full h-55 lg:h-112 overflow-hidden group"
+            >
               <Image
                 src={fgUrl ?? ""}
                 alt={fgAlt ?? ""}
                 fill
-                className="object-cover object-center w-full"
+                className="object-cover object-center w-full transition-transform duration-500 group-hover:scale-105"
               />
-            </div>
+            </motion.div>
             {/* List */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-9 lg:gap-14 lg:justify-between px-4 lg:px-12">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.15 }}
+              variants={containerVariants}
+              className="grid grid-cols-1 lg:grid-cols-2 gap-9 lg:gap-14 lg:justify-between px-4 lg:px-12"
+            >
               {principles?.map(({ description, title, eyebrow, iconSvg, id }, index) => (
-                <div key={id ?? index} className="flex flex-row gap-4 items-start">
-                  <Logo
-                    logoSvg={iconSvg}
-                    alt={title}
-                    height={40}
-                    width={40}
-                    className="w-8 h-8 lg:w-10 lg:h-10"
-                  />
+                <motion.div
+                  key={id ?? index}
+                  variants={itemVariants}
+                  whileHover={{ y: shouldReduceMotion ? 0 : -3 }}
+                  transition={{ duration: 0.2 }}
+                  className="flex flex-row gap-4 items-start group"
+                >
+                  <div className="shrink-0 transition-transform duration-300 group-hover:scale-110">
+                    <Logo
+                      logoSvg={iconSvg}
+                      alt={title}
+                      height={40}
+                      width={40}
+                      className="w-8 h-8 lg:w-10 lg:h-10"
+                    />
+                  </div>
                   <div className="flex flex-col gap-2 pb-7.5 border-b border-outline/30 w-full">
                     <div className="flex flex-col">
                       {eyebrow && (
@@ -88,17 +127,17 @@ export const ProjectPrinciplesBlock: React.FC<ProjectPrinciplesBlockType> = ({
                           {eyebrow}
                         </span>
                       )}
-                      <h4 className="font-poppins font-medium text-xl leading-8 tracking-[-7%] uppercase ">
+                      <h4 className="font-poppins font-medium text-xl leading-8 tracking-[-7%] uppercase transition-colors duration-300 group-hover:text-primary-600">
                         {title}
                       </h4>
                     </div>
-                    <p className="font-poppins text-sm leading-5 text-foreground/70">
+                    <p className="font-poppins text-sm leading-5 text-foreground/70 transition-colors duration-300 group-hover:text-foreground/90">
                       {description}
                     </p>
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </SectionReveal>
       </div>

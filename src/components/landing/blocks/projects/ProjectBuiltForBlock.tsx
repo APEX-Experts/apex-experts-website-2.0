@@ -1,8 +1,10 @@
 "use client";
 
 import { BackgroundOverlay } from "@/components/ui/background-overlay";
+import { SectionReveal } from "@/components/ui/section-reveal";
 import { getMediaAlt, getMediaUrl } from "@/lib/utils";
 import type { ProjectBuiltForBlock as ProjectBuiltForBlockType } from "@/payload-types";
+import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import React from "react";
 
@@ -16,6 +18,7 @@ export const ProjectBuiltForBlock: React.FC<ProjectBuiltForBlockType> = ({
   bulletPoints,
   cardBackgroundImage,
 }) => {
+  const shouldReduceMotion = useReducedMotion();
   const bgUrl = getMediaUrl(backgroundImage);
   const bgAlt = getMediaAlt(backgroundImage, "Background");
   const cardBgUrl = getMediaUrl(cardBackgroundImage);
@@ -23,71 +26,110 @@ export const ProjectBuiltForBlock: React.FC<ProjectBuiltForBlockType> = ({
   const fgUrls = foregroundImages?.map(({ image }) => getMediaUrl(image));
   const fgAlts = foregroundImages?.map(({ image }) => getMediaAlt(image, "Image"));
 
+  const listContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: shouldReduceMotion ? 0 : 0.1,
+      },
+    },
+  };
+
+  const listItemVariants = {
+    hidden: { opacity: 0, x: shouldReduceMotion ? 0 : -20 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const },
+    },
+  };
+
   return (
     <section className="relative overflow-hidden bg-background lg:py-18" id="project-built-for">
       <BackgroundOverlay src={bgUrl} alt={bgAlt} opacityClass="opacity-3" />
 
       <div className="relative z-10 lg:px-14">
-        <div className="relative w-full lg:rounded-[1.5rem] lg:bg-white lg:border lg:border-outline/30 principle-shadow">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-x-14.5 lg:gap-y-7.25 lg:p-18 w-full max-lg:pb-8">
-            {/* Mobile Image */}
-            <div className="lg:hidden relative w-full h-55">
-              <ForegroundColorOverlay />
-              <Image
-                src={fgUrls?.[0] ?? ""}
-                alt={fgAlts?.[0] ?? ""}
-                fill
-                className="object-cover object-center"
-              />
+        <SectionReveal direction="up" className="w-full">
+          <div className="relative w-full lg:rounded-[1.5rem] lg:bg-white lg:border lg:border-outline/30 principle-shadow">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-x-14.5 lg:gap-y-7.25 lg:p-18 w-full max-lg:pb-8">
+              {/* Mobile Image */}
+              <div className="lg:hidden relative w-full h-55 overflow-hidden">
+                <ForegroundColorOverlay />
+                <Image
+                  src={fgUrls?.[0] ?? ""}
+                  alt={fgAlts?.[0] ?? ""}
+                  fill
+                  className="object-cover object-center"
+                />
+              </div>
+              {/* Desktop First Card */}
+              <DesktopImageCard src={fgUrls?.[0]} alt={fgAlts?.[0]} />
+              {/* Bullet Points */}
+              <div className="max-lg:px-4 flex flex-col gap-6 lg:gap-8 lg:row-span-2">
+                <h3 className="font-montserrat font-semibold text-xl leading-[160%] tracking-[-7%] uppercase text-foreground lg:font-bold lg:text-5xl lg:leading-[120%] lg:tracking-normal">
+                  {title}
+                </h3>
+                <motion.ul
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.2 }}
+                  variants={listContainerVariants}
+                  className="flex flex-col gap-8"
+                >
+                  {bulletPoints?.map(({ text, id }, index) => (
+                    <motion.li
+                      key={id ?? index}
+                      variants={listItemVariants}
+                      whileHover={{ x: shouldReduceMotion ? 0 : 6 }}
+                      transition={{ duration: 0.2 }}
+                      className="flex flex-row gap-4 items-start lg:last:pb-2.5 shrink-0 group cursor-default"
+                    >
+                      <CheckCircleFill
+                        className="w-5 h-5 lg:w-6 lg:h-6 shrink-0 text-secondary-300 transition-transform duration-300 group-hover:scale-110"
+                        width={24}
+                        height={24}
+                      />
+                      <span className="font-poppins text-sm lg:text-base leading-[160%] text-foreground/70 transition-colors duration-300 group-hover:text-foreground">
+                        {text}
+                      </span>
+                    </motion.li>
+                  ))}
+                </motion.ul>
+              </div>
+              {/* Desktop Rest */}
+              {fgUrls?.map((src, index) => {
+                if (index === 0) return null;
+                return <DesktopImageCard src={src} alt={fgAlts?.[index] ?? ""} key={index} />;
+              })}
             </div>
-            {/* Desktop First Card */}
-            <DesktopImageCard src={fgUrls?.[0]} alt={fgAlts?.[0]} />
-            {/* Bullet Points */}
-            <div className="max-lg:px-4 flex flex-col gap-6 lg:gap-8 lg:row-span-2">
-              <h3 className="font-montserrat font-semibold text-xl leading-[160%] tracking-[-7%] uppercase text-foreground lg:font-bold lg:text-5xl lg:leading-[120%] lg:tracking-normal">
-                {title}
-              </h3>
-              <ul className="flex flex-col gap-8">
-                {bulletPoints?.map(({ text, id }, index) => (
-                  <li
-                    key={id ?? index}
-                    className="flex flex-row gap-4 items-start lg:last:pb-2.5 shrink-0"
-                  >
-                    <CheckCircleFill
-                      className="w-5 h-5 lg:w-6 lg:h-6 shrink-0 text-secondary-300"
-                      width={24}
-                      height={24}
-                    />
-                    <span className="font-poppins text-sm lg:text-base leading-[160%] text-foreground/70">
-                      {text}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            {/* Desktop Rest */}
-            {fgUrls?.map((src, index) => {
-              if (index === 0) return null;
-              return <DesktopImageCard src={src} alt={fgAlts?.[index] ?? ""} key={index} />;
-            })}
+            <BackgroundOverlay alt={cardBgAlt} src={cardBgUrl} opacityClass="opacity-2" />
           </div>
-          <BackgroundOverlay alt={cardBgAlt} src={cardBgUrl} opacityClass="opacity-2" />
-        </div>
+        </SectionReveal>
       </div>
     </section>
   );
 };
 
 const ForegroundColorOverlay = () => {
-  return <div className="absolute inset-0 pointer-events-none bg-foreground/40 z-10"></div>;
+  return <div className="absolute inset-0 pointer-events-none bg-foreground/40 z-10 transition-opacity duration-300 group-hover:bg-foreground/20"></div>;
 };
 
 const DesktopImageCard = ({ src, alt }: { src?: string | null; alt?: string | null }) => {
   return (
-    <div className="max-lg:hidden relative w-full h-55 rounded-[1rem] overflow-hidden">
+    <motion.div
+      whileHover={{ scale: 1.02 }}
+      transition={{ duration: 0.3 }}
+      className="max-lg:hidden relative w-full h-55 rounded-[1rem] overflow-hidden group cursor-pointer shadow-sm hover:shadow-md"
+    >
       <ForegroundColorOverlay />
-      <Image src={src ?? ""} alt={alt ?? ""} fill className="object-cover object-center" />
-    </div>
+      <Image
+        src={src ?? ""}
+        alt={alt ?? ""}
+        fill
+        className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+      />
+    </motion.div>
   );
 };
 

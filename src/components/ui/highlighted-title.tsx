@@ -3,6 +3,7 @@ import React from "react";
 export type EyebrowProps = {
   text?: string | null;
   className?: string;
+  icon?: React.ReactNode;
 };
 
 export const Eyebrow: React.FC<EyebrowProps> = ({ text, className = "" }) => {

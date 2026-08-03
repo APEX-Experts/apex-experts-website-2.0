@@ -17,5 +17,21 @@ export const Users: CollectionConfig = {
       type: "text",
       required: false,
     },
+    {
+      name: "image",
+      type: "upload",
+      relationTo: "media",
+      required: false,
+    },
+    {
+      name: "bio",
+      type: "text",
+      required: false,
+    },
+    {
+      name: "description",
+      type: "textarea",
+      required: false,
+    },
   ],
 };

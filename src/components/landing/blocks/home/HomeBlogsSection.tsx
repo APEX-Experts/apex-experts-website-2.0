@@ -11,22 +11,27 @@ export const HomeBlogsSection = async ({
   highlightedTitle,
   titleAfterHighlight,
   subtitle,
-  viewAllHref = "/blog",
-  viewAllText = "View All Blogs",
+  viewAllHref,
+  viewAllText,
   viewArticleText = "Explore Article",
-}: HomeBlogsBlockType) => {
+  givenPosts,
+}: HomeBlogsBlockType & { givenPosts?: Post[] }) => {
   let posts: Post[] = [];
 
-  try {
-    const payload = await getPayload();
-    const result = await payload.find({
-      collection: "posts",
-      limit: 6,
-      sort: "-publishedDate",
-    });
-    posts = result.docs;
-  } catch (err) {
-    console.error("Failed to fetch posts for HomeBlogsSection:", err);
+  if (givenPosts) {
+    posts = givenPosts;
+  } else {
+    try {
+      const payload = await getPayload();
+      const result = await payload.find({
+        collection: "posts",
+        limit: 6,
+        sort: "-publishedDate",
+      });
+      posts = result.docs;
+    } catch (err) {
+      console.error("Failed to fetch posts for HomeBlogsSection:", err);
+    }
   }
 
   return (
@@ -67,18 +72,20 @@ export const HomeBlogsSection = async ({
           ))}
         </div>
         {/* View All Blogs Bar (matching View All Services style) */}
-        <SectionReveal direction="up" delay={0.2} className="w-full">
-          <div className="w-full px-4 lg:px-14 flex flex-row items-center gap-6">
-            <div className="flex-1 h-px bg-error-500/24"></div>
-            <Link
-              href={viewAllHref || "/blog"}
-              className="font-montserrat text-primary-500 text-xs md:text-base lg:text-lg hover:underline"
-            >
-              {viewAllText}
-            </Link>
-            <div className="flex-1 h-px bg-error-500/24"></div>
-          </div>
-        </SectionReveal>
+        {viewAllHref && viewAllText && (
+          <SectionReveal direction="up" delay={0.2} className="w-full">
+            <div className="w-full px-4 lg:px-14 flex flex-row items-center gap-6">
+              <div className="flex-1 h-px bg-error-500/24"></div>
+              <Link
+                href={viewAllHref || "/blog"}
+                className="font-montserrat text-primary-500 text-xs md:text-base lg:text-lg hover:underline"
+              >
+                {viewAllText}
+              </Link>
+              <div className="flex-1 h-px bg-error-500/24"></div>
+            </div>
+          </SectionReveal>
+        )}
       </div>
     </section>
   );

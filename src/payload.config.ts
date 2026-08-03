@@ -1,15 +1,57 @@
 import { postgresAdapter } from "@payloadcms/db-postgres";
-import { lexicalEditor } from "@payloadcms/richtext-lexical";
+import {
+  FixedToolbarFeature,
+  HeadingFeature,
+  InlineToolbarFeature,
+  lexicalEditor,
+  LinkFeature,
+  OrderedListFeature,
+  UnorderedListFeature
+} from "@payloadcms/richtext-lexical";
 import { s3Storage } from "@payloadcms/storage-s3";
 import path from "path";
 import { buildConfig } from "payload";
 import sharp from "sharp";
 import { fileURLToPath } from "url";
-import { Capabilities } from "./payload/blocks/Capabilities.ts";
 import { AboutHero } from "./payload/blocks/AboutHero.ts";
+import { AboutHowWeWork } from "./payload/blocks/AboutHowWeWork.ts";
+import { AboutOurDifference } from "./payload/blocks/AboutOurDifference.ts";
+import { AboutTeamMembers } from "./payload/blocks/AboutTeamMembers.ts";
+import { AboutWays } from "./payload/blocks/AboutWays.ts";
+import { AboutWhoWeAre } from "./payload/blocks/AboutWhoWeAre.ts";
+import { Capabilities } from "./payload/blocks/Capabilities.ts";
 import { ClipTextMarquee } from "./payload/blocks/ClipTextMarquee.ts";
-import { HomeAbout } from "./payload/blocks/HomeAbout.ts";
+import { CommonCta } from "./payload/blocks/CommonCta.ts";
+import { ContactForm } from "./payload/blocks/ContactForm.ts";
+import { ContactWhatWeDeliver } from "./payload/blocks/ContactWhatWeDeliver.ts";
+import { Directory } from "./payload/blocks/Directory.ts";
+import { FAQ } from "./payload/blocks/FAQ.ts";
+import { FeaturedPost } from "./payload/blocks/FeaturedPost.ts";
 import { Hero } from "./payload/blocks/Hero.ts";
+import { HighlightedTitleAndEyebrow } from "./payload/blocks/HighlightedTitleAndEyebrow.ts";
+import { HomeAbout } from "./payload/blocks/HomeAbout.ts";
+import { HomeBlogs } from "./payload/blocks/HomeBlogs.ts";
+import { Industries } from "./payload/blocks/Industries.ts";
+import { MarqueeIcons } from "./payload/blocks/MarqueeIcons.ts";
+import { ProjectBuiltFor } from "./payload/blocks/ProjectBuiltFor.ts";
+import { ProjectCta } from "./payload/blocks/ProjectCta.ts";
+import { ProjectPrinciples } from "./payload/blocks/ProjectPrinciples.ts";
+import { Projects } from "./payload/blocks/Projects.ts";
+import { ProjectTextBlock } from "./payload/blocks/ProjectTextBlock.ts";
+import { ProjectValue } from "./payload/blocks/ProjectValue.ts";
+import { ProjectWhatComesNext } from "./payload/blocks/ProjectWhatComesNext.ts";
+import { ReadinessCheck } from "./payload/blocks/ReadinessCheck.ts";
+import { RelatedPosts } from "./payload/blocks/RelatedPosts.ts";
+import { ServicesMainSection } from "./payload/blocks/ServicesMainSection.ts";
+import { SubscribeToNewsletter } from "./payload/blocks/SubscribeToNewsletter.ts";
+import { SubserviceDeliverables } from "./payload/blocks/SubserviceDeliverables.ts";
+import { SubserviceFeaturesSteps } from "./payload/blocks/SubserviceFeaturesAndSteps.ts";
+import { SubservicePipeline } from "./payload/blocks/SubservicePipeline.ts";
+import { Subservices } from "./payload/blocks/Subservices.ts";
+import { SubserviceTextAndTags } from "./payload/blocks/SubserviceTextAndTags.ts";
+import { SubserviceUseCases } from "./payload/blocks/SubserviceUseCases.ts";
+import { Technologies } from "./payload/blocks/Technologies.ts";
+import { WhenYouNeedIt } from "./payload/blocks/WhenYouNeedIt.ts";
 import { Media } from "./payload/collections/Media.ts";
 import { Pages } from "./payload/collections/Pages.ts";
 import { Posts } from "./payload/collections/Posts.ts";
@@ -17,39 +59,6 @@ import { Users } from "./payload/collections/Users.ts";
 import { Footer } from "./payload/globals/Footer.ts";
 import { Header } from "./payload/globals/Header.ts";
 import { SiteSettings } from "./payload/globals/SiteSettings.ts";
-import { Projects } from "./payload/blocks/Projects.ts";
-import { Technologies } from "./payload/blocks/Technologies.ts";
-import { FAQ } from "./payload/blocks/FAQ.ts";
-import { HomeBlogs } from "./payload/blocks/HomeBlogs.ts";
-import { ContactForm } from "./payload/blocks/ContactForm.ts";
-import { SubscribeToNewsletter } from "./payload/blocks/SubscribeToNewsletter.ts";
-import { MarqueeIcons } from "./payload/blocks/MarqueeIcons.ts";
-import { AboutWhoWeAre } from "./payload/blocks/AboutWhoWeAre.ts";
-import { HighlightedTitleAndEyebrow } from "./payload/blocks/HighlightedTitleAndEyebrow.ts";
-import { AboutOurDifference } from "./payload/blocks/AboutOurDifference.ts";
-import { AboutHowWeWork } from "./payload/blocks/AboutHowWeWork.ts";
-import { Industries } from "./payload/blocks/Industries.ts";
-import { AboutWays } from "./payload/blocks/AboutWays.ts";
-import { AboutTeamMembers } from "./payload/blocks/AboutTeamMembers.ts";
-import { ServicesMainSection } from "./payload/blocks/ServicesMainSection.ts";
-import { CommonCta } from "./payload/blocks/CommonCta.ts";
-import { Directory } from "./payload/blocks/Directory.ts";
-import { Subservices } from "./payload/blocks/Subservices.ts";
-import { WhenYouNeedIt } from "./payload/blocks/WhenYouNeedIt.ts";
-import { ReadinessCheck } from "./payload/blocks/ReadinessCheck.ts";
-import { ContactWhatWeDeliver } from "./payload/blocks/ContactWhatWeDeliver.ts";
-import { ProjectPrinciples } from "./payload/blocks/ProjectPrinciples.ts";
-import { ProjectValue } from "./payload/blocks/ProjectValue.ts";
-import { ProjectCta } from "./payload/blocks/ProjectCta.ts";
-import { ProjectBuiltFor } from "./payload/blocks/ProjectBuiltFor.ts";
-import { ProjectTextBlock } from "./payload/blocks/ProjectTextBlock.ts";
-import { ProjectWhatComesNext } from "./payload/blocks/ProjectWhatComesNext.ts";
-import { SubservicePipeline } from "./payload/blocks/SubservicePipeline.ts";
-import { SubserviceFeaturesSteps } from "./payload/blocks/SubserviceFeaturesAndSteps.ts";
-import { SubserviceUseCases } from "./payload/blocks/SubserviceUseCases.ts";
-import { SubserviceTextAndTags } from "./payload/blocks/SubserviceTextAndTags.ts";
-import { SubserviceDeliverables } from "./payload/blocks/SubserviceDeliverables.ts";
-import { FeaturedPost } from "./payload/blocks/FeaturedPost.ts";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -65,7 +74,19 @@ export default buildConfig({
   },
   collections: [Users, Media, Pages, Posts],
   globals: [SiteSettings, Header, Footer],
-  editor: lexicalEditor({}),
+  editor: lexicalEditor({
+    features: ({ defaultFeatures }) => [
+      ...defaultFeatures,
+      HeadingFeature({
+        enabledHeadingSizes: ["h1", "h2", "h3", "h4"],
+      }),
+      UnorderedListFeature(),
+      OrderedListFeature(),
+      LinkFeature(),
+      FixedToolbarFeature(),
+      InlineToolbarFeature(),
+    ],
+  }),
   localization: {
     locales: [
       {
@@ -152,5 +173,6 @@ export default buildConfig({
     SubserviceTextAndTags,
     SubserviceDeliverables,
     FeaturedPost,
+    RelatedPosts,
   ],
 });

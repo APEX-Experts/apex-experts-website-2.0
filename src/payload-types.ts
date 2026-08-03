@@ -104,6 +104,7 @@ export interface Config {
     'subservice-text-and-tags': SubserviceTextAndTagsBlock;
     'subservice-deliverables': SubserviceDeliverablesBlock;
     'featured-post': FeaturedPostBlock;
+    'related-posts': RelatedPostsBlock;
   };
   collections: {
     users: User;
@@ -7106,6 +7107,9 @@ export interface Post {
 export interface User {
   id: number;
   name?: string | null;
+  image?: (number | null) | Media;
+  bio?: string | null;
+  description?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -7124,6 +7128,25 @@ export interface User {
     | null;
   password?: string | null;
   collection: 'users';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RelatedPostsBlock".
+ */
+export interface RelatedPostsBlock {
+  eyebrow?: string | null;
+  titleBeforeHighlight: string;
+  highlightedTitle?: string | null;
+  titleAfterHighlight?: string | null;
+  subtitle?: string | null;
+  /**
+   * Select specific posts to display. If left empty, the latest published posts will be displayed.
+   */
+  selectedPosts?: (number | Post)[] | null;
+  readMoreText?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'related-posts';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -7172,6 +7195,7 @@ export interface Page {
     | SubserviceTextAndTagsBlock
     | SubserviceDeliverablesBlock
     | FeaturedPostBlock
+    | RelatedPostsBlock
   )[];
   updatedAt: string;
   createdAt: string;
@@ -7264,6 +7288,9 @@ export interface PayloadMigration {
  */
 export interface UsersSelect<T extends boolean = true> {
   name?: T;
+  image?: T;
+  bio?: T;
+  description?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -7381,6 +7408,7 @@ export interface PagesSelect<T extends boolean = true> {
         'subservice-text-and-tags'?: T | SubserviceTextAndTagsBlockSelect<T>;
         'subservice-deliverables'?: T | SubserviceDeliverablesBlockSelect<T>;
         'featured-post'?: T | FeaturedPostBlockSelect<T>;
+        'related-posts'?: T | RelatedPostsBlockSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -8353,6 +8381,21 @@ export interface FeaturedPostBlockSelect<T extends boolean = true> {
   readMoreText?: T;
   backgroundImage?: T;
   textureWavesImage?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RelatedPostsBlock_select".
+ */
+export interface RelatedPostsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  titleBeforeHighlight?: T;
+  highlightedTitle?: T;
+  titleAfterHighlight?: T;
+  subtitle?: T;
+  selectedPosts?: T;
+  readMoreText?: T;
   id?: T;
   blockName?: T;
 }

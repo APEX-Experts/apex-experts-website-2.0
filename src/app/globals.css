@@ -375,4 +375,8 @@
   .principle-shadow {
     box-shadow: 0px 0px 82.5px 5px #00000026;
   }
+
+  .hero-gradient-overlay {
+    background: linear-gradient(90.17deg, rgba(0, 0, 0, 0.9) 22.54%, rgba(0, 0, 0, 0) 99.85%);
+  }
 }

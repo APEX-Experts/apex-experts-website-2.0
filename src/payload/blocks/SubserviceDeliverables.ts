@@ -26,5 +26,11 @@ export const SubserviceDeliverables: Block = {
       type: "textarea",
       required: false,
     },
+    {
+      name: "backgroundImage",
+      type: "upload",
+      relationTo: "media",
+      required: false,
+    },
   ],
 };

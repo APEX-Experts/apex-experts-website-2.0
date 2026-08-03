@@ -18,6 +18,7 @@ export const AboutHeroBlock: React.FC<AboutHeroBlockType> = ({
   backgroundImage,
   ctaGroup,
   tags,
+  justifyFromStart,
 }) => {
   return (
     <HeroSection
@@ -27,11 +28,15 @@ export const AboutHeroBlock: React.FC<AboutHeroBlockType> = ({
       subtitle={subtitle}
       backgroundImage={backgroundImage}
       defaultAlt="About Hero Background"
-      overlayClass="bg-black/80"
+      overlayClass={justifyFromStart ? "hero-gradient-overlay" : "bg-black/80"}
       tags={tags}
+      justifyFromStart={justifyFromStart ?? false}
+      bgImageClassName={justifyFromStart ? "" : undefined}
     >
       {ctaGroup && ctaGroup.length > 0 && (
-        <div className="flex flex-col sm:flex-row gap-3 sm:gap-5 w-full max-lg:justify-center items-center justify-center pt-6 lg:pt-8">
+        <div
+          className={`flex flex-col sm:flex-row gap-3 sm:gap-5 w-full pt-6 lg:pt-8 ${justifyFromStart ? "justify-start items-start" : "items-center justify-center max-lg:justify-center"}`}
+        >
           {ctaGroup.map((cta, index) => (
             <motion.div
               key={cta.id || index}

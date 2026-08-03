@@ -7044,6 +7044,7 @@ export interface SubserviceDeliverablesBlock {
       }[]
     | null;
   markerSvg?: string | null;
+  backgroundImage?: (number | null) | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'subservice-deliverables';
@@ -8364,6 +8365,7 @@ export interface SubserviceDeliverablesBlockSelect<T extends boolean = true> {
         id?: T;
       };
   markerSvg?: T;
+  backgroundImage?: T;
   id?: T;
   blockName?: T;
 }

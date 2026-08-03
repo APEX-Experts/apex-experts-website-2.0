@@ -1,11 +1,8 @@
-import { Button } from "@/components/ui/button";
+import { BlogCard } from "@/components/blog/BlogCard";
 import { Eyebrow, HighlightedTitle } from "@/components/ui/highlighted-title";
 import { SectionReveal } from "@/components/ui/section-reveal";
 import { getPayload } from "@/lib/cms/getPayload";
-import { getMediaAlt, getMediaUrl } from "@/lib/utils";
-import type { HomeBlogsBlock as HomeBlogsBlockType, Media, Post, User } from "@/payload-types";
-import { ArrowRight } from "lucide-react";
-import Image from "next/image";
+import type { HomeBlogsBlock as HomeBlogsBlockType, Post } from "@/payload-types";
 import Link from "next/link";
 
 export const HomeBlogsSection = async ({
@@ -16,7 +13,7 @@ export const HomeBlogsSection = async ({
   subtitle,
   viewAllHref = "/blog",
   viewAllText = "View All Blogs",
-  viewArticleText = "Read Article",
+  viewArticleText = "Explore Article",
 }: HomeBlogsBlockType) => {
   let posts: Post[] = [];
 
@@ -60,76 +57,14 @@ export const HomeBlogsSection = async ({
 
         {/* 6 Articles Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-13.5 justify-between bg-white rounded-[1.5rem] border border-outline/30 blog-container-shadow px-4 lg:px-10 py-8 lg:py-14">
-          {posts.map((post, index) => {
-            const featuredMedia =
-              typeof post.featuredImage === "object" ? (post.featuredImage as Media) : null;
-            const imageUrl = getMediaUrl(featuredMedia);
-            const imageAlt = getMediaAlt(featuredMedia, post.title);
-
-            const authorDoc = typeof post.author === "object" ? (post.author as User) : null;
-            const authorName = authorDoc?.name || authorDoc?.email || "Apex Experts";
-
-            const formattedDate = post.publishedDate
-              ? new Date(post.publishedDate).toLocaleDateString("en-UK", {
-                  month: "short",
-                  day: "numeric",
-                  year: "numeric",
-                })
-              : "";
-
-            const href = `/blog/${post.slug}`;
-
-            return (
-              <SectionReveal key={post.id} direction="up" delay={index * 0.1}>
-                <div className="group flex flex-col rounded-[0.75rem] border border-outline/30 bg-white pb-4 shadow-sm hover:shadow-md transition-all duration-300 h-full">
-                  {/* Article Image */}
-                  <div className="relative w-full h-52 rounded-t-[0.75rem] overflow-hidden mb-5 bg-gray-100">
-                    {imageUrl ? (
-                      <Image
-                        src={imageUrl}
-                        alt={imageAlt}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">
-                        No Image
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="pb-6 mb-1.5 flex flex-col gap-1 border-b border-outline/30 px-3 flex-1">
-                    {/* Tags */}
-                    <span className="text-xs font-poppins text-primary-900 leading-[130%] tracking-[0.3px]">
-                      {post.tags?.join(" / ")}
-                    </span>
-                    {/* Article Title */}
-                    <h3 className="font-poppins font-semibold text-sm lg:text-base leading-[130%] lg:leading-4.75 text-foreground">
-                      {post.title}
-                    </h3>
-                  </div>
-
-                  {/* Author & Date */}
-                  <div className="px-3 pt-2 font-poppins text-sm leading-[130%] tracking-[1px] text-gray-300">
-                    <span>{authorName}</span>
-                    {formattedDate && <span> | {formattedDate}</span>}
-                  </div>
-
-                  {/* CTA Link */}
-                  <Button asChild variant="ctaOutline" className="mx-3 mt-6">
-                    <Link href={href}>
-                      <span className="font-montserrat text-foreground font-medium text-sm lg:text-base">
-                        {viewArticleText}
-                      </span>
-                      <div className="text-foreground border border-foreground rounded-full p-1">
-                        <ArrowRight className="w-4 h-4 -rotate-30" />
-                      </div>
-                    </Link>
-                  </Button>
-                </div>
-              </SectionReveal>
-            );
-          })}
+          {posts.map((post, index) => (
+            <BlogCard
+              key={post.id}
+              post={post}
+              viewArticleText={viewArticleText}
+              delay={index * 0.1}
+            />
+          ))}
         </div>
         {/* View All Blogs Bar (matching View All Services style) */}
         <SectionReveal direction="up" delay={0.2} className="w-full">

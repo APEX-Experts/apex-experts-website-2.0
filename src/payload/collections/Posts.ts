@@ -53,6 +53,11 @@ export const Posts: CollectionConfig = {
       localized: true,
     },
     {
+      name: "excerpt",
+      type: "textarea",
+      localized: true,
+    },
+    {
       name: "featuredImage",
       type: "upload",
       relationTo: "media",

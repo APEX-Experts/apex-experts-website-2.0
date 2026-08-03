@@ -17,6 +17,7 @@ export const AboutHeroBlock: React.FC<AboutHeroBlockType> = ({
   subtitle,
   backgroundImage,
   ctaGroup,
+  tags,
 }) => {
   return (
     <HeroSection
@@ -27,6 +28,7 @@ export const AboutHeroBlock: React.FC<AboutHeroBlockType> = ({
       backgroundImage={backgroundImage}
       defaultAlt="About Hero Background"
       overlayClass="bg-black/80"
+      tags={tags}
     >
       {ctaGroup && ctaGroup.length > 0 && (
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-5 w-full max-lg:justify-center items-center justify-center pt-6 lg:pt-8">

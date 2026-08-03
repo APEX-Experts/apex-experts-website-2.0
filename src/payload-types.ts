@@ -7091,6 +7091,7 @@ export interface Post {
     };
     [k: string]: unknown;
   };
+  excerpt?: string | null;
   featuredImage?: (number | null) | Media;
   author: number | User;
   publishedDate?: string | null;
@@ -8363,6 +8364,7 @@ export interface PostsSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
   content?: T;
+  excerpt?: T;
   featuredImage?: T;
   author?: T;
   publishedDate?: T;

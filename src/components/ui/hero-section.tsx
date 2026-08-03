@@ -4,7 +4,7 @@ import { BackgroundOverlay } from "@/components/ui/background-overlay";
 import { BreadcrumbNav, type BreadcrumbItem } from "@/components/ui/breadcrumb-nav";
 import { SectionReveal } from "@/components/ui/section-reveal";
 import { cn, getMediaAlt, getMediaUrl } from "@/lib/utils";
-import type { Media } from "@/payload-types";
+import type { AboutHeroBlock, Media } from "@/payload-types";
 import { usePathname } from "next/navigation";
 import React from "react";
 
@@ -18,6 +18,7 @@ export type HeroSectionProps = {
   className?: string;
   overlayClass?: string;
   children?: React.ReactNode;
+  tags?: AboutHeroBlock["tags"];
 };
 
 /**
@@ -32,12 +33,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   defaultAlt = "Hero Background",
   className = "",
   overlayClass = "bg-black/85",
+  tags,
   children,
 }) => {
   const bgImageUrl = getMediaUrl(backgroundImage);
   const bgImageAlt = getMediaAlt(backgroundImage, defaultAlt);
   const pathname = usePathname();
-  const isServicePage = pathname.includes("service");
+  const isServicePage = pathname.includes("service") || pathname.includes("blog");
 
   return (
     <section
@@ -65,6 +67,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               {subtitle}
             </p>
           )}
+
+          <div className="grid grid-cols-2 gap-2 lg:flex lg:flex-wrap lg:gap-3 justify-center pt-6 lg:pt-8 max-w-3xl">
+            {tags?.map((tag, index) => (
+              <div
+                key={index}
+                className="max-lg:last:odd:col-span-2 rounded-full border border-outline/30 py-2.5 px-4 flex items-center justify-center text-center lg:min-w-42.5"
+              >
+                <span className="font-montserrat font-medium text-xs text-white lg:text-base">
+                  {tag.tag}
+                </span>
+              </div>
+            ))}
+          </div>
 
           {children}
         </SectionReveal>

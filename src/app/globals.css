@@ -379,4 +379,8 @@
   .hero-gradient-overlay {
     background: linear-gradient(90.17deg, rgba(0, 0, 0, 0.9) 22.54%, rgba(0, 0, 0, 0) 99.85%);
   }
+
+  .feature-step-gradient {
+    background: linear-gradient(119.3deg, rgba(0, 0, 0, 0) 23.34%, rgba(185, 0, 26, 0.7) 96.36%);
+  }
 }

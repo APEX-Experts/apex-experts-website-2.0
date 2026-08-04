@@ -1,10 +1,12 @@
 "use client";
 
+import { BackgroundOverlay } from "@/components/ui/background-overlay";
 import { Eyebrow, HighlightedTitle } from "@/components/ui/highlighted-title";
 import { SectionReveal } from "@/components/ui/section-reveal";
+import { getMediaAlt, getMediaUrl } from "@/lib/utils";
 import type { SubserviceDeliverablesBlock as SubserviceDeliverablesBlockType } from "@/payload-types";
-import { Check } from "lucide-react";
 import React from "react";
+import { Logo } from "../../layout/logo";
 
 /**
  * SubserviceDeliverablesBlock Component - Displays deliverables with marker SVG.
@@ -17,12 +19,19 @@ export const SubserviceDeliverablesBlock: React.FC<SubserviceDeliverablesBlockTy
   subtitle,
   deliverables,
   markerSvg,
+  backgroundImage,
 }) => {
+  const bgUrl = getMediaUrl(backgroundImage);
+  const bgAlt = getMediaAlt(backgroundImage, "Background");
   return (
-    <section className="relative overflow-hidden bg-background py-10 lg:py-18" id="subservice-deliverables">
-      <div className="relative z-10 mx-auto flex flex-col gap-8 lg:gap-14 px-4 lg:px-14">
+    <section
+      className="relative overflow-hidden bg-background py-10 lg:py-18"
+      id="subservice-deliverables"
+    >
+      <BackgroundOverlay src={bgUrl} alt={bgAlt} opacityClass="opacity-3" />
+      <div className="relative z-10 mx-auto flex flex-col gap-8 lg:gap-14">
         {/* Heading Section */}
-        <SectionReveal direction="up" className="w-full max-w-4xl">
+        <SectionReveal direction="up" className="w-full max-w-4xl px-4 lg:px-14">
           <div className="flex flex-col items-start gap-4">
             <div className="flex flex-col gap-2 lg:gap-1">
               <Eyebrow text={eyebrow} />
@@ -43,26 +52,28 @@ export const SubserviceDeliverablesBlock: React.FC<SubserviceDeliverablesBlockTy
 
         {/* Deliverables Grid */}
         {deliverables && deliverables.length > 0 && (
-          <SectionReveal direction="up" delay={0.1} className="w-full">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
-              {deliverables.map((item, index) => (
+          <SectionReveal direction="up" delay={0.1} className="w-full lg:px-14">
+            <div className="max-lg:py-4 max-lg:px-4 grid gird-cols-1 lg:grid-cols-2 gap-6 bg-transparent rounded-none max-lg:border-t max-lg:border-outline/30 lg:rounded-[1.5rem] lg:p-10 lg:bg-white lg:gap-x-10 lg:gap-y-14">
+              {deliverables.map(({ deliverable, id }, index) => (
                 <div
-                  key={item.id || index}
-                  className="flex flex-row items-center gap-3 p-4 rounded-xl bg-white border border-outline/30 shadow-xs"
+                  key={id ?? index}
+                  className="rounded-[0.75rem] border border-outline/30 flex flex-row justify-between py-6 px-4 lg:rounded-[1.5rem] lg:py-10 lg:px-6"
                 >
-                  {markerSvg ? (
-                    <div
-                      className="w-6 h-6 text-primary-500 flex items-center justify-center shrink-0"
-                      dangerouslySetInnerHTML={{ __html: markerSvg }}
-                    />
-                  ) : (
-                    <div className="w-6 h-6 rounded-full bg-primary-500/10 text-primary-500 flex items-center justify-center shrink-0">
-                      <Check className="w-4 h-4" />
-                    </div>
-                  )}
-                  <span className="font-poppins text-sm lg:text-base text-foreground font-medium">
-                    {item.deliverable}
+                  <Logo
+                    logoSvg={markerSvg}
+                    width={24}
+                    height={24}
+                    className="w-4 h-4 lg:w-6 lg:h-6 text-primary-500/32"
+                  />
+                  <span className="font-montserrat font-semibold text-sm text-center uppercase text-foreground lg:text-2xl">
+                    {deliverable}
                   </span>
+                  <Logo
+                    logoSvg={markerSvg}
+                    width={24}
+                    height={24}
+                    className="w-4 h-4 lg:w-6 lg:h-6 text-primary-500/32"
+                  />
                 </div>
               ))}
             </div>

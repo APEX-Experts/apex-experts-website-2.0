@@ -48,3 +48,5 @@ openapi.json
 
 # Payload CMS backup dumps
 /backup/
+
+/pages/

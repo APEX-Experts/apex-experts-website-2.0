@@ -118,7 +118,7 @@ export const SubservicePipelineBlock: React.FC<SubservicePipelineBlockType> = ({
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            className="flex flex-col lg:flex-row gap-6.25 w-full lg:justify-between lg:min-h-86"
+            className="flex flex-col lg:flex-row gap-6.25 w-full lg:justify-between lg:min-h-105"
           >
             {pipeline.map(({ description, title, id }, itemIndex) => (
               <motion.div

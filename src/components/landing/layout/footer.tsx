@@ -41,6 +41,9 @@ export function Footer({
   socialLinks = [],
   bottomLinks = [],
 }: FooterProps) {
+  const isArabic = typeof window !== "undefined" && document.cookie.includes("NEXT_LOCALE=ar");
+  const scrollToTopText = isArabic ? "العودة لأعلى الصفحة" : "Scroll to top";
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -70,15 +73,15 @@ export function Footer({
             <button
               type="button"
               onClick={scrollToTop}
-              aria-label="Scroll to top"
-              title="Scroll to top"
+              aria-label={scrollToTopText}
+              title={scrollToTopText}
               className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center rounded-full bg-white w-10 h-10 lg:w-18.75 lg:h-18.75 border-[3px] lg:border-[6px] border-[#303030] shadow-md cursor-pointer z-10 transition-transform hover:scale-105"
             >
               <ChevronUp className="w-5 h-5 lg:w-[37.5px] lg:h-[37.5px] text-primary-500" />
             </button>
           </TooltipTrigger>
           <TooltipContent side="top" sideOffset={8}>
-            <p className="font-poppins text-xs font-medium text-white">Scroll to top</p>
+            <p className="font-poppins text-xs font-medium text-white">{scrollToTopText}</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>

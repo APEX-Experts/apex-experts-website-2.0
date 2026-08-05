@@ -25,6 +25,9 @@ const Capabilities = ({ capabilities }: Props) => {
 
   const activeCap = capabilities?.[activeCapIndex];
 
+  const isArabic = typeof window !== "undefined" && document.cookie.includes("NEXT_LOCALE=ar");
+  const viewServiceText = isArabic ? "عرض الخدمة" : "View Service";
+
   return (
     <div className="flex flex-col items-center gap-8 w-full">
       {/* Tab Selector */}
@@ -143,63 +146,54 @@ const Capabilities = ({ capabilities }: Props) => {
 
             {/* Overlay */}
             <div className="absolute inset-0 z-0 capability-gradient" />
-            {/* Content */}
-            <div className="flex flex-col gap-8 max-w-6xl items-start relative z-10">
-              {/* Text */}
-              <div className="flex flex-col gap-5">
-                <h3 className="font-display font-semibold text-5xl leading-[130%] tracking-normal text-white max-w-md">
-                  {activeCap?.title.split("&").map((part, index, arr) => (
-                    <React.Fragment key={part}>
-                      {index > 0 && <br />}
-                      {part.trim()}
-                      {index === arr.length - 1 ? "" : " &"}
-                    </React.Fragment>
-                  ))}
-                </h3>
-                <p className="text-lg leading-[130%] text-white/80 max-w-3xl">
-                  {activeCap?.description}
-                </p>
+            
+            <div className="relative z-10 grid grid-cols-12 max-w-full">
+              {/* Content */}
+              <div className="col-span-5 flex flex-col justify-between py-6 min-h-110">
+                <div className="flex flex-col gap-6">
+                  <span className="font-display font-medium text-5.5xl leading-none text-white/50">
+                    {zeroPadNumber(activeCapIndex + 1)}
+                  </span>
+                  <div className="flex flex-col gap-3">
+                    <h2 className="font-display font-semibold text-3xl leading-[130%] tracking-normal text-white">
+                      {activeCap?.title}
+                    </h2>
+                    <p className="font-poppins text-base leading-[160%] text-gray-300">
+                      {activeCap?.description}
+                    </p>
+                  </div>
+                </div>
               </div>
-              {/* Services */}
-              <div className="flex flex-row gap-4 flex-wrap max-w-240">
-                {activeCap?.services?.map(({ icon, title, href, id }, index) => (
-                  <motion.div
-                    key={id ?? index}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.96 }}
-                  >
-                    <Link
-                      className={cn(
-                        "rounded-full border flex flex-row items-center justify-between px-4 py-3 border-white/20 text-white",
-                        "hover:bg-primary-500 hover:border-transparent transition-all duration-200",
-                      )}
-                      href={href ?? "#"}
-                    >
-                      <div className="flex flex-row gap-2 items-center min-w-0">
-                        <LucideIcon name={icon ?? "Database"} className="w-6 h-6 shrink-0" />
 
-                        <span className="font-display font-medium text-sm leading-[130%] truncate min-w-0">
-                          {title}
-                        </span>
-                      </div>
-                      <ChevronRight className="w-6 h-4 shrink-0" />
-                    </Link>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-            {/* Count */}
-            <div className="z-10 absolute inset-e-6 top-8.5 w-131.25 rounded-[1.5rem] border border-white/40 bg-black/60 py-5.5 px-4 flex flex-row gap-4">
-              {activeCap?.services?.length && (
-                <span className="font-extralight italic text-6xl text-white font-display">
-                  {zeroPadNumber(activeCap?.services?.length)}
-                </span>
-              )}
-              <div className="flex flex-col gap-2 font-display">
-                <h4 className="font-semibold text-xl leading-[130%] uppercase text-white">
-                  {activeCap?.countTitle}
-                </h4>
-                <p className="text-gray-300 leading-[130%]">{activeCap?.countDescription}</p>
+              {/* Sub-services Grid */}
+              <div className="col-span-7 flex flex-wrap content-start gap-4">
+                <TooltipProvider>
+                  {activeCap?.services?.map(({ icon, title, href, id }, index) => (
+                    <Tooltip key={id ?? index}>
+                      <TooltipTrigger asChild>
+                        <Link
+                          className={cn(
+                            "rounded-full border flex flex-row items-center justify-between pe-2 ps-3.5 py-3 border-white/20 text-white max-w-64",
+                            "hover:bg-primary-500 hover:border-transparent transition-all duration-200",
+                          )}
+                          href={href ?? "#"}
+                        >
+                          <div className="flex flex-row gap-2 items-center min-w-0">
+                            <LucideIcon name={icon ?? "Database"} className="w-5 h-5 shrink-0" />
+
+                            <span className="font-display font-medium text-sm leading-[130%] truncate min-w-0">
+                              {title}
+                            </span>
+                          </div>
+                          <ChevronRight className="w-5 h-5 shrink-0" />
+                        </Link>
+                      </TooltipTrigger>
+                      <TooltipContent className="bg-primary-500">
+                        <p>{title}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  ))}
+                </TooltipProvider>
               </div>
             </div>
 
@@ -211,13 +205,13 @@ const Capabilities = ({ capabilities }: Props) => {
               <div className="absolute bottom-0 right-full w-8 h-8 bg-transparent rounded-br-[2rem] shadow-[10px_10px_0_10px_white] pointer-events-none" />
 
               {/* Action Button */}
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.95 }}>
                 <Link
                   href={activeCap?.href ?? "#"}
                   className="flex flex-row items-center gap-2 bg-primary-500 text-white rounded-full px-4 py-3 hover:bg-primary-700 transition-colors duration-300"
                 >
                   <span className="font-display font-medium text-lg leading-none">
-                    View Service
+                    {viewServiceText}
                   </span>
                   <div className="bg-white text-primary-500 rounded-full p-1.5 flex items-center justify-center">
                     <ArrowRight className="w-5 h-5 shrink-0 -rotate-30" />

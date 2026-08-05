@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import * as React from "react";
+import { useRouter } from "next/navigation";
 import { DesktopNav } from "./desktop-nav";
 import { LocaleSelector } from "./locale-selector";
 import { LogoProps, LogoSvg } from "./logo";
@@ -11,16 +12,29 @@ import { Header } from "@/payload-types";
 export interface NavbarProps extends Omit<LogoProps, "brandName"> {
   brandName?: string | null;
   navItems: Header["navItems"];
+  initialLocale?: "EN" | "AR";
 }
 
-export function Navbar({ navItems = [] }: NavbarProps) {
+export function Navbar({ navItems = [], initialLocale = "EN" }: NavbarProps) {
+  const router = useRouter();
   const [isOpen, setIsOpen] = React.useState(false);
   const [activeHoverLabel, setActiveHoverLabel] = React.useState<string | null>(null);
   const [activeSubMenuItem, setActiveSubMenuItem] = React.useState<number>(0);
-  const [currentLocale, setCurrentLocale] = React.useState<"EN" | "AR">("EN");
+  const [currentLocale, setCurrentLocale] = React.useState<"EN" | "AR">(initialLocale);
   const leaveTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
   const leaveSubmenuItemTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
   const [activeSubSubMenuItem, setActiveSubSubMenuItem] = React.useState<number>(0);
+
+  React.useEffect(() => {
+    setCurrentLocale(initialLocale);
+  }, [initialLocale]);
+
+  const handleLocaleChange = (newLocale: "EN" | "AR") => {
+    const val = newLocale.toLowerCase();
+    document.cookie = `NEXT_LOCALE=${val}; path=/; max-age=31536000; SameSite=Lax`;
+    setCurrentLocale(newLocale);
+    router.refresh();
+  };
 
   const handleMouseEnter = (label: string) => {
     if (leaveTimeoutRef.current) {
@@ -71,7 +85,7 @@ export function Navbar({ navItems = [] }: NavbarProps) {
             handleMouseLeave={handleMouseLeave}
             handleMouseEnterSubmenuItem={handleMouseEnterSubmenuItem}
           />
-          <LocaleSelector currentLocale={currentLocale} onLocaleChange={setCurrentLocale} />
+          <LocaleSelector currentLocale={currentLocale} onLocaleChange={handleLocaleChange} />
         </div>
 
         {/* Mobile Navigation */}
@@ -80,7 +94,7 @@ export function Navbar({ navItems = [] }: NavbarProps) {
           isOpen={isOpen}
           setIsOpen={setIsOpen}
           currentLocale={currentLocale}
-          onLocaleChange={setCurrentLocale}
+          onLocaleChange={handleLocaleChange}
         />
       </div>
     </header>

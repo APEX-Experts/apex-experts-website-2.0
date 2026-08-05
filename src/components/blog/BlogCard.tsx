@@ -17,14 +17,16 @@ export type BlogCardProps = {
  * BlogCard Component - Reusable article card for blog listings.
  */
 export const BlogCard: React.FC<BlogCardProps> = ({ post, viewArticleText, delay = 0 }) => {
-  const buttonText = viewArticleText || "Explore Article";
+  const isArabic = typeof window !== "undefined" && document.cookie.includes("NEXT_LOCALE=ar");
+  const buttonText = viewArticleText || (isArabic ? "استكشف المقال" : "Explore Article");
   const featuredMedia =
     typeof post.featuredImage === "object" ? (post.featuredImage as Media) : null;
   const imageUrl = getMediaUrl(featuredMedia);
   const imageAlt = getMediaAlt(featuredMedia, post.title);
 
   const authorDoc = typeof post.author === "object" ? (post.author as User) : null;
-  const authorName = authorDoc?.name || authorDoc?.email || "Apex Experts";
+  const defaultAuthor = isArabic ? "أبيكس إكسبرتس" : "Apex Experts";
+  const authorName = authorDoc?.name || authorDoc?.email || defaultAuthor;
 
   const formattedDate = post.publishedDate
     ? new Date(post.publishedDate).toLocaleDateString("en-UK", {

@@ -5,6 +5,7 @@ import { Eyebrow, HighlightedTitle } from "@/components/ui/highlighted-title";
 import { SectionReveal } from "@/components/ui/section-reveal";
 import { TextureWaves } from "@/components/ui/texture-waves";
 import { getPayload } from "@/lib/cms/getPayload";
+import { formatDate, getLocaleServer } from "@/lib/locale";
 import { getMediaAlt, getMediaUrl } from "@/lib/utils";
 import type { FeaturedPostBlock as FeaturedPostBlockType, Post, User } from "@/payload-types";
 import { getPayloadPopulateFn } from "@payloadcms/richtext-lexical";
@@ -27,6 +28,7 @@ export const FeaturedPostBlock = async ({
   backgroundImage,
   textureWavesImage,
 }: FeaturedPostBlockType) => {
+  const locale = await getLocaleServer();
   let featuredPost: Post | null = null;
 
   if (selectedPost && typeof selectedPost === "object") {
@@ -38,6 +40,7 @@ export const FeaturedPostBlock = async ({
         collection: "posts",
         limit: 1,
         sort: "-publishedDate",
+        locale,
       });
       if (result.docs.length > 0) {
         featuredPost = result.docs[0];
@@ -58,7 +61,8 @@ export const FeaturedPostBlock = async ({
   const imageAlt = getMediaAlt(postHeroImage, postTitle);
 
   const author = featuredPost?.author as User | undefined;
-  const authorName = author?.name || "Apex Experts";
+  const defaultAuthor = locale === "ar" ? "أبيكس إكسبرتس" : "Apex Experts";
+  const authorName = author?.name || defaultAuthor;
   const publishedDate = featuredPost?.publishedDate;
   const postTags = featuredPost?.tags;
   const postExcerpt = (featuredPost as (Post & { excerpt?: string | null }))?.excerpt;
@@ -74,13 +78,8 @@ export const FeaturedPostBlock = async ({
         }),
       })
     : "";
-  const formattedDate = publishedDate
-    ? new Date(publishedDate).toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-      })
-    : "";
+  const formattedDate = formatDate(publishedDate, locale);
+  const buttonLabel = readMoreText || (locale === "ar" ? "استكشف المقال" : "Explore Article");
 
   return (
     <section className="relative overflow-hidden bg-background py-10 lg:py-18" id="featured-post">
@@ -164,7 +163,7 @@ export const FeaturedPostBlock = async ({
                     >
                       <div className="flex items-center gap-2">
                         <span className="font-montserrat text-foreground font-medium text-sm lg:text-base">
-                          {readMoreText}
+                          {buttonLabel}
                         </span>
                         <div className="text-foreground border border-foreground rounded-full p-1 transition-transform duration-300 group-hover:translate-x-1">
                           <ArrowRight className="w-4 h-4 -rotate-30 transition-transform duration-300 group-hover:rotate-0" />

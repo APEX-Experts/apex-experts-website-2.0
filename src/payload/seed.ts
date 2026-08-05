@@ -60,6 +60,32 @@ function readJson<T>(filePath: string): T {
   return JSON.parse(raw) as T;
 }
 
+function extractLocaleDoc(doc: unknown, locale: "en" | "ar"): unknown {
+  if (doc === null || doc === undefined) return doc;
+  if (typeof doc === "object" && !Array.isArray(doc)) {
+    const keys = Object.keys(doc);
+    if (
+      (keys.includes("en") || keys.includes("ar")) &&
+      !keys.includes("blockType") &&
+      !keys.includes("id") &&
+      !keys.includes("url") &&
+      !keys.includes("filename")
+    ) {
+      const record = doc as Record<string, unknown>;
+      return record[locale] !== undefined ? record[locale] : record.en;
+    }
+    const result: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(doc as Record<string, unknown>)) {
+      result[k] = extractLocaleDoc(v, locale);
+    }
+    return result;
+  }
+  if (Array.isArray(doc)) {
+    return doc.map((item) => extractLocaleDoc(item, locale));
+  }
+  return doc;
+}
+
 /**
  * Recursively walk a value and replace any occurrence of old IDs (from the
  * id map) with the newly created IDs.  Handles strings, numbers, arrays and
@@ -461,27 +487,53 @@ async function seed() {
         const raw = stripMeta(doc as unknown as Record<string, unknown>);
         const remapped = remapIds(raw, idMap) as Record<string, unknown>;
 
+        const enRemapped = extractLocaleDoc(remapped, "en") as Page;
+        const arRemapped = extractLocaleDoc(remapped, "ar") as Page;
+
+        const pageTitle =
+          typeof doc.title === "object" && doc.title !== null
+            ? (doc.title as unknown as { en: string }).en
+            : doc.title;
+
         if (idMap.has(doc.id)) {
           if (cliArgs.force) {
             const existingId = idMap.get(doc.id)!;
             await payload.update({
               collection: "pages",
               id: existingId,
-              data: remapped as unknown as Page,
+              locale: "en",
+              data: enRemapped,
               overrideAccess: true,
             });
-            console.log(`  ✔ Page: "${doc.title}" [/${doc.slug}] (updated existing)`);
+            await payload.update({
+              collection: "pages",
+              id: existingId,
+              locale: "ar",
+              data: arRemapped,
+              overrideAccess: true,
+            });
+            console.log(`  ✔ Page: "${pageTitle}" [/${doc.slug}] (updated existing EN & AR)`);
           } else {
-            console.log(`  - Page: "${doc.title}" [/${doc.slug}] (already exists, skipping)`);
+            console.log(`  - Page: "${pageTitle}" [/${doc.slug}] (already exists, skipping)`);
           }
         } else {
           const created = await payload.create({
             collection: "pages",
-            data: remapped as unknown as Page,
+            locale: "en",
+            data: enRemapped,
+            overrideAccess: true,
+          });
+          await payload.update({
+            collection: "pages",
+            id: created.id,
+            locale: "ar",
+            data: arRemapped,
             overrideAccess: true,
           });
           idMap.set(doc.id, created.id);
-          console.log(`  ✔ Page: "${doc.title}" [/${doc.slug}] (${doc.id} → ${created.id})`);
+          console.log(
+            `  ✔ Page: "${pageTitle}" [/${doc.slug}] (${doc.id} → ${created.id} EN & AR)`,
+          );
         }
       } catch (err: unknown) {
         console.warn(`  ⚠ Could not create/update page "${doc.title}": ${(err as Error).message}`);
@@ -570,13 +622,26 @@ async function seed() {
         const raw = stripMeta(data);
         const remapped = remapIds(raw, idMap) as Record<string, unknown>;
 
+        const enData = extractLocaleDoc(remapped, "en") as Record<string, unknown>;
+        const arData = extractLocaleDoc(remapped, "ar") as Record<string, unknown>;
+
         await payload.updateGlobal({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           slug: slug as any,
-          data: remapped as Parameters<typeof payload.updateGlobal>[0]["data"],
+          locale: "en",
+          data: enData as Parameters<typeof payload.updateGlobal>[0]["data"],
           overrideAccess: true,
         });
-        console.log(`  ✔ Global: ${slug}`);
+
+        await payload.updateGlobal({
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          slug: slug as any,
+          locale: "ar",
+          data: arData as Parameters<typeof payload.updateGlobal>[0]["data"],
+          overrideAccess: true,
+        });
+
+        console.log(`  ✔ Global: ${slug} (EN & AR updated)`);
       } catch (err: unknown) {
         console.warn(`  ⚠ Could not update global "${slug}": ${(err as Error).message}`);
       }

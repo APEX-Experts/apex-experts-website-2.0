@@ -147,6 +147,32 @@ export const BlogArticlesSection: React.FC = () => {
     router.push(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false });
   }, [searchParams, router, pathname]);
 
+  const isArabic = typeof window !== "undefined" && document.cookie.includes("NEXT_LOCALE=ar");
+
+  // Dictionary for static UI text in BlogArticlesSection
+  const t = {
+    searchPlaceholder: isArabic
+      ? "ابحث في المقالات عن طريق العنوان أو الوسم..."
+      : "Search articles by title or tag...",
+    activeFilters: isArabic ? "التصنيفات النشطة:" : "Active Filters:",
+    tagsCount: (count: number) => (isArabic ? `${count} وسم` : `${count} tag(s)`),
+    clearAll: isArabic ? "مسح الكل" : "Clear All",
+    filterByTag: isArabic ? "التصفية حسب الوسم:" : "Filter by tag:",
+    allTags: isArabic ? "الكل" : "All",
+    allArticles: isArabic ? "جميع المقالات" : "All Articles",
+    showingArticles: (showing: number, total: number) =>
+      isArabic
+        ? `عرض ${showing} من أصل ${total} مقال`
+        : `Showing ${showing} of ${total} articles`,
+    noArticlesFound: isArabic ? "لم يتم العثور على مقالات" : "No Articles Found",
+    emptyDescription: isArabic
+      ? "لم نتمكن من العثور على أي مقالات تطابق معايير البحث أو التصفية الحالية. جرب البحث عن كلمة أخرى أو مسح التصفية."
+      : "We couldn't find any articles matching your active search or tag criteria. Try searching for something else or clear your filters.",
+    clearAllFilters: isArabic ? "مسح جميع التصفية" : "Clear All Filters",
+    prevPage: isArabic ? "الصفحة السابقة" : "Previous Page",
+    nextPage: isArabic ? "الصفحة التالية" : "Next Page",
+  };
+
   // Clear all filters (tags & search)
   const handleClearAllFilters = useCallback(() => {
     setSearchInput("");
@@ -173,7 +199,7 @@ export const BlogArticlesSection: React.FC = () => {
                 type="text"
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
-                placeholder="Search articles by title or tag..."
+                placeholder={t.searchPlaceholder}
                 className="w-full pl-12 pr-10 py-3 rounded-xl border border-outline/30 bg-background/50 font-poppins text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all"
               />
               {searchInput && (
@@ -192,7 +218,7 @@ export const BlogArticlesSection: React.FC = () => {
             {hasActiveFilters && (
               <div className="flex items-center gap-3">
                 <span className="text-xs font-poppins text-gray-500 font-medium whitespace-nowrap">
-                  Active Filters: {activeTags.length > 0 && `${activeTags.length} tag(s)`}{" "}
+                  {t.activeFilters} {activeTags.length > 0 && t.tagsCount(activeTags.length)}{" "}
                   {urlSearchQuery && `"${urlSearchQuery}"`}
                 </span>
                 <button
@@ -200,7 +226,7 @@ export const BlogArticlesSection: React.FC = () => {
                   onClick={handleClearAllFilters}
                   className="rounded-lg border border-destructive/40 bg-destructive/10 text-destructive hover:bg-destructive/20 px-3 py-2 text-xs font-montserrat font-semibold flex items-center gap-1 transition-all cursor-pointer whitespace-nowrap"
                 >
-                  <span>Clear All</span>
+                  <span>{t.clearAll}</span>
                   <X className="w-3.5 h-3.5" />
                 </button>
               </div>
@@ -211,7 +237,7 @@ export const BlogArticlesSection: React.FC = () => {
           {data?.allTags && data.allTags.length > 0 && (
             <div className="flex flex-wrap items-center gap-2 pt-3 border-t border-outline/20">
               <span className="text-xs font-poppins font-medium text-gray-400 mr-1">
-                Filter by tag:
+                {t.filterByTag}
               </span>
               <button
                 type="button"
@@ -223,7 +249,7 @@ export const BlogArticlesSection: React.FC = () => {
                     : "border border-outline/30 text-foreground hover:bg-gray-100 hover:border-primary-300 font-medium",
                 )}
               >
-                All
+                {t.allTags}
               </button>
               {data.allTags.map((tag, idx) => {
                 const isActive = activeTags.some((at) => at.toLowerCase() === tag.toLowerCase());
@@ -251,11 +277,11 @@ export const BlogArticlesSection: React.FC = () => {
       {/* Results Header / Count */}
       <div className="flex items-center justify-between px-1">
         <h3 className="font-montserrat font-bold text-lg lg:text-2xl text-foreground uppercase tracking-wide">
-          All Articles
+          {t.allArticles}
         </h3>
         {data && (
           <span className="font-poppins text-xs lg:text-sm text-gray-500 font-medium">
-            Showing {data.docs.length} of {data.totalDocs} articles
+            {t.showingArticles(data.docs.length, data.totalDocs)}
           </span>
         )}
       </div>
@@ -290,11 +316,10 @@ export const BlogArticlesSection: React.FC = () => {
               <Search className="w-6 h-6" />
             </div>
             <h4 className="font-montserrat font-bold text-lg lg:text-xl text-foreground uppercase">
-              No Articles Found
+              {t.noArticlesFound}
             </h4>
             <p className="font-poppins text-sm text-gray-500 max-w-md">
-              We couldn&apos;t find any articles matching your active search or tag criteria. Try
-              searching for something else or clear your filters.
+              {t.emptyDescription}
             </p>
             {hasActiveFilters && (
               <button
@@ -302,7 +327,7 @@ export const BlogArticlesSection: React.FC = () => {
                 onClick={handleClearAllFilters}
                 className="mt-2 rounded-xl bg-primary-500 hover:bg-primary-600 text-white font-montserrat font-medium text-sm px-6 py-2.5 transition-colors cursor-pointer"
               >
-                Clear All Filters
+                {t.clearAllFilters}
               </button>
             )}
           </div>
@@ -319,7 +344,7 @@ export const BlogArticlesSection: React.FC = () => {
               disabled={!data.hasPrevPage}
               onClick={() => handlePageChange(currentPage - 1)}
               className="p-2.5 rounded-lg border border-outline/30 text-foreground hover:bg-gray-100 disabled:opacity-30 disabled:hover:bg-transparent transition-all cursor-pointer"
-              title="Previous Page"
+              title={t.prevPage}
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -351,7 +376,7 @@ export const BlogArticlesSection: React.FC = () => {
               disabled={!data.hasNextPage}
               onClick={() => handlePageChange(currentPage + 1)}
               className="p-2.5 rounded-lg border border-outline/30 text-foreground hover:bg-gray-100 disabled:opacity-30 disabled:hover:bg-transparent transition-all cursor-pointer"
-              title="Next Page"
+              title={t.nextPage}
             >
               <ChevronRight className="w-5 h-5" />
             </button>

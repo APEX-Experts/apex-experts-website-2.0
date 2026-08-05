@@ -18,6 +18,7 @@ export const Capabilities: Block = {
       name: "viewAllText",
       type: "text",
       required: true,
+      localized: true,
       defaultValue: "View All Services",
     },
     {

@@ -2,6 +2,7 @@ import { getPayload } from "@/lib/cms/getPayload";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { RenderBlocks } from "@/components/landing/blocks/RenderBlocks";
+import { cookies } from "next/headers";
 
 /**
  * Enable Incremental Static Regeneration. Pages are statically generated at build time
@@ -49,6 +50,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
 
   const slug = resolvedParams.slug?.join("/");
+  const cookieStore = await cookies();
+  const locale = (cookieStore.get("NEXT_LOCALE")?.value || "en").toLowerCase() as "en" | "ar";
   const payload = await getPayload();
 
   const result = await payload.find({
@@ -58,6 +61,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         equals: slug,
       },
     },
+    locale,
   });
 
   const page = result.docs[0];
@@ -78,6 +82,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Page({ params }: Props) {
   const resolvedParams = await params;
   const slug = resolvedParams.slug?.join("/") || "home";
+  const cookieStore = await cookies();
+  const locale = (cookieStore.get("NEXT_LOCALE")?.value || "en").toLowerCase() as "en" | "ar";
 
   const payload = await getPayload();
 
@@ -88,6 +94,7 @@ export default async function Page({ params }: Props) {
         equals: slug,
       },
     },
+    locale,
   });
 
   const page = result.docs[0];

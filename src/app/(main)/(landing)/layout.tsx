@@ -3,6 +3,7 @@ import { LogoSvg } from "@/components/landing/layout/logo";
 import { Navbar } from "@/components/landing/layout/navbar";
 import { getPayload } from "@/lib/cms/getPayload";
 import React from "react";
+import { cookies } from "next/headers";
 
 /**
  * Layout component for the landing route group.
@@ -15,14 +16,18 @@ export default async function LandingLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const locale = (cookieStore.get("NEXT_LOCALE")?.value || "en").toLowerCase() as "en" | "ar";
   const payload = await getPayload();
 
   const header = await payload.findGlobal({
     slug: "header",
+    locale,
   });
 
   const footer = await payload.findGlobal({
     slug: "footer",
+    locale,
   });
 
   const footerColumns =
@@ -56,6 +61,7 @@ export default async function LandingLayout({
         brandName={header.brandName}
         logoSvg={header.logoSvg || <LogoSvg />}
         navItems={header.navItems || []}
+        initialLocale={locale === "ar" ? "AR" : "EN"}
       />
       <main className="">{children}</main>
       {/* Global Footer */}

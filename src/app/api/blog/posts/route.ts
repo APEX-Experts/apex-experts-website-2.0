@@ -1,4 +1,5 @@
 import { getPayload } from "@/lib/cms/getPayload";
+import { getLocaleFromRequest } from "@/lib/locale";
 import { NextRequest, NextResponse } from "next/server";
 import type { Where } from "payload";
 
@@ -8,6 +9,7 @@ import type { Where } from "payload";
  */
 export async function GET(request: NextRequest) {
   try {
+    const locale = getLocaleFromRequest(request);
     const { searchParams } = new URL(request.url);
 
     const page = Math.max(1, parseInt(searchParams.get("page") || "1", 10));
@@ -60,6 +62,7 @@ export async function GET(request: NextRequest) {
       select: {
         tags: true,
       },
+      locale,
     });
 
     const allTags = Array.from(
@@ -74,6 +77,7 @@ export async function GET(request: NextRequest) {
       limit,
       page,
       sort: "-publishedDate",
+      locale,
     });
 
     return NextResponse.json({

@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { Montserrat, Poppins } from "next/font/google";
 import { Toaster } from "sonner";
 import { Analytics } from "@vercel/analytics/next";
+import { cookies } from "next/headers";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -57,14 +58,18 @@ export const metadata: Metadata = {
  *
  * @param props - Component props containing children elements.
  */
-export default function MainLayout({
+export default async function MainLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const locale = (cookieStore.get("NEXT_LOCALE")?.value || "en").toLowerCase() as "en" | "ar";
+
   return (
     <html
-      lang="en"
+      lang={locale}
+      dir={locale === "ar" ? "rtl" : "ltr"}
       className={`${montserrat.variable} ${montserrat.className} ${poppins.variable} ${poppins.className} h-full antialiased`}
       suppressHydrationWarning
     >

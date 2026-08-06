@@ -9,7 +9,11 @@ type Props = {
 
 const MarqueeSection = ({ marqueeIconUrls, marqueeIconAlts }: Props) => {
   return (
-    <Marquee className="[--duration:20s] [--gap:24px] lg:[--gap:72px] px-4 lg:px-14" repeat={4}>
+    <Marquee
+      className="[--duration:20s] [--gap:24px] lg:[--gap:72px] px-4 lg:px-14"
+      repeat={4}
+      dir="ltr"
+    >
       {marqueeIconUrls?.map((src, index) => (
         <Image
           key={index}

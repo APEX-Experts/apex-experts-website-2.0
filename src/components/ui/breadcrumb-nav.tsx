@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { ChevronRight } from "lucide-react";
 
 export type BreadcrumbItem = {
@@ -31,17 +31,14 @@ export const BreadcrumbNav: React.FC<BreadcrumbNavProps> = ({
               {index > 0 && (
                 <span className="mx-1 shrink-0">
                   {separator === "chevron" ? (
-                    <ChevronRight className="w-4 h-4 text-gray-400" />
+                    <ChevronRight className="w-4 h-4 text-gray-400 rtl:rotate-180" />
                   ) : (
                     "/"
                   )}
                 </span>
               )}
               {item.href && !isLast ? (
-                <Link
-                  href={item.href}
-                  className="hover:text-white transition-colors duration-200"
-                >
+                <Link href={item.href} className="hover:text-white transition-colors duration-200">
                   {item.text}
                 </Link>
               ) : (

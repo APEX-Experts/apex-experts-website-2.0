@@ -82,34 +82,34 @@ export const AboutTeamMembersBlock: React.FC<AboutTeamMembersBlockType> = ({
                   },
                 }}
                 className={cn(
-                  "relative overflow-hidden pt-6 lg:pt-14 pb-4 lg:pb-10.5 px-4 lg:px-10 text-center grayscale transition-all duration-300 h-76 lg:h-183",
+                  "relative overflow-hidden pt-6 lg:pt-14 pb-4 lg:pb-10.5 px-4 lg:px-10 text-center grayscale transition-all duration-500 h-76 lg:h-183 group hover:shadow-2xl hover:brightness-110",
                   index % 2 === 0 ? "member-gradient-1" : "member-gradient-0",
                 )}
               >
                 <div className="h-full flex flex-col justify-between z-10 relative">
                   <span
                     className={cn(
-                      "font-montserrat font-bold text-xl lg:text-[2.5rem] leading-[130%] tracking-[-2%] uppercase text-center",
+                      "font-montserrat font-bold text-xl lg:text-[2.5rem] leading-[130%] tracking-[-2%] uppercase text-center transition-transform duration-300 group-hover:-translate-y-1",
                       index % 2 === 0 ? "text-white" : "text-foreground",
                     )}
                   >
                     {role}
                   </span>
-                  <span className="font-montserrat font-bold text-base leading-[130%] uppercase text-white lg:text-2xl lg:leading-[88%] tracking-[-2%]">
+                  <span className="font-montserrat font-bold text-base leading-[130%] uppercase text-white lg:text-2xl lg:leading-[88%] tracking-[-2%] transition-transform duration-300 group-hover:translate-y-[-2px]">
                     {name}
                   </span>
                 </div>
                 <div
                   className="absolute inset-x-0 bottom-0 h-32 lg:h-56 z-1 pointer-events-none
-             bg-linear-to-t from-black/90 via-black/45 to-transparent"
+             bg-linear-to-t from-black/90 via-black/45 to-transparent transition-opacity duration-300 group-hover:opacity-90"
                 />
                 {/* photo */}
-                <div className="absolute left-0 bottom-0 pointer-events-none w-full h-51.5 lg:h-103 z-0 ">
+                <div className="absolute inset-s-0 bottom-0 pointer-events-none w-full h-51.5 lg:h-103 z-0 overflow-hidden">
                   <Image
                     src={memberPhotoUrls?.[index] ?? ""}
                     alt={memberPhotoAlts?.[index] ?? ""}
                     fill
-                    className="object-cover object-top"
+                    className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105"
                   />
                 </div>
               </motion.div>

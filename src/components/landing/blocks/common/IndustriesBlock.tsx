@@ -71,17 +71,17 @@ export const IndustriesBlock: React.FC<IndustriesBlockType> = ({
                 {industries.map((item, index) => (
                   <div
                     key={item.id || index}
-                    className="flex flex-col gap-2 px-4 py-6 lg:py-8 rounded-[1.5rem] bg-black/30 border border-outline/30"
+                    className="flex flex-col gap-2 px-4 py-6 lg:py-8 rounded-[1.5rem] bg-black/30 border border-outline/30 transition-all duration-300 hover:border-accent/60 hover:bg-black/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-accent/5 group"
                   >
                     {item.eyebrow && (
-                      <span className="font-poppins text-[0.8125rem] lg:text-base text-white uppercase max-lg:mb-1">
+                      <span className="font-poppins text-[0.8125rem] lg:text-base text-white uppercase max-lg:mb-1 transition-colors duration-300 group-hover:text-accent">
                         {item.eyebrow}
                       </span>
                     )}
-                    <h3 className="font-montserrat font-semibold text-white text-[1.375rem] leading-[130%] uppercase lg:text-[2.3125rem] mb-3 lg:mb-2">
+                    <h3 className="font-montserrat font-semibold text-white text-[1.375rem] leading-[130%] uppercase lg:text-[2.3125rem] mb-3 lg:mb-2 transition-transform duration-300 group-hover:translate-x-1">
                       {item.title}
                     </h3>
-                    <p className="font-poppins text-sm leading-[130%] text-white">
+                    <p className="font-poppins text-sm leading-[130%] text-white/90 group-hover:text-white transition-colors duration-300">
                       {item.description}
                     </p>
                   </div>

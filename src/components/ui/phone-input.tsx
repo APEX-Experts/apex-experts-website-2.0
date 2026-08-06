@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import {
   usePhoneInput,
   defaultCountries,
@@ -10,6 +10,7 @@ import {
 import "react-international-phone/style.css";
 import { cn } from "@/lib/utils";
 import { Search, ChevronDown } from "lucide-react";
+import { useLocale } from "next-intl";
 
 interface PhoneInputProps {
   id?: string;
@@ -36,6 +37,27 @@ export const CustomPhoneInput: React.FC<PhoneInputProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
+  const locale = useLocale();
+  const isArabic = locale === "ar";
+
+  const regionNames = useMemo(() => {
+    try {
+      return new Intl.DisplayNames([locale], { type: "region" });
+    } catch {
+      return null;
+    }
+  }, [locale]);
+
+  const getCountryName = (iso2: string, englishName: string) => {
+    if (isArabic && regionNames) {
+      try {
+        return regionNames.of(iso2.toUpperCase()) || englishName;
+      } catch {
+        return englishName;
+      }
+    }
+    return englishName;
+  };
 
   const { country, setCountry, phone, handlePhoneValueChange } = usePhoneInput({
     defaultCountry: "us",
@@ -48,8 +70,10 @@ export const CustomPhoneInput: React.FC<PhoneInputProps> = ({
 
   const filteredCountries = defaultCountries.filter((c) => {
     const parsed = parseCountry(c);
+    const localizedName = getCountryName(parsed.iso2, parsed.name);
     const searchTerm = search.toLowerCase().trim();
     return (
+      localizedName.toLowerCase().includes(searchTerm) ||
       parsed.name.toLowerCase().includes(searchTerm) ||
       parsed.dialCode.includes(searchTerm) ||
       parsed.iso2.toLowerCase().includes(searchTerm)
@@ -70,7 +94,7 @@ export const CustomPhoneInput: React.FC<PhoneInputProps> = ({
           type="button"
           onClick={() => setIsOpen((prev) => !prev)}
           className={cn(
-            "flex items-center gap-2 px-3.5 pt-4 border-r transition-colors cursor-pointer focus:outline-none h-16",
+            "flex items-center gap-2 px-3.5 pt-4 border-e transition-colors cursor-pointer focus:outline-none h-16",
             isDark ? "border-white/20 text-white " : "border-black/20 text-black ",
           )}
         >
@@ -80,7 +104,7 @@ export const CustomPhoneInput: React.FC<PhoneInputProps> = ({
           />
           <span className="text-sm font-semibold">{selectedCountryParsed.iso2.toUpperCase()}</span>
           <span className="text-sm opacity-75">+{selectedCountryParsed.dialCode}</span>
-          <ChevronDown className="w-4 h-4 opacity-60 ml-0.5" />
+          <ChevronDown className="w-4 h-4 opacity-60 ms-0.5" />
         </button>
 
         {/* Search & Country List Dropdown */}
@@ -89,7 +113,7 @@ export const CustomPhoneInput: React.FC<PhoneInputProps> = ({
             <div className="fixed inset-0 z-99" onClick={() => setIsOpen(false)} />
             <div
               className={cn(
-                "absolute left-0 top-full mt-2 w-72 max-h-64 z-100 rounded-xl shadow-2xl border overflow-hidden flex flex-col animate-in fade-in zoom-in-95 duration-150",
+                "absolute inset-s-0 top-full mt-2 w-72 max-h-64 z-100 rounded-xl shadow-2xl border overflow-hidden flex flex-col animate-in fade-in zoom-in-95 duration-150",
                 isDark
                   ? "bg-neutral-900 border-white/20 text-white"
                   : "bg-white border-black/10 text-black",
@@ -97,12 +121,14 @@ export const CustomPhoneInput: React.FC<PhoneInputProps> = ({
             >
               {/* Search Header */}
               <div className="p-2 border-b border-white/10 flex items-center gap-2">
-                <Search className="w-4 h-4 opacity-50 ml-1" />
+                <Search className="w-4 h-4 opacity-50 ms-1" />
                 <input
                   type="text"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Search country or code..."
+                  placeholder={
+                    isArabic ? "ابحث عن الدولة أو رمز الاتصال..." : "Search country or code..."
+                  }
                   className="w-full bg-transparent text-xs outline-none py-1 placeholder:opacity-50"
                   autoFocus
                 />
@@ -111,11 +137,14 @@ export const CustomPhoneInput: React.FC<PhoneInputProps> = ({
               {/* Country List */}
               <div className="overflow-y-auto flex-1 divide-y divide-white/5 scrollbar-thin">
                 {filteredCountries.length === 0 ? (
-                  <div className="p-3 text-xs text-center opacity-50">No country found</div>
+                  <div className="p-3 text-xs text-center opacity-50">
+                    {isArabic ? "لم يتم العثور على أي دولة" : "No country found"}
+                  </div>
                 ) : (
                   filteredCountries.map((c) => {
                     const parsed = parseCountry(c);
                     const isSelected = parsed.iso2 === selectedCountryParsed.iso2;
+                    const countryName = getCountryName(parsed.iso2, parsed.name);
                     return (
                       <button
                         key={parsed.iso2}
@@ -126,7 +155,7 @@ export const CustomPhoneInput: React.FC<PhoneInputProps> = ({
                           setSearch("");
                         }}
                         className={cn(
-                          "w-full text-left px-3 py-2 flex items-center justify-between text-sm transition-colors cursor-pointer",
+                          "w-full text-start px-3 py-2 flex items-center justify-between text-sm transition-colors cursor-pointer",
                           isDark ? "hover:bg-white/10" : "hover:bg-black/5",
                           isSelected &&
                             (isDark ? "bg-white/15 font-semibold" : "bg-black/10 font-semibold"),
@@ -137,9 +166,9 @@ export const CustomPhoneInput: React.FC<PhoneInputProps> = ({
                             iso2={parsed.iso2}
                             className="w-5 h-3.5 object-cover rounded-sm"
                           />
-                          <span className="truncate">{parsed.name}</span>
+                          <span className="truncate">{countryName}</span>
                         </div>
-                        <span className="opacity-60 font-mono text-[11px] ml-2">
+                        <span className="opacity-60 font-mono text-[11px] ms-2">
                           +{parsed.dialCode}
                         </span>
                       </button>
@@ -163,7 +192,7 @@ export const CustomPhoneInput: React.FC<PhoneInputProps> = ({
         placeholder={placeholder}
         className={cn(
           inputClassName,
-          "flex-1 bg-transparent border-none outline-none focus:outline-none focus:ring-0 pl-3 rounded-none",
+          "flex-1 bg-transparent border-none outline-none focus:outline-none focus:ring-0 ps-3 rounded-none",
           className,
         )}
         aria-invalid={isInvalid}

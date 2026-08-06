@@ -9,7 +9,7 @@ import type { ServicesMainSectionBlock as ServicesMainSectionBlockType } from "@
 import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import React, { useState } from "react";
 import ServiceIcon from "../../layout/service-icon";
 
@@ -159,7 +159,7 @@ export const ServicesMainSectionBlock: React.FC<ServicesMainSectionBlockType> = 
                     {activeService?.ctaText}
                   </span>
                   <div className="w-7.5 h-7.5 rounded-full border border-white flex items-center justify-center">
-                    <ArrowRight className="text-white w-5.5 h-5.5 -rotate-30" />
+                    <ArrowRight className="text-white w-5.5 h-5.5 -rotate-30 rtl:-rotate-150" />
                   </div>
                 </Link>
               </div>
@@ -182,10 +182,12 @@ export const ServicesMainSectionBlock: React.FC<ServicesMainSectionBlockType> = 
                       <span className="font-poppins font-medium text-xl leading-8 uppercase text-black">
                         {title}
                       </span>
-                      <p className="font-poppins text-sm leading-5 text-foreground/70">{subtitle}</p>
+                      <p className="font-poppins text-sm leading-5 text-foreground/70">
+                        {subtitle}
+                      </p>
                     </div>
                     <div className="w-7.5 h-7.5 flex items-center justify-center rounded-full border border-primary-500 mt-1">
-                      <ArrowRight className="w-5.5 h-7.5 text-primary-500 -rotate-30" />
+                      <ArrowRight className="w-5.5 h-7.5 text-primary-500 -rotate-30 rtl:-rotate-150" />
                     </div>
                   </Link>
                 </motion.div>
@@ -262,7 +264,7 @@ export const ServicesMainSectionBlock: React.FC<ServicesMainSectionBlockType> = 
                               {activeService?.ctaText}
                             </span>
                             <div className="w-7.5 h-7.5 flex items-center justify-center relative border border-white rounded-full bg-black/20 backdrop-blur-sm">
-                              <ArrowRight className="w-5.5 h-5.5 text-white -rotate-30" />
+                              <ArrowRight className="w-5.5 h-5.5 text-white -rotate-30 rtl:-rotate-150" />
                             </div>
                           </Link>
                         </motion.div>
@@ -309,7 +311,7 @@ export const ServicesMainSectionBlock: React.FC<ServicesMainSectionBlockType> = 
                           </p>
                         </div>
                         <div className="w-7.5 h-7.5 border border-primary-500 group-hover:border-white rounded-full flex items-center justify-center transition-all duration-300">
-                          <ArrowRight className="w-5.5 h-5.5 text-primary-500 group-hover:text-white transition-all duration-300 -rotate-30 group-hover:rotate-0" />
+                          <ArrowRight className="w-5.5 h-5.5 text-primary-500 group-hover:text-white transition-all duration-300 -rotate-30 rtl:-rotate-150 group-hover:rotate-0 rtl:group-hover:rotate-0" />
                         </div>
                       </Link>
                     </motion.div>

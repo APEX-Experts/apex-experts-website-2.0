@@ -3,13 +3,16 @@ import { getPayload } from "@/lib/cms/getPayload";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { RenderBlocks } from "@/components/landing/blocks/RenderBlocks";
-import { cookies } from "next/headers";
 
 export const revalidate = 60;
 
-export async function generateMetadata(): Promise<Metadata> {
-  const cookieStore = await cookies();
-  const locale = (cookieStore.get("NEXT_LOCALE")?.value || "en").toLowerCase() as "en" | "ar";
+type Props = {
+  params: Promise<{ locale: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale: rawLocale } = await params;
+  const locale = (rawLocale === "ar" ? "ar" : "en") as "en" | "ar";
   const payload = await getPayload();
   const result = await payload.find({
     collection: "pages",
@@ -26,9 +29,9 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function HomePage() {
-  const cookieStore = await cookies();
-  const locale = (cookieStore.get("NEXT_LOCALE")?.value || "en").toLowerCase() as "en" | "ar";
+export default async function HomePage({ params }: Props) {
+  const { locale: rawLocale } = await params;
+  const locale = (rawLocale === "ar" ? "ar" : "en") as "en" | "ar";
   const payload = await getPayload();
   const result = await payload.find({
     collection: "pages",

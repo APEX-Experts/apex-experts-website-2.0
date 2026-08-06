@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
+import { useLocale } from "next-intl";
 import { ChevronUp } from "lucide-react";
 import { LogoProps, LogoSvg } from "./logo";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -41,7 +42,8 @@ export function Footer({
   socialLinks = [],
   bottomLinks = [],
 }: FooterProps) {
-  const isArabic = typeof window !== "undefined" && document.cookie.includes("NEXT_LOCALE=ar");
+  const locale = useLocale();
+  const isArabic = locale === "ar";
   const scrollToTopText = isArabic ? "العودة لأعلى الصفحة" : "Scroll to top";
 
   const scrollToTop = () => {

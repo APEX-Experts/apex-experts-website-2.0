@@ -567,27 +567,53 @@ async function seed() {
           remapped.featuredImage = idMap.get(featuredImageId) ?? featuredImageId;
         }
 
+        const enRemapped = extractLocaleDoc(remapped, "en") as Post;
+        const arRemapped = extractLocaleDoc(remapped, "ar") as Post;
+
+        const postTitle =
+          typeof doc.title === "object" && doc.title !== null
+            ? (doc.title as unknown as { en: string }).en
+            : doc.title;
+
         if (idMap.has(doc.id)) {
           if (cliArgs.force) {
             const existingId = idMap.get(doc.id)!;
             await payload.update({
               collection: "posts",
               id: existingId,
-              data: remapped as unknown as Post,
+              locale: "en",
+              data: enRemapped,
               overrideAccess: true,
             });
-            console.log(`  ✔ Post: "${doc.title}" [/${doc.slug}] (updated existing)`);
+            await payload.update({
+              collection: "posts",
+              id: existingId,
+              locale: "ar",
+              data: arRemapped,
+              overrideAccess: true,
+            });
+            console.log(`  ✔ Post: "${postTitle}" [/${doc.slug}] (updated existing EN & AR)`);
           } else {
-            console.log(`  - Post: "${doc.title}" [/${doc.slug}] (already exists, skipping)`);
+            console.log(`  - Post: "${postTitle}" [/${doc.slug}] (already exists, skipping)`);
           }
         } else {
           const created = await payload.create({
             collection: "posts",
-            data: remapped as unknown as Post,
+            locale: "en",
+            data: enRemapped,
+            overrideAccess: true,
+          });
+          await payload.update({
+            collection: "posts",
+            id: created.id,
+            locale: "ar",
+            data: arRemapped,
             overrideAccess: true,
           });
           idMap.set(doc.id, created.id);
-          console.log(`  ✔ Post: "${doc.title}" [/${doc.slug}] (${doc.id} → ${created.id})`);
+          console.log(
+            `  ✔ Post: "${postTitle}" [/${doc.slug}] (${doc.id} → ${created.id} EN & AR)`,
+          );
         }
       } catch (err: unknown) {
         console.warn(`  ⚠ Could not create/update post "${doc.title}": ${(err as Error).message}`);

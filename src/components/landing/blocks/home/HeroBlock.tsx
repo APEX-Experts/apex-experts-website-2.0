@@ -6,8 +6,8 @@ import type { HeroBlock as HeroBlockType } from "@/payload-types";
 import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
-import Link from "next/link";
-import React from "react";
+import { Link } from "@/i18n/routing";
+import { useLocale } from "next-intl";
 import { LogoMarkSvg } from "../../layout/logo";
 
 const ELLIPSE_RADIUS = 268; // matches the ellipse's semi-major axis
@@ -54,6 +54,8 @@ export const HeroBlock: React.FC<HeroBlockType> = ({
   const galleryImageUrls = gallery?.map((item) => getMediaUrl(item.image));
   const galleryImageAlts = gallery?.map((item) => getMediaAlt(item.image, "Gallery Icon"));
   const shouldReduceMotion = useReducedMotion();
+  const locale = useLocale();
+  const isRtl = locale === "ar";
 
   return (
     <section
@@ -133,7 +135,7 @@ export const HeroBlock: React.FC<HeroBlockType> = ({
                     <span className="font-medium text-white">{ctaPrimaryText}</span>
                     <div className="w-6 h-6 lg:w-7.5 lg:h-7.5 bg-white rounded-full flex items-center justify-center">
                       <ArrowRight
-                        className="w-4 h-4 lg:w-5.5 lg:h-5.5 text-primary-500 -rotate-30"
+                        className="w-4 h-4 lg:w-5.5 lg:h-5.5 text-primary-500 -rotate-30 rtl:-rotate-150"
                         width={"22"}
                         height={"22"}
                       />
@@ -158,7 +160,7 @@ export const HeroBlock: React.FC<HeroBlockType> = ({
               stats.map((stat, index) => (
                 <motion.div
                   variants={{
-                    hidden: { opacity: 0, x: shouldReduceMotion ? 0 : -20 },
+                    hidden: { opacity: 0, x: shouldReduceMotion ? 0 : isRtl ? 20 : -20 },
                     visible: {
                       opacity: 1,
                       x: 0,
@@ -181,14 +183,14 @@ export const HeroBlock: React.FC<HeroBlockType> = ({
       </div>
       <div className="max-lg:mt-48 max-lg:mb-64 relative h-full flex-1 flex flex-col items-center scale-50 lg:scale-100 transition-transform origin-top lg:origin-center fade-in">
         <LogoMarkSvg
-          className="absolute inset-s-1/2 -translate-x-1/2 top-2 translate-y-1/2 text-white z-10"
+          className="absolute inset-s-1/2 -translate-x-1/2 rtl:translate-x-1/2 top-2 translate-y-1/2 text-white z-10"
           width={200}
           height={100}
         />
 
         {/* Orbiting gallery & ellipses container (rotate) with counter-rotated image divs (inverse rotate) */}
         <motion.div
-          className="absolute inset-s-1/2 -translate-x-1/2 -top-40 w-50.5 h-134.5 pointer-events-none"
+          className="absolute inset-s-1/2 -translate-x-1/2 rtl:translate-x-1/2 -top-40 w-50.5 h-134.5 pointer-events-none"
           style={{ transformOrigin: "center center" }}
           animate={shouldReduceMotion ? { rotate: 0 } : { rotate: 360 }}
           transition={{

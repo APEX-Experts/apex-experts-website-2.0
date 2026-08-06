@@ -3,7 +3,8 @@ import { Eyebrow, HighlightedTitle } from "@/components/ui/highlighted-title";
 import { SectionReveal } from "@/components/ui/section-reveal";
 import { getPayload } from "@/lib/cms/getPayload";
 import type { HomeBlogsBlock as HomeBlogsBlockType, Post } from "@/payload-types";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
+import { getLocale } from "next-intl/server";
 
 export const HomeBlogsSection = async ({
   eyebrow,
@@ -16,6 +17,7 @@ export const HomeBlogsSection = async ({
   viewArticleText = "Explore Article",
   givenPosts,
 }: HomeBlogsBlockType & { givenPosts?: Post[] }) => {
+  const locale = await getLocale();
   let posts: Post[] = [];
 
   if (givenPosts) {
@@ -27,12 +29,16 @@ export const HomeBlogsSection = async ({
         collection: "posts",
         limit: 6,
         sort: "-publishedDate",
+        locale: locale as "en" | "ar",
       });
       posts = result.docs;
     } catch (err) {
       console.error("Failed to fetch posts for HomeBlogsSection:", err);
     }
   }
+
+  const effectiveViewArticleText =
+    viewArticleText === "Explore Article" && locale === "ar" ? "اقرأ المقال" : viewArticleText;
 
   return (
     <section
@@ -66,7 +72,7 @@ export const HomeBlogsSection = async ({
             <BlogCard
               key={post.id}
               post={post}
-              viewArticleText={viewArticleText}
+              viewArticleText={effectiveViewArticleText}
               delay={index * 0.1}
             />
           ))}

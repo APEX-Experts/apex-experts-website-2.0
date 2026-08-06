@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { SectionReveal } from "@/components/ui/section-reveal";
+import { Link } from "@/i18n/routing";
 import { getMediaAlt, getMediaUrl } from "@/lib/utils";
 import type { Media, Post, User } from "@/payload-types";
 import { ArrowRight } from "lucide-react";
+import { useLocale } from "next-intl";
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 
 export type BlogCardProps = {
@@ -17,7 +18,8 @@ export type BlogCardProps = {
  * BlogCard Component - Reusable article card for blog listings.
  */
 export const BlogCard: React.FC<BlogCardProps> = ({ post, viewArticleText, delay = 0 }) => {
-  const isArabic = typeof window !== "undefined" && document.cookie.includes("NEXT_LOCALE=ar");
+  const locale = useLocale();
+  const isArabic = locale === "ar";
   const buttonText = viewArticleText || (isArabic ? "استكشف المقال" : "Explore Article");
   const featuredMedia =
     typeof post.featuredImage === "object" ? (post.featuredImage as Media) : null;
@@ -94,8 +96,8 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, viewArticleText, delay
             <span className="font-montserrat text-foreground font-medium text-sm lg:text-base">
               {buttonText}
             </span>
-            <div className="text-foreground border border-foreground rounded-full p-1 shrink-0 group-hover:translate-x-1 transition-transform duration-300">
-              <ArrowRight className="w-4 h-4 -rotate-30 group-hover:rotate-0 transition-transform duration-300" />
+            <div className="text-foreground border border-foreground rounded-full p-1 shrink-0 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform duration-300">
+              <ArrowRight className="w-4 h-4 -rotate-30 rtl:-rotate-150 group-hover:rotate-0 rtl:group-hover:rotate-0 transition-transform duration-300" />
             </div>
           </Button>
         </div>

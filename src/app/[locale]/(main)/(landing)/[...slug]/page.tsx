@@ -2,7 +2,6 @@ import { getPayload } from "@/lib/cms/getPayload";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { RenderBlocks } from "@/components/landing/blocks/RenderBlocks";
-import { cookies } from "next/headers";
 
 /**
  * Enable Incremental Static Regeneration. Pages are statically generated at build time
@@ -15,8 +14,9 @@ export const revalidate = 60;
  * Props for the dynamic page route.
  */
 type Props = {
-  /** The route parameters including the page slug */
+  /** The route parameters including the page slug and locale */
   params: Promise<{
+    locale: string;
     slug: string[];
   }>;
 };
@@ -35,12 +35,17 @@ export async function generateStaticParams() {
     },
   });
 
+  const locales = ["en", "ar"];
+
   // Filter out 'home' so it doesn't clash with app/page.tsx
-  return pages.docs
-    .filter(({ slug }) => slug !== "home")
-    .map(({ slug }) => ({
-      slug: slug.split("/"),
-    }));
+  return locales.flatMap((locale) =>
+    pages.docs
+      .filter(({ slug }) => slug !== "home")
+      .map(({ slug }) => ({
+        locale,
+        slug: slug.split("/"),
+      })),
+  );
 }
 
 /**
@@ -48,10 +53,9 @@ export async function generateStaticParams() {
  */
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
-
-  const slug = resolvedParams.slug?.join("/");
-  const cookieStore = await cookies();
-  const locale = (cookieStore.get("NEXT_LOCALE")?.value || "en").toLowerCase() as "en" | "ar";
+  const { slug: slugArray, locale: rawLocale } = resolvedParams;
+  const slug = slugArray?.join("/");
+  const locale = (rawLocale === "ar" ? "ar" : "en") as "en" | "ar";
   const payload = await getPayload();
 
   const result = await payload.find({
@@ -81,9 +85,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
  */
 export default async function Page({ params }: Props) {
   const resolvedParams = await params;
-  const slug = resolvedParams.slug?.join("/") || "home";
-  const cookieStore = await cookies();
-  const locale = (cookieStore.get("NEXT_LOCALE")?.value || "en").toLowerCase() as "en" | "ar";
+  const { slug: slugArray, locale: rawLocale } = resolvedParams;
+  const slug = slugArray?.join("/") || "home";
+  const locale = (rawLocale === "ar" ? "ar" : "en") as "en" | "ar";
 
   const payload = await getPayload();
 

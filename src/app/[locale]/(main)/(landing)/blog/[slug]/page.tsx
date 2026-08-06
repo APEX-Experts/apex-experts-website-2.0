@@ -27,13 +27,14 @@ export const revalidate = 60;
 
 type Props = {
   params: Promise<{
+    locale: string;
     slug: string;
   }>;
 };
 
 /**
  * Generates static params for all published posts in the 'posts' collection.
- * Enables SSG for known blog article routes.
+ * Enables SSG for known blog article routes across locales.
  */
 export async function generateStaticParams() {
   try {
@@ -46,9 +47,13 @@ export async function generateStaticParams() {
       },
     });
 
-    return posts.docs.map((post) => ({
-      slug: post.slug,
-    }));
+    const locales = ["en", "ar"];
+    return locales.flatMap((locale) =>
+      posts.docs.map((post) => ({
+        locale,
+        slug: post.slug,
+      })),
+    );
   } catch (error) {
     console.error("Error in generateStaticParams for blog posts:", error);
     return [];
@@ -60,7 +65,8 @@ export async function generateStaticParams() {
  */
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
-  const { slug } = resolvedParams;
+  const { slug, locale: rawLocale } = resolvedParams;
+  const locale = (rawLocale === "ar" ? "ar" : "en") as "en" | "ar";
 
   try {
     const payload = await getPayload();
@@ -73,6 +79,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       },
       limit: 1,
       depth: 2,
+      locale,
     });
 
     const post = result.docs[0];
@@ -120,7 +127,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
  */
 export default async function SingleArticlePage({ params }: Props) {
   const resolvedParams = await params;
-  const { slug } = resolvedParams;
+  const { slug, locale: rawLocale } = resolvedParams;
+  const locale = (rawLocale === "ar" ? "ar" : "en") as "en" | "ar";
 
   const payload = await getPayload();
 
@@ -134,6 +142,7 @@ export default async function SingleArticlePage({ params }: Props) {
     },
     limit: 1,
     depth: 2,
+    locale,
   });
 
   const post = postResult.docs[0] as Post | undefined;
@@ -148,36 +157,65 @@ export default async function SingleArticlePage({ params }: Props) {
   // Process rich text content and extract heading anchor links for Table of Contents index
   const { html: richTextHtml, headings } = await getRichTextHtmlAndHeadings(post.content);
 
-  // Fetch 3 related posts (excluding current post)
-  let relatedPostsResult = await payload.find({
-    collection: "posts",
-    where: {
-      and: [
-        {
-          slug: {
-            not_equals: slug,
-          },
+  // Fetch related posts (excluding current post) using 2-step workaround for localized tag queries
+  let relatedPosts: Post[] = [];
+  if (post.tags && post.tags.length > 0) {
+    try {
+      const matchingPosts = await payload.find({
+        collection: "posts",
+        where: {
+          and: [
+            {
+              slug: {
+                not_equals: slug,
+              },
+            },
+            {
+              tags: {
+                in: post.tags,
+              },
+            },
+          ],
         },
-        {
-          tags: {
-            in: post.tags,
+        limit: 100,
+        select: {},
+        locale: "all",
+      });
+
+      const matchedIds = matchingPosts.docs.map((d) => d.id);
+
+      if (matchedIds.length > 0) {
+        const res = await payload.find({
+          collection: "posts",
+          where: {
+            id: {
+              in: matchedIds,
+            },
           },
-        },
-      ],
-    },
-    sort: "-publishedDate",
-  });
-  if (!relatedPostsResult || relatedPostsResult.docs.length === 0) {
-    relatedPostsResult = await payload.find({
+          limit: 3,
+          sort: "-publishedDate",
+          locale,
+        });
+        relatedPosts = res.docs as Post[];
+      }
+    } catch (err) {
+      console.error("Error fetching tag-matched related posts:", err);
+    }
+  }
+
+  if (relatedPosts.length === 0) {
+    const fallbackRes = await payload.find({
       collection: "posts",
       where: {
         slug: {
           not_equals: slug,
         },
       },
-      limit: 5,
+      limit: 3,
       sort: "-publishedDate",
+      locale,
     });
+    relatedPosts = fallbackRes.docs as Post[];
   }
 
   const commonCtaResult = await payload.find({
@@ -199,8 +237,6 @@ export default async function SingleArticlePage({ params }: Props) {
     },
   });
   const backgroundImage = backgroundImageResult.docs[0] as Media | undefined;
-
-  const relatedPosts = relatedPostsResult.docs as Post[];
 
   const aboutHeroProps: AboutHeroBlockType = {
     breadcrumb: [

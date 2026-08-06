@@ -9,7 +9,7 @@ import { ArrowRight, Minus, Plus } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { Karantina } from "next/font/google";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import React, { useState } from "react";
 
 const karantina = Karantina({
@@ -107,7 +107,7 @@ export const HomeFAQ: React.FC<FAQBlockType> = ({
                         {ctaButtonText}
                       </span>
                       <div className="w-8 h-8 rounded-full border border-white flex items-center justify-center">
-                        <ArrowRight className="w-5 h-5 text-white -rotate-30" />
+                        <ArrowRight className="w-5 h-5 text-white -rotate-30 rtl:-rotate-150" />
                       </div>
                     </Link>
                   </motion.div>

@@ -11,27 +11,21 @@ import {
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { ArrowRight, ChevronDown, Menu, Sparkles } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { useState } from "react";
 import { LocaleSelector } from "./locale-selector";
 import { Logo, LogoSvg } from "./logo";
 import { Header } from "@/payload-types";
+import { useLocale } from "next-intl";
 
 export interface MobileNavProps {
   navItems: Header["navItems"];
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
-  currentLocale: "EN" | "AR";
   onLocaleChange: (locale: "EN" | "AR") => void;
 }
 
-export function MobileNav({
-  navItems,
-  isOpen,
-  setIsOpen,
-  currentLocale,
-  onLocaleChange,
-}: MobileNavProps) {
+export function MobileNav({ navItems, isOpen, setIsOpen, onLocaleChange }: MobileNavProps) {
   const [expandedNav, setExpandedNav] = useState<string | null>(null);
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
 
@@ -44,10 +38,10 @@ export function MobileNav({
     setExpandedCategory((prev) => (prev === catKey ? null : catKey));
   };
 
-  const isRtl = currentLocale === "AR";
+  const isRtl = useLocale() === "ar";
 
   return (
-    <div className="flex lg:hidden items-center space-x-2">
+    <div className="flex lg:hidden items-center gap-2">
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetTrigger asChild>
           <Button
@@ -61,7 +55,7 @@ export function MobileNav({
         </SheetTrigger>
         <SheetContent
           side="right"
-          className="w-full max-w-85 sm:max-w-95 p-0 bg-background text-foreground border-l border-border flex flex-col h-full overflow-hidden shadow-2xl"
+          className="w-full max-w-85 sm:max-w-95 p-0 bg-background text-foreground border-s border-border flex flex-col h-full overflow-hidden shadow-2xl"
         >
           <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
           <SheetDescription className="sr-only">Site navigation and services menu</SheetDescription>
@@ -71,11 +65,7 @@ export function MobileNav({
             <Link href="/">
               <LogoSvg className="text-foreground" width={150} />
             </Link>
-            <LocaleSelector
-              currentLocale={currentLocale}
-              onLocaleChange={onLocaleChange}
-              iconOnly
-            />
+            <LocaleSelector onLocaleChange={onLocaleChange} iconOnly />
           </div>
 
           {/* Nav Items List */}
@@ -229,7 +219,9 @@ export function MobileNav({
                                 onClick={() => setIsOpen(false)}
                                 className="flex items-center justify-between text-[11px] font-semibold text-primary pt-1 hover:underline"
                               >
-                                <span>Explore {cat.title}</span>
+                                <span>
+                                  {isRtl ? `استكشف ${cat.title}` : `Explore ${cat.title}`}
+                                </span>
                                 <ArrowRight
                                   className={cn("w-3.5 h-3.5", isRtl ? "rotate-180" : "")}
                                 />
@@ -253,7 +245,7 @@ export function MobileNav({
               size="default"
             >
               <Link href="/contact-us" onClick={() => setIsOpen(false)}>
-                <span>Get in Touch</span>
+                <span>{isRtl ? "تواصل معنا" : "Get in Touch"}</span>
                 <ArrowRight className={cn("w-4 h-4", isRtl ? "rotate-180" : "")} />
               </Link>
             </Button>

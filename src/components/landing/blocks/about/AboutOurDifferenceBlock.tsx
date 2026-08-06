@@ -6,7 +6,7 @@ import { getMediaAlt, getMediaUrl } from "@/lib/utils";
 import type { AboutOurDifferenceBlock as AboutOurDifferenceBlockType } from "@/payload-types";
 import { motion } from "motion/react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import React from "react";
 
 /**
@@ -34,6 +34,7 @@ export const AboutOurDifferenceBlock: React.FC<AboutOurDifferenceBlockType> = ({
   const bgImageAlt = getMediaAlt(backgroundImage, "Background texture");
   const fgImageUrl = getMediaUrl(foregroundImage);
   const fgImageAlt = getMediaAlt(foregroundImage, "Difference illustration");
+  const isRtl = typeof document !== "undefined" && document.dir === "rtl";
 
   return (
     <section
@@ -94,7 +95,7 @@ export const AboutOurDifferenceBlock: React.FC<AboutOurDifferenceBlockType> = ({
                 {items?.slice(0, 2).map(({ description, title, id }, index) => (
                   <motion.div
                     key={id ?? index}
-                    whileHover={{ x: -4 }}
+                    whileHover={{ x: isRtl ? 4 : -4 }}
                     transition={{ duration: 0.2 }}
                   >
                     <CardTextBlock title={title} description={description} />
@@ -119,7 +120,7 @@ export const AboutOurDifferenceBlock: React.FC<AboutOurDifferenceBlockType> = ({
                 {items?.slice(2, 4).map(({ description, title, id }, index) => (
                   <motion.div
                     key={id ?? index}
-                    whileHover={{ x: 4 }}
+                    whileHover={{ x: isRtl ? -4 : 4 }}
                     transition={{ duration: 0.2 }}
                   >
                     <CardTextBlock title={title} description={description} />
@@ -136,7 +137,7 @@ export const AboutOurDifferenceBlock: React.FC<AboutOurDifferenceBlockType> = ({
         >
           {/* Left Line */}
           <div className="flex-1 h-16 lg:h-32 relative">
-            <div className="absolute top-0 bottom-1/2 left-0 right-0 lg:border-l border-b border-primary-100 lg:rounded-bl-[1rem]"></div>
+            <div className="absolute top-0 bottom-1/2 left-0 right-0 lg:border-s border-b border-primary-100 lg:rounded-es-[1rem]"></div>
           </div>
 
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
@@ -150,7 +151,7 @@ export const AboutOurDifferenceBlock: React.FC<AboutOurDifferenceBlockType> = ({
 
           {/* Right Line */}
           <div className="flex-1 h-16 lg:h-32 relative">
-            <div className="absolute top-0 bottom-1/2 left-0 right-0 lg:border-r border-b border-primary-100 lg:rounded-br-[1rem]"></div>
+            <div className="absolute top-0 bottom-1/2 left-0 right-0 lg:border-e border-b border-primary-100 lg:rounded-ee-[1rem]"></div>
           </div>
         </SectionReveal>
       </div>

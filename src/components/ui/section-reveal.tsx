@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion, useReducedMotion } from "motion/react";
+import { useLocale } from "next-intl";
 
 export interface SectionRevealProps {
   children: React.ReactNode;
@@ -30,6 +31,9 @@ export function SectionReveal({
   const actualDistance = shouldReduceMotion ? 0 : distance;
   const actualDuration = shouldReduceMotion ? 0.05 : duration;
 
+  const locale = useLocale();
+  const isRtl = locale === "ar";
+
   const getOffset = () => {
     switch (direction) {
       case "up":
@@ -37,9 +41,9 @@ export function SectionReveal({
       case "down":
         return { y: -actualDistance, x: 0 };
       case "left":
-        return { y: 0, x: actualDistance };
+        return { y: 0, x: isRtl ? -actualDistance : actualDistance };
       case "right":
-        return { y: 0, x: -actualDistance };
+        return { y: 0, x: isRtl ? actualDistance : -actualDistance };
       default:
         return { y: 0, x: 0 };
     }

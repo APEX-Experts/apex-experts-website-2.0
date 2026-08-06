@@ -3,7 +3,7 @@ import type { ProjectsBlock as ProjectsBlockType } from "@/payload-types";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import { motion } from "motion/react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import React from "react";
 
 type Project = NonNullable<ProjectsBlockType["projects"]>[number];
@@ -66,7 +66,7 @@ const ProjectCard: React.FC<Props> = ({ project }) => {
                       {ctaText}
                     </span>
                     <span className="w-7.5 h-7.5 rounded-full border border-white flex justify-center items-center">
-                      <ArrowRight className="w-5.5 h-5.5 text-white -rotate-30" />
+                      <ArrowRight className="w-5.5 h-5.5 text-white -rotate-30 rtl:-rotate-150" />
                     </span>
                   </div>
                 )}
@@ -86,7 +86,7 @@ const ProjectCard: React.FC<Props> = ({ project }) => {
                       <span className="font-montserrat font-medium text-sm leading-[130%] text-white">
                         {keyword.keyword}
                       </span>
-                      <ChevronRight className="w-4 h-4 text-white" />
+                      <ChevronRight className="w-4 h-4 text-white rtl:rotate-180" />
                     </div>
                   ))}
                 </div>
@@ -97,7 +97,7 @@ const ProjectCard: React.FC<Props> = ({ project }) => {
                     {ctaText}
                   </span>
                   <span className="rounded-full w-7.5 h-7.5 border border-white flex items-center justify-center">
-                    <ArrowRight className="w-5.5 h-5.5 text-white -rotate-30" />
+                    <ArrowRight className="w-5.5 h-5.5 text-white -rotate-30 rtl:-rotate-150" />
                   </span>
                 </div>
               )}

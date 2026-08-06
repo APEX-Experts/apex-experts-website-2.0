@@ -79,11 +79,11 @@ export const SubscribeToNewsletterBlock: React.FC<SubscribeToNewsletterBlockType
                 placeholder={emailInputPlaceholder ?? "Email"}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="rounded-l-[1rem] lg:rounded-l-[1.25rem] border-t border-b border-l py-5 pe-6 ps-4 bg-black/30 border-outline/30 lg:py-5 lg:px-6 max-w-62 lg:min-w-123 h-full placeholder:text-white/70 text-white"
+                className="rounded-s-[1rem] lg:rounded-s-[1.25rem] border-t border-b border-s py-5 pe-6 ps-4 bg-black/30 border-outline/30 lg:py-5 lg:px-6 max-w-62 lg:min-w-123 h-full placeholder:text-white/70 text-white"
                 required
               />
               {message && (
-                <p className="text-white absolute left-4 lg:left-6 -bottom-16 lg:-bottom-10">
+                <p className="text-white absolute inset-s-4 lg:inset-s-6 -bottom-16 lg:-bottom-10">
                   {message}
                 </p>
               )}
@@ -91,7 +91,7 @@ export const SubscribeToNewsletterBlock: React.FC<SubscribeToNewsletterBlockType
             <button
               type="submit"
               disabled={status === "loading"}
-              className="cursor-pointer rounded-r-[1rem] lg:rounded-r-[1.25rem] max-lg:p-3 bg-primary-500 text-white font-display font-medium text-sm leading-[130%] lg:py-3 lg:px-6 lg:font-bold lg:text-lg border-none outline-none hover:bg-primary-700 transition-colors duration-200"
+              className="cursor-pointer rounded-e-[1rem] lg:rounded-e-[1.25rem] max-lg:p-3 bg-primary-500 text-white font-display font-medium text-sm leading-[130%] lg:py-3 lg:px-6 lg:font-bold lg:text-lg border-none outline-none hover:bg-primary-700 transition-colors duration-200"
             >
               {status === "loading" ? "Subscribing..." : submitButtonText}
             </button>

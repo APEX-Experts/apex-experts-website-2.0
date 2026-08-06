@@ -30,6 +30,7 @@ export const ContactWhatWeDeliverBlock: React.FC<ContactWhatWeDeliverBlockType> 
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const shouldReduceMotion = useReducedMotion();
+  const isRtl = typeof document !== "undefined" && document.dir === "rtl";
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -65,7 +66,7 @@ export const ContactWhatWeDeliverBlock: React.FC<ContactWhatWeDeliverBlockType> 
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, x: shouldReduceMotion ? 0 : 20 },
+    hidden: { opacity: 0, x: shouldReduceMotion ? 0 : isRtl ? -20 : 20 },
     visible: {
       opacity: 1,
       x: 0,
@@ -84,7 +85,10 @@ export const ContactWhatWeDeliverBlock: React.FC<ContactWhatWeDeliverBlockType> 
           <SectionReveal direction="up" className="w-full max-w-4xl">
             <div className="flex flex-col items-start gap-4">
               <div className="flex flex-col gap-2 lg:gap-1">
-                <Eyebrow text={eyebrow} icon={<MarkIcon width={16} height={16} className="text-primary-500/40 w-4 h-4" />} />
+                <Eyebrow
+                  text={eyebrow}
+                  icon={<MarkIcon width={16} height={16} className="text-primary-500/40 w-4 h-4" />}
+                />
                 <HighlightedTitle
                   titleBeforeHighlight={titleBeforeHighlight}
                   highlightedTitle={highlightedTitle}
@@ -138,7 +142,7 @@ export const ContactWhatWeDeliverBlock: React.FC<ContactWhatWeDeliverBlockType> 
                   <motion.div
                     key={id ?? index}
                     variants={itemVariants}
-                    whileHover={{ x: shouldReduceMotion ? 0 : 6 }}
+                    whileHover={{ x: shouldReduceMotion ? 0 : isRtl ? -6 : 6 }}
                     transition={{ duration: 0.2 }}
                     className="rounded-[0.5rem] border border-primary-100 p-4 flex items-center justify-center text-center text-foreground text-sm leading-[160%] font-poppins bg-white lg:py-8 lg:px-4 lg:justify-start lg:text-start lg:rounded-[1rem] lg:text-base lg:leading-5.5 shadow-sm hover:shadow-lg hover:border-primary-300 transition-all duration-300 cursor-default"
                   >

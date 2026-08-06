@@ -4,15 +4,15 @@ import { LucideIcon } from "@/components/ui/lucide-icon";
 import { cn, getMediaAlt, getMediaUrl } from "@/lib/utils";
 import { ArrowRight, ArrowRightCircle, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { Logo } from "./logo";
 import ServiceIcon from "./service-icon";
 import { Header } from "@/payload-types";
+import { useLocale } from "next-intl";
 
 export interface MegaMenuProps {
   megaMenu: NonNullable<Header["navItems"]>[number]["megaMenu"];
   label: string;
-  currentLocale: "EN" | "AR";
   activeSubMenuItem: number;
   activeSubSubMenuItem: number;
   onMouseEnter: (label: string) => void;
@@ -23,7 +23,6 @@ export interface MegaMenuProps {
 export function MegaMenu({
   megaMenu,
   label,
-  currentLocale,
   activeSubMenuItem,
   activeSubSubMenuItem,
   onMouseEnter,
@@ -37,9 +36,10 @@ export function MegaMenu({
   const bgUrl = getMediaUrl(activeSubItem?.backgroundImage);
   const bgAlt = getMediaAlt(activeSubItem?.backgroundImage, activeSubItem?.title ?? "Project");
 
+  const currentLocale = useLocale();
   return (
     <div
-      className="bg-white absolute top-full inset-s-1/2 -translate-x-1/2 w-screen max-w-7xl rounded-[1.5rem] z-50 animate-in fade-in slide-in-from-top-2 duration-200 h-130 border"
+      className="bg-white absolute top-full left-1/2 -translate-x-1/2 w-screen max-w-7xl rounded-[1.5rem] z-50 animate-in fade-in slide-in-from-top-2 duration-200 h-130 border"
       onMouseEnter={() => onMouseEnter(label)}
       onMouseLeave={onMouseLeave}
     >
@@ -47,7 +47,7 @@ export function MegaMenu({
         {/* Title */}
         <div className="flex flex-row items-center">
           <ChevronRight
-            className={cn("h-4 w-4 text-primary-500", currentLocale === "AR" ? "rotate-180" : "")}
+            className={cn("h-4 w-4 text-primary-500", currentLocale === "ar" ? "rotate-180" : "")}
           />
           <div className="font-semibold text-lg md:text-xl leading-[150%] tracking-[0.5px] uppercase text-foreground">
             {megaMenu?.title}
@@ -144,7 +144,7 @@ export function MegaMenu({
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="absolute inset-0 placeholder-gradient w-[60%] rounded-l-[1.5rem] px-4 pb-4 pt-5 flex flex-col items-start gap-3">
+                <div className="absolute inset-0 placeholder-gradient w-[60%] rounded-s-[1.5rem] px-4 pb-4 pt-5 flex flex-col items-start gap-3">
                   <div className="w-12 h-12 flex items-center justify-center">
                     <LucideIcon
                       name={activeSubSubItem?.icon || "Database"}
@@ -164,7 +164,9 @@ export function MegaMenu({
                       href={activeSubSubItem.href}
                       className="w-full text-white flex flex-row gap-4 items-center"
                     >
-                      <span className="font-bold leading-6 text-white">Learn More</span>
+                      <span className="font-bold leading-6 text-white">
+                        {currentLocale === "AR" ? "تعرف على المزيد" : "Learn More"}
+                      </span>
                       <ArrowRight
                         className={cn("w-4 h-4", currentLocale === "AR" ? "rotate-180" : "")}
                       />
@@ -204,7 +206,9 @@ export function MegaMenu({
                       href={activeSubItem?.href ?? "#"}
                     >
                       <span className="font-medium text-white text-lg">
-                        Explore {activeSubItem?.title}
+                        {currentLocale === "AR"
+                          ? `استكشف ${activeSubItem?.title}`
+                          : `Explore ${activeSubItem?.title}`}
                       </span>
 
                       <ArrowRightCircle

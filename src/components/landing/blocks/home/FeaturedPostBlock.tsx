@@ -12,7 +12,7 @@ import { getPayloadPopulateFn } from "@payloadcms/richtext-lexical";
 import { convertLexicalToHTMLAsync } from "@payloadcms/richtext-lexical/html-async";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 
 /**
  * FeaturedPostBlock Component - Displays a featured post card followed by the paginated blog articles section.
@@ -65,21 +65,26 @@ export const FeaturedPostBlock = async ({
   const authorName = author?.name || defaultAuthor;
   const publishedDate = featuredPost?.publishedDate;
   const postTags = featuredPost?.tags;
-  const postExcerpt = (featuredPost as (Post & { excerpt?: string | null }))?.excerpt;
+  const postExcerpt = (featuredPost as Post & { excerpt?: string | null })?.excerpt;
   const excerptHtmlString = postExcerpt
     ? postExcerpt
     : featuredPost?.content
-    ? await convertLexicalToHTMLAsync({
-        data: featuredPost.content,
-        populate: await getPayloadPopulateFn({
-          currentDepth: 0,
-          depth: 1,
-          payload,
-        }),
-      })
-    : "";
+      ? await convertLexicalToHTMLAsync({
+          data: featuredPost.content,
+          populate: await getPayloadPopulateFn({
+            currentDepth: 0,
+            depth: 1,
+            payload,
+          }),
+        })
+      : "";
   const formattedDate = formatDate(publishedDate, locale);
-  const buttonLabel = readMoreText || (locale === "ar" ? "استكشف المقال" : "Explore Article");
+  const buttonLabel =
+    readMoreText && readMoreText !== "Explore Article"
+      ? readMoreText
+      : locale === "ar"
+        ? "استكشف المقال"
+        : readMoreText || "Explore Article";
 
   return (
     <section className="relative overflow-hidden bg-background py-10 lg:py-18" id="featured-post">
@@ -128,7 +133,7 @@ export const FeaturedPostBlock = async ({
 
                 <div className="flex flex-col justify-between gap-6 flex-1 py-2">
                   <div className="flex flex-col gap-3">
-                    <div className="flex flex-col lg:flex-row lg:flex-wrap justify-between gap-3 transition-transform duration-500 ease-out group-hover:translate-x-1">
+                    <div className="flex flex-col lg:flex-row lg:flex-wrap justify-between gap-3 transition-transform duration-500 ease-out group-hover:translate-x-1 rtl:group-hover:-translate-x-1">
                       <div className="flex flex-row flex-wrap gap-3.5 lg:gap-4.5">
                         {postTags?.map((tag, index) => (
                           <div
@@ -165,8 +170,8 @@ export const FeaturedPostBlock = async ({
                         <span className="font-montserrat text-foreground font-medium text-sm lg:text-base">
                           {buttonLabel}
                         </span>
-                        <div className="text-foreground border border-foreground rounded-full p-1 transition-transform duration-300 group-hover:translate-x-1">
-                          <ArrowRight className="w-4 h-4 -rotate-30 transition-transform duration-300 group-hover:rotate-0" />
+                        <div className="text-foreground border border-foreground rounded-full p-1 transition-transform duration-300 group-hover:translate-x-1 rtl:group-hover:-translate-x-1">
+                          <ArrowRight className="w-4 h-4 -rotate-30 rtl:-rotate-150 transition-transform duration-300 group-hover:rotate-0 rtl:group-hover:rotate-180" />
                         </div>
                       </div>
                     </Button>

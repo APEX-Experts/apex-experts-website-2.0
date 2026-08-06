@@ -8,7 +8,7 @@ import { getMediaAlt, getMediaUrl } from "@/lib/utils";
 import type { ProjectCtaBlock as ProjectCtaBlockType } from "@/payload-types";
 import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import React from "react";
 
 /**
@@ -84,7 +84,10 @@ export const ProjectCtaBlock: React.FC<ProjectCtaBlockType> = ({
                 <motion.div
                   key={cta.id || index}
                   variants={buttonVariants}
-                  whileHover={{ scale: shouldReduceMotion ? 1 : 1.04, y: shouldReduceMotion ? 0 : -2 }}
+                  whileHover={{
+                    scale: shouldReduceMotion ? 1 : 1.04,
+                    y: shouldReduceMotion ? 0 : -2,
+                  }}
                   whileTap={{ scale: 0.97 }}
                   className="w-full sm:w-auto"
                 >
@@ -95,7 +98,7 @@ export const ProjectCtaBlock: React.FC<ProjectCtaBlockType> = ({
                           <span className="font-medium text-white">{cta.text}</span>
                           <div className="w-6 h-6 lg:w-7.5 lg:h-7.5 bg-white rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
                             <ArrowRight
-                              className="w-4 h-4 lg:w-5.5 lg:h-5.5 text-primary-500 -rotate-30 transition-transform duration-300 group-hover:rotate-0"
+                              className="w-4 h-4 lg:w-5.5 lg:h-5.5 text-primary-500 -rotate-30 rtl:-rotate-150 transition-transform duration-300 group-hover:rotate-0 rtl:group-hover:rotate-0"
                               width="22"
                               height="22"
                             />

@@ -2,10 +2,10 @@ import "@/app/globals.css";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryProvider } from "@/providers/query-provider";
 import type { Metadata } from "next";
-import { Montserrat, Poppins } from "next/font/google";
+import { Montserrat, Poppins, Alexandria, Rubik } from "next/font/google";
 import { Toaster } from "sonner";
 import { Analytics } from "@vercel/analytics/next";
-import { cookies } from "next/headers";
+import { NextIntlClientProvider } from "next-intl";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -19,6 +19,20 @@ const poppins = Poppins({
   variable: "--font-poppins",
   display: "swap",
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
+
+const alexandria = Alexandria({
+  subsets: ["arabic", "latin"],
+  variable: "--font-alexandria",
+  display: "swap",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
+
+const rubik = Rubik({
+  subsets: ["arabic", "latin"],
+  variable: "--font-rubik",
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -60,30 +74,34 @@ export const metadata: Metadata = {
  */
 export default async function MainLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }>) {
-  const cookieStore = await cookies();
-  const locale = (cookieStore.get("NEXT_LOCALE")?.value || "en").toLowerCase() as "en" | "ar";
+  const { locale: rawLocale } = await params;
+  const locale = rawLocale === "ar" ? "ar" : "en";
 
   return (
     <html
       lang={locale}
       dir={locale === "ar" ? "rtl" : "ltr"}
-      className={`${montserrat.variable} ${montserrat.className} ${poppins.variable} ${poppins.className} h-full antialiased`}
+      className={`${montserrat.variable} ${montserrat.className} ${poppins.variable} ${poppins.className} ${alexandria.variable} ${alexandria.className} ${rubik.variable} ${rubik.className} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>
         <meta name="apple-mobile-web-app-title" content="APEX Experts" />
       </head>
       <body className="min-h-full flex flex-col">
-        <QueryProvider>
-          <TooltipProvider>
-            {children}
-            <Toaster />
-            <Analytics />
-          </TooltipProvider>
-        </QueryProvider>
+        <NextIntlClientProvider locale={locale}>
+          <QueryProvider>
+            <TooltipProvider>
+              {children}
+              <Toaster />
+              <Analytics />
+            </TooltipProvider>
+          </QueryProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

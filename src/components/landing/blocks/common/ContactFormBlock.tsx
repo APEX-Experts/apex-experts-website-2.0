@@ -10,6 +10,8 @@ import type { ContactFormBlock as ContactFormBlockType } from "@/payload-types";
 import { SectionReveal } from "@/components/ui/section-reveal";
 import { TextureWaves } from "@/components/ui/texture-waves";
 
+import { useLocale } from "next-intl";
+
 type FormShape = Record<string, string>;
 
 /**
@@ -36,6 +38,9 @@ export const ContactFormBlock: React.FC<ContactFormBlockType> = ({
   const backgroundImageUrl = getMediaUrl(backgroundImage);
   const backgroundAlt = getMediaAlt(backgroundImage, "Background Image");
 
+  const locale = useLocale();
+  const isArabic = locale === "ar";
+
   // Transform Payload formFields to GenericForm field configs & generate dynamic Zod schema & default values
   const { fields, schema, defaultValues } = useMemo(() => {
     const fieldConfigs: FieldConfig<FormShape>[] = [];
@@ -57,9 +62,18 @@ export const ContactFormBlock: React.FC<ContactFormBlockType> = ({
         defaults[field.name] = "";
 
         if (field.type === "email") {
-          schemaShape[field.name] = z.email("Please enter a valid email address");
+          schemaShape[field.name] = z.email(
+            isArabic ? "يرجى إدخال عنوان بريد إلكتروني صحيح" : "Please enter a valid email address",
+          );
         } else {
-          schemaShape[field.name] = z.string().min(1, `${field.label || field.name} is required`);
+          schemaShape[field.name] = z
+            .string()
+            .min(
+              1,
+              isArabic
+                ? `${field.label || field.name} مطلوب`
+                : `${field.label || field.name} is required`,
+            );
         }
       });
     }
@@ -69,7 +83,7 @@ export const ContactFormBlock: React.FC<ContactFormBlockType> = ({
       schema: z.object(schemaShape),
       defaultValues: defaults,
     };
-  }, [formFields]);
+  }, [formFields, isArabic]);
 
   const [formSuccess, setFormSuccess] = React.useState<string | null>(null);
   const [formError, setFormError] = React.useState<string | null>(null);
@@ -89,12 +103,28 @@ export const ContactFormBlock: React.FC<ContactFormBlockType> = ({
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || "Failed to submit form. Please try again.");
+        throw new Error(
+          data.error ||
+            (isArabic
+              ? "فشل إرسال النموذج. يرجى المحاولة مرة أخرى."
+              : "Failed to submit form. Please try again."),
+        );
       }
 
-      setFormSuccess(data.message || "Thank you! Your message has been sent successfully.");
+      setFormSuccess(
+        data.message ||
+          (isArabic
+            ? "شكراً لك! تم إرسال رسالتك بنجاح."
+            : "Thank you! Your message has been sent successfully."),
+      );
     } catch (err: unknown) {
-      setFormError(err instanceof Error ? err.message : "An unexpected error occurred.");
+      setFormError(
+        err instanceof Error
+          ? err.message
+          : isArabic
+            ? "حدث خطأ غير متوقع."
+            : "An unexpected error occurred.",
+      );
     }
   };
 

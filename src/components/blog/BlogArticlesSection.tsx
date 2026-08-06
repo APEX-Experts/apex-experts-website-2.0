@@ -2,10 +2,12 @@
 
 import { BlogCard } from "@/components/blog/BlogCard";
 import { SectionReveal } from "@/components/ui/section-reveal";
+import { usePathname, useRouter } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import type { Post } from "@/payload-types";
 import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useLocale } from "next-intl";
+import { useSearchParams } from "next/navigation";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
 interface ApiResponse {
@@ -26,6 +28,8 @@ export const BlogArticlesSection: React.FC = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
+  const locale = useLocale();
+  const isArabic = locale === "ar";
 
   const gridRef = useRef<HTMLDivElement>(null);
 
@@ -66,15 +70,16 @@ export const BlogArticlesSection: React.FC = () => {
     return () => clearTimeout(timer);
   }, [searchInput, urlSearchQuery, searchParams, router, pathname]);
 
-  // Fetch articles from /api/blog/posts whenever searchParams change
+  // Fetch articles from /api/blog/posts whenever searchParams or locale changes
   useEffect(() => {
     let isMounted = true;
 
     const fetchPosts = async () => {
       if (isMounted) setIsLoading(true);
       try {
-        const queryString = searchParams.toString();
-        const res = await fetch(`/api/blog/posts?${queryString}`);
+        const params = new URLSearchParams(searchParams.toString());
+        params.set("locale", locale);
+        const res = await fetch(`/api/blog/posts?${params.toString()}`);
         if (!res.ok) throw new Error("Failed to fetch posts");
         const json: ApiResponse = await res.json();
         if (isMounted) {
@@ -94,7 +99,7 @@ export const BlogArticlesSection: React.FC = () => {
     return () => {
       isMounted = false;
     };
-  }, [searchParams]);
+  }, [searchParams, locale]);
 
   // Toggle single tag filter
   const handleTagToggle = useCallback(
@@ -147,8 +152,6 @@ export const BlogArticlesSection: React.FC = () => {
     router.push(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false });
   }, [searchParams, router, pathname]);
 
-  const isArabic = typeof window !== "undefined" && document.cookie.includes("NEXT_LOCALE=ar");
-
   // Dictionary for static UI text in BlogArticlesSection
   const t = {
     searchPlaceholder: isArabic
@@ -161,9 +164,7 @@ export const BlogArticlesSection: React.FC = () => {
     allTags: isArabic ? "الكل" : "All",
     allArticles: isArabic ? "جميع المقالات" : "All Articles",
     showingArticles: (showing: number, total: number) =>
-      isArabic
-        ? `عرض ${showing} من أصل ${total} مقال`
-        : `Showing ${showing} of ${total} articles`,
+      isArabic ? `عرض ${showing} من أصل ${total} مقال` : `Showing ${showing} of ${total} articles`,
     noArticlesFound: isArabic ? "لم يتم العثور على مقالات" : "No Articles Found",
     emptyDescription: isArabic
       ? "لم نتمكن من العثور على أي مقالات تطابق معايير البحث أو التصفية الحالية. جرب البحث عن كلمة أخرى أو مسح التصفية."
@@ -194,19 +195,19 @@ export const BlogArticlesSection: React.FC = () => {
           <div className="flex flex-col md:flex-row gap-4 items-stretch md:items-center justify-between">
             {/* Debounced Search Input */}
             <div className="relative flex-1">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Search className="absolute inset-s-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
               <input
                 type="text"
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
                 placeholder={t.searchPlaceholder}
-                className="w-full pl-12 pr-10 py-3 rounded-xl border border-outline/30 bg-background/50 font-poppins text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all"
+                className="w-full ps-12 pe-10 py-3 rounded-xl border border-outline/30 bg-background/50 font-poppins text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all"
               />
               {searchInput && (
                 <button
                   type="button"
                   onClick={handleClearSearch}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-full text-gray-400 hover:text-foreground hover:bg-gray-100 transition-colors cursor-pointer"
+                  className="absolute inset-e-3 top-1/2 -translate-y-1/2 p-1 rounded-full text-gray-400 hover:text-foreground hover:bg-gray-100 transition-colors cursor-pointer"
                   title="Clear search"
                 >
                   <X className="w-4 h-4" />
@@ -236,7 +237,7 @@ export const BlogArticlesSection: React.FC = () => {
           {/* Tag Filter Pills Bar under search input */}
           {data?.allTags && data.allTags.length > 0 && (
             <div className="flex flex-wrap items-center gap-2 pt-3 border-t border-outline/20">
-              <span className="text-xs font-poppins font-medium text-gray-400 mr-1">
+              <span className="text-xs font-poppins font-medium text-gray-400 me-1">
                 {t.filterByTag}
               </span>
               <button
@@ -318,9 +319,7 @@ export const BlogArticlesSection: React.FC = () => {
             <h4 className="font-montserrat font-bold text-lg lg:text-xl text-foreground uppercase">
               {t.noArticlesFound}
             </h4>
-            <p className="font-poppins text-sm text-gray-500 max-w-md">
-              {t.emptyDescription}
-            </p>
+            <p className="font-poppins text-sm text-gray-500 max-w-md">{t.emptyDescription}</p>
             {hasActiveFilters && (
               <button
                 type="button"
@@ -346,7 +345,7 @@ export const BlogArticlesSection: React.FC = () => {
               className="p-2.5 rounded-lg border border-outline/30 text-foreground hover:bg-gray-100 disabled:opacity-30 disabled:hover:bg-transparent transition-all cursor-pointer"
               title={t.prevPage}
             >
-              <ChevronLeft className="w-5 h-5" />
+              <ChevronLeft className="w-5 h-5 rtl:rotate-180" />
             </button>
 
             {/* Page Numbers */}
@@ -378,7 +377,7 @@ export const BlogArticlesSection: React.FC = () => {
               className="p-2.5 rounded-lg border border-outline/30 text-foreground hover:bg-gray-100 disabled:opacity-30 disabled:hover:bg-transparent transition-all cursor-pointer"
               title={t.nextPage}
             >
-              <ChevronRight className="w-5 h-5" />
+              <ChevronRight className="w-5 h-5 rtl:rotate-180" />
             </button>
           </div>
         </SectionReveal>

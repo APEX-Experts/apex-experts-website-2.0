@@ -56,7 +56,7 @@ export const HeroMarqueeBlock: React.FC<ClipTextMarqueeBlockType> = ({
       <SectionReveal direction="up" delay={0.2} className="w-full">
         <div className="relative w-full overflow-hidden">
           {/* Left fade */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 lg:w-40 bg-linear-to-r from-background to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 inset-s-0 z-10 w-24 lg:w-40 bg-linear-to-r rtl:bg-linear-to-l from-background to-transparent" />
 
           <MarqueeSection
             marqueeIconUrls={(marqueeIconUrls as string[]) ?? []}
@@ -64,7 +64,7 @@ export const HeroMarqueeBlock: React.FC<ClipTextMarqueeBlockType> = ({
           />
 
           {/* Right fade */}
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 lg:w-40 bg-linear-to-l from-background to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 inset-e-0 z-10 w-24 lg:w-40 bg-linear-to-l rtl:bg-linear-to-r from-background to-transparent" />
         </div>
       </SectionReveal>
     </section>

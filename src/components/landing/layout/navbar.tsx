@@ -1,8 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import * as React from "react";
-import { useRouter } from "next/navigation";
+import { Link, usePathname, useRouter } from "@/i18n/routing";
 import { DesktopNav } from "./desktop-nav";
 import { LocaleSelector } from "./locale-selector";
 import { LogoProps, LogoSvg } from "./logo";
@@ -12,28 +11,22 @@ import { Header } from "@/payload-types";
 export interface NavbarProps extends Omit<LogoProps, "brandName"> {
   brandName?: string | null;
   navItems: Header["navItems"];
-  initialLocale?: "EN" | "AR";
 }
 
-export function Navbar({ navItems = [], initialLocale = "EN" }: NavbarProps) {
+export function Navbar({ navItems = [] }: NavbarProps) {
   const router = useRouter();
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = React.useState(false);
   const [activeHoverLabel, setActiveHoverLabel] = React.useState<string | null>(null);
   const [activeSubMenuItem, setActiveSubMenuItem] = React.useState<number>(0);
-  const [currentLocale, setCurrentLocale] = React.useState<"EN" | "AR">(initialLocale);
-  const leaveTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
-  const leaveSubmenuItemTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
   const [activeSubSubMenuItem, setActiveSubSubMenuItem] = React.useState<number>(0);
 
-  React.useEffect(() => {
-    setCurrentLocale(initialLocale);
-  }, [initialLocale]);
+  const leaveTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
+  const leaveSubmenuItemTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
 
   const handleLocaleChange = (newLocale: "EN" | "AR") => {
-    const val = newLocale.toLowerCase();
-    document.cookie = `NEXT_LOCALE=${val}; path=/; max-age=31536000; SameSite=Lax`;
-    setCurrentLocale(newLocale);
-    router.refresh();
+    const val = newLocale.toLowerCase() as "en" | "ar";
+    router.replace(pathname, { locale: val });
   };
 
   const handleMouseEnter = (label: string) => {
@@ -74,18 +67,17 @@ export function Navbar({ navItems = [], initialLocale = "EN" }: NavbarProps) {
         </Link>
 
         {/* Desktop Navigation & Locale */}
-        <div className="hidden lg:flex items-center space-x-8">
+        <div className="hidden lg:flex items-center gap-8">
           <DesktopNav
             navItems={navItems}
             activeHoverLabel={activeHoverLabel}
             activeSubMenuItem={activeSubMenuItem}
             activeSubSubMenuItem={activeSubSubMenuItem}
-            currentLocale={currentLocale}
             handleMouseEnter={handleMouseEnter}
             handleMouseLeave={handleMouseLeave}
             handleMouseEnterSubmenuItem={handleMouseEnterSubmenuItem}
           />
-          <LocaleSelector currentLocale={currentLocale} onLocaleChange={handleLocaleChange} />
+          <LocaleSelector onLocaleChange={handleLocaleChange} />
         </div>
 
         {/* Mobile Navigation */}
@@ -93,7 +85,6 @@ export function Navbar({ navItems = [], initialLocale = "EN" }: NavbarProps) {
           navItems={navItems}
           isOpen={isOpen}
           setIsOpen={setIsOpen}
-          currentLocale={currentLocale}
           onLocaleChange={handleLocaleChange}
         />
       </div>

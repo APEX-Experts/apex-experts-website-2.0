@@ -6,6 +6,7 @@ import { getMediaAlt, getMediaUrl } from "@/lib/utils";
 import type { ProjectBuiltForBlock as ProjectBuiltForBlockType } from "@/payload-types";
 import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
+import { useLocale } from "next-intl";
 import React from "react";
 
 /**
@@ -25,6 +26,8 @@ export const ProjectBuiltForBlock: React.FC<ProjectBuiltForBlockType> = ({
   const cardBgAlt = getMediaAlt(cardBackgroundImage, "Card Background");
   const fgUrls = foregroundImages?.map(({ image }) => getMediaUrl(image));
   const fgAlts = foregroundImages?.map(({ image }) => getMediaAlt(image, "Image"));
+  const locale = useLocale();
+  const isRtl = locale === "ar";
 
   const listContainerVariants = {
     hidden: { opacity: 0 },
@@ -37,7 +40,7 @@ export const ProjectBuiltForBlock: React.FC<ProjectBuiltForBlockType> = ({
   };
 
   const listItemVariants = {
-    hidden: { opacity: 0, x: shouldReduceMotion ? 0 : -20 },
+    hidden: { opacity: 0, x: shouldReduceMotion ? 0 : isRtl ? 20 : -20 },
     visible: {
       opacity: 1,
       x: 0,
@@ -81,7 +84,7 @@ export const ProjectBuiltForBlock: React.FC<ProjectBuiltForBlockType> = ({
                     <motion.li
                       key={id ?? index}
                       variants={listItemVariants}
-                      whileHover={{ x: shouldReduceMotion ? 0 : 6 }}
+                      whileHover={{ x: shouldReduceMotion ? 0 : isRtl ? -6 : 6 }}
                       transition={{ duration: 0.2 }}
                       className="flex flex-row gap-4 items-start lg:last:pb-2.5 shrink-0 group cursor-default"
                     >
@@ -112,7 +115,9 @@ export const ProjectBuiltForBlock: React.FC<ProjectBuiltForBlockType> = ({
 };
 
 const ForegroundColorOverlay = () => {
-  return <div className="absolute inset-0 pointer-events-none bg-foreground/40 z-10 transition-opacity duration-300 group-hover:bg-foreground/20"></div>;
+  return (
+    <div className="absolute inset-0 pointer-events-none bg-foreground/40 z-10 transition-opacity duration-300 group-hover:bg-foreground/20"></div>
+  );
 };
 
 const DesktopImageCard = ({ src, alt }: { src?: string | null; alt?: string | null }) => {

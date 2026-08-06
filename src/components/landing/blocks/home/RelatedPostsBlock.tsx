@@ -91,7 +91,7 @@ export const RelatedPostsBlock: React.FC<RelatedPostsBlockType> = ({
                   aria-label="Previous posts"
                   className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-primary-500 text-white flex items-center justify-center transition-all duration-200 shadow-xs hover:bg-primary-600 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-primary-500 cursor-pointer"
                 >
-                  <ArrowLeft className="w-5 h-5 lg:w-6 lg:h-6" />
+                  <ArrowLeft className="w-5 h-5 lg:w-6 lg:h-6 rtl:rotate-180" />
                 </button>
                 <button
                   onClick={() => handleScroll("right")}
@@ -99,7 +99,7 @@ export const RelatedPostsBlock: React.FC<RelatedPostsBlockType> = ({
                   aria-label="Next posts"
                   className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-primary-500 text-white flex items-center justify-center transition-all duration-200 shadow-xs hover:bg-primary-600 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-primary-500 cursor-pointer"
                 >
-                  <ArrowRight className="w-5 h-5 lg:w-6 lg:h-6" />
+                  <ArrowRight className="w-5 h-5 lg:w-6 lg:h-6 rtl:rotate-180" />
                 </button>
               </div>
             )}

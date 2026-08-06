@@ -3,6 +3,8 @@
 import { cn } from "@/lib/utils";
 import React, { useEffect, useRef, useState } from "react";
 
+import { useLocale } from "next-intl";
+
 export interface HeadingItem {
   id: string;
   text: string;
@@ -61,14 +63,16 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({ headings, clas
     };
   }, [headings]);
 
+  const locale = useLocale();
+  const isArabic = locale === "ar";
   if (!headings || headings.length === 0) return null;
 
   return (
     <nav aria-label="Table of contents" className={cn("space-y-4", className)}>
       <h3 className="font-montserrat font-semibold text-base text-foreground mb-4 pb-2 border-b border-outline/20 max-h-[calc(100vh-33rem)]">
-        In this article
+        {isArabic ? "محتويات المقال" : "In this article"}
       </h3>
-      <ul className="space-y-2.5 h-55 overflow-y-auto pr-2 [scrollbar-width:thin]">
+      <ul className="space-y-2.5 h-55 overflow-y-auto pe-2 [scrollbar-width:thin]">
         {headings.map((heading) => {
           const isActive = activeId === heading.id;
           return (
@@ -76,7 +80,7 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({ headings, clas
               key={heading.id}
               className={cn(
                 "transition-all duration-200",
-                heading.level === 3 ? "ml-3" : heading.level === 4 ? "ml-6" : "",
+                heading.level === 3 ? "ms-3" : heading.level === 4 ? "ms-6" : "",
               )}
             >
               <a
@@ -115,8 +119,8 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({ headings, clas
                 className={cn(
                   "block text-sm font-poppins transition-colors leading-snug",
                   isActive
-                    ? "text-foreground font-semibold border-l-2 border-foreground pl-2.5 -ml-2.5"
-                    : "text-foreground/70 hover:text-foreground hover:translate-x-0.5",
+                    ? "text-foreground font-semibold border-s-2 border-foreground ps-2.5 -ms-2.5"
+                    : "text-foreground/70 hover:text-foreground hover:translate-x-0.5 rtl:hover:-translate-x-0.5",
                 )}
               >
                 {heading.text}

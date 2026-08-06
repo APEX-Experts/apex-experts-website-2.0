@@ -1,7 +1,7 @@
 import { TextureWaves } from "@/components/ui/texture-waves";
 import type { Media } from "@/payload-types";
 import { ArrowRight } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import React from "react";
 
 export interface ServiceCardTag {
@@ -60,8 +60,8 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
     : "rounded-full border border-foreground w-7 h-7 flex items-center justify-center group-hover:border-white";
 
   const arrowIconStyles = isDark
-    ? "-rotate-30 w-5 h-5 text-white"
-    : "-rotate-30 w-5 h-5 text-foreground group-hover:text-white";
+    ? "-rotate-30 rtl:-rotate-150 w-5 h-5 text-white"
+    : "-rotate-30 rtl:-rotate-150 w-5 h-5 text-foreground group-hover:text-white";
 
   const cardContent = (
     <>

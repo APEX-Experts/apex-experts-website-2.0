@@ -2,8 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link, usePathname } from "@/i18n/routing";
 import * as React from "react";
 import { MegaMenu } from "./mega-menu";
 import { Header } from "@/payload-types";
@@ -13,7 +12,6 @@ export interface DesktopNavProps {
   activeHoverLabel: string | null;
   activeSubMenuItem: number;
   activeSubSubMenuItem: number;
-  currentLocale: "EN" | "AR";
   handleMouseEnter: (label: string) => void;
   handleMouseLeave: () => void;
   handleMouseEnterSubmenuItem: (index: number, isSubmenuSubitem?: boolean) => void;
@@ -24,7 +22,6 @@ export function DesktopNav({
   activeHoverLabel,
   activeSubMenuItem,
   activeSubSubMenuItem,
-  currentLocale,
   handleMouseEnter,
   handleMouseLeave,
   handleMouseEnterSubmenuItem,
@@ -32,7 +29,7 @@ export function DesktopNav({
   const pathname = usePathname();
 
   return (
-    <nav className="hidden lg:flex items-center space-x-8 text-sm font-medium">
+    <nav className="hidden lg:flex items-center gap-8 text-sm font-medium">
       {navItems?.map((item) => {
         const hasMegaMenu = !!item.megaMenu?.items && item.megaMenu.items.length > 0;
         const isActive =
@@ -59,7 +56,7 @@ export function DesktopNav({
                 {item.label}
                 <span
                   className={cn(
-                    "absolute bottom-0 inset-s-1/2 -translate-x-1/2 h-0.5 bg-primary-500 rounded-full w-[120%]",
+                    "absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-primary-500 rounded-full w-[120%]",
                     isActive ? "block" : "hidden group-hover:block",
                   )}
                 />
@@ -79,7 +76,6 @@ export function DesktopNav({
               <MegaMenu
                 megaMenu={item.megaMenu}
                 label={item.label}
-                currentLocale={currentLocale}
                 activeSubMenuItem={activeSubMenuItem}
                 activeSubSubMenuItem={activeSubSubMenuItem}
                 onMouseEnter={handleMouseEnter}

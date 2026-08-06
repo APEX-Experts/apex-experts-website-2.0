@@ -5,7 +5,7 @@ import { BreadcrumbNav, type BreadcrumbItem } from "@/components/ui/breadcrumb-n
 import { SectionReveal } from "@/components/ui/section-reveal";
 import { cn, getMediaAlt, getMediaUrl } from "@/lib/utils";
 import type { AboutHeroBlock, Media } from "@/payload-types";
-import { usePathname } from "next/navigation";
+import { usePathname } from "@/i18n/routing";
 import React from "react";
 
 export type HeroSectionProps = {

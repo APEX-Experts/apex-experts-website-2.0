@@ -14,6 +14,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { DeepValue, FormValidateOrFn, Updater, useForm } from "@tanstack/react-form";
 import { ArrowRight } from "lucide-react";
+import { useLocale } from "next-intl";
 import "react-international-phone/style.css";
 import * as z from "zod";
 import { $ZodTypeInternals } from "zod/v4/core";
@@ -120,6 +121,9 @@ export function GenericForm<T>({
     },
   });
 
+  const locale = useLocale();
+  const isArabic = locale === "ar";
+
   const isDark = theme === "dark";
   const inputClassName = isDark
     ? "bg-transparent border-outline/30 input-blur text-white placeholder:text-white/30 focus-visible:border-white/50 focus-visible:ring-white/20 rounded-[0.75rem] h-16"
@@ -202,7 +206,7 @@ export function GenericForm<T>({
                           placeholder={fieldConfig.placeholder || " "}
                           isDark={isDark}
                           isInvalid={isInvalid}
-                          className="pt-5 pb-1 pr-4 text-sm font-medium"
+                          className="pt-5 pb-1 pe-4 text-sm font-medium"
                         />
                       </div>
                     ) : (
@@ -225,7 +229,7 @@ export function GenericForm<T>({
                     <FieldLabel
                       htmlFor={field.name}
                       className={cn(
-                        "absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none transition-all duration-200 ease-in-out origin-left",
+                        "absolute inset-s-4 top-1/2 -translate-y-1/2 pointer-events-none transition-all duration-200 ease-in-out origin-left rtl:origin-right",
                         "peer-focus:top-2 peer-focus:translate-y-0 peer-focus:text-xs",
                         "peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-xs",
                         fieldConfig.type === "textarea" && "peer-placeholder-shown:top-5",
@@ -280,10 +284,10 @@ export function GenericForm<T>({
               className="rounded-full p-3 gap-1.5 items-center h-auto cursor-pointer lg:px-4 lg:py-3.25 lg:gap-2"
             >
               <span className="font-montserrat font-medium text-base text-white">
-                {isSubmitting ? "Submitting..." : submitText}
+                {isSubmitting ? (isArabic ? "جاري الإرسال..." : "Submitting...") : submitText}
               </span>
               <span className="w-6 h-6 lg:w-7.5 lg:h-7.5 flex items-center justify-center bg-white rounded-full">
-                <ArrowRight className="text-primary-500 w-4.5 h-4.5 lg:w-5.5 lg:h-5.5 -rotate-30" />
+                <ArrowRight className="text-primary-500 w-4.5 h-4.5 lg:w-5.5 lg:h-5.5 -rotate-30 rtl:-rotate-150" />
               </span>
             </Button>
           )}

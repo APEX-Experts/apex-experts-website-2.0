@@ -219,7 +219,7 @@ export const SubserviceCapabilitiesUseCasesBlock: React.FC<
                                   <motion.li
                                     key={id ?? ucIdx}
                                     variants={useCaseItemVariants}
-                                    className="flex flex-row gap-2 items-center group/item hover:translate-x-1 transition-transform duration-200"
+                                    className="flex flex-row gap-2 items-center group/item hover:translate-x-1 rtl:hover:-translate-x-1 transition-transform duration-200"
                                   >
                                     <ListItemMarkSvg
                                       height={16}

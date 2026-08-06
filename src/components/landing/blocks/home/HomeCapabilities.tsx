@@ -6,7 +6,7 @@ import Capabilities from "../../layout/capabilities";
 import { Eyebrow, HighlightedTitle } from "@/components/ui/highlighted-title";
 import { getMediaAlt, getMediaUrl } from "@/lib/utils";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { SectionReveal } from "@/components/ui/section-reveal";
 
 export const HomeCapabilities: React.FC<HomeCapabilitiesBlockType> = ({

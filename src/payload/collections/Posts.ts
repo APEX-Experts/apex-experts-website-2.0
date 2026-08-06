@@ -79,6 +79,7 @@ export const Posts: CollectionConfig = {
       name: "tags",
       type: "text",
       hasMany: true,
+      localized: true,
       admin: {
         position: "sidebar",
       },

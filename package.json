@@ -13,12 +13,14 @@
     "payload": "NODE_OPTIONS='--no-experimental-require-module' payload",
     "backup": "tsx src/payload/backup.ts",
     "seed": "tsx src/payload/seed.ts",
+    "upload-s3": "tsx src/payload/upload-to-s3.ts",
     "docker:build": "docker compose build",
     "docker:up": "docker compose up -d",
     "docker:down": "docker compose down",
     "docker:rebuild": "docker compose down -v && docker compose build && docker compose up -d"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1106.0",
     "@mdx-js/loader": "^3.1.1",
     "@mdx-js/react": "^3.1.1",
     "@next/mdx": "^16.2.6",
@@ -37,6 +39,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^1.8.0",
+    "mime-types": "^3.0.2",
     "motion": "^12.39.0",
     "next": "16.2.4",
     "next-intl": "^4.13.5",
@@ -60,6 +63,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@tanstack/react-query-devtools": "^5.99.2",
+    "@types/mime-types": "^3.0.1",
     "@types/node": "^20",
     "@types/nodemailer": "^8.0.0",
     "@types/react": "^19",

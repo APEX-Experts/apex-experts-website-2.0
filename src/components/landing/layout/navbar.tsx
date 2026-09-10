@@ -67,7 +67,7 @@ export function Navbar({ navItems = [] }: NavbarProps) {
         </Link>
 
         {/* Desktop Navigation & Locale */}
-        <div className="hidden lg:flex items-center gap-8">
+        <div className="hidden lg:flex items-center justify-center flex-1 gap-8">
           <DesktopNav
             navItems={navItems}
             activeHoverLabel={activeHoverLabel}
@@ -77,6 +77,8 @@ export function Navbar({ navItems = [] }: NavbarProps) {
             handleMouseLeave={handleMouseLeave}
             handleMouseEnterSubmenuItem={handleMouseEnterSubmenuItem}
           />
+        </div>
+        <div className="hidden lg:flex items-center gap-4">
           <LocaleSelector onLocaleChange={handleLocaleChange} />
         </div>
 

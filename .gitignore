@@ -50,3 +50,9 @@ openapi.json
 /backup/
 
 /pages/
+
+# Never commit CMS database exports
+/payload_local.dump
+/payload_local.sql
+*.dump
+*.sql.gz
